@@ -68,6 +68,7 @@ class HomeContentView: UIView {
     }()
     
     @objc func clickedGallery() {
+        navigationController?.pushViewController(GalleryViewController(), animated: true)
     }
     
     lazy var titleLabel: UILabel = {
