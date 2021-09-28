@@ -30,6 +30,7 @@ class HomeButtonView: UIView {
         self.type = type
         super.init(frame: frame)
         
+        isUserInteractionEnabled = false
         layer.cornerRadius = 20
         clipsToBounds = true
         
