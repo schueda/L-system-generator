@@ -52,6 +52,10 @@ class GeneratorViewController: UIViewController {
         barButton?.title = "Editar"
     }
     
+    @objc func clickedEdit() {
+        setSave(to: navigationItem.rightBarButtonItem)
+    }
+    
     func setSave(to barButton: UIBarButtonItem?) {
         barButton?.target = self
         barButton?.action = #selector(clickedSave)
@@ -63,9 +67,6 @@ class GeneratorViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func clickedEdit() {
-        setSave(to: navigationItem.rightBarButtonItem)
-    }
     
     init(type: GeneratorType) {
         self.type = type

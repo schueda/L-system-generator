@@ -8,13 +8,24 @@
 import UIKit
 
 class GeneratorContentView: UIView {
+    lazy var wheelFormView: WheelFormView = {
+        let view = WheelFormView()
+        return view
+    }()
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect = .zero) {
+        super.init(frame: frame)
+        
+        addSubview(wheelFormView)
+        wheelFormView.snp.makeConstraints { make in
+            make.height.equalTo(wheelFormView.width)
+            make.width.equalTo(wheelFormView.width)
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(safeAreaLayoutGuide.snp.bottom)
+        }
     }
-    */
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
