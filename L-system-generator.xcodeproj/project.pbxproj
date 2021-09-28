@@ -7,19 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037627034FD500427DD6 /* HomeButtonView.swift */; };
 		61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB08270336D100A56703 /* AppDelegate.swift */; };
 		61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0A270336D100A56703 /* SceneDelegate.swift */; };
 		61E7FB0D270336D100A56703 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0C270336D100A56703 /* ViewController.swift */; };
 		61E7FB12270336D600A56703 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61E7FB11270336D600A56703 /* Assets.xcassets */; };
+		61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB1D270342CC00A56703 /* HomeViewController.swift */; };
+		61E7FB202703436500A56703 /* HomeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB1F2703436500A56703 /* HomeContentView.swift */; };
+		61E7FB23270343E400A56703 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61E7FB22270343E400A56703 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		611D037627034FD500427DD6 /* HomeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		61E7FB05270336D100A56703 /* L-system-generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L-system-generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61E7FB08270336D100A56703 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61E7FB0A270336D100A56703 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		61E7FB0C270336D100A56703 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		61E7FB11270336D600A56703 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61E7FB16270336D600A56703 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61E7FB1D270342CC00A56703 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		61E7FB1F2703436500A56703 /* HomeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E7FB23270343E400A56703 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,10 +63,21 @@
 				61E7FB08270336D100A56703 /* AppDelegate.swift */,
 				61E7FB0A270336D100A56703 /* SceneDelegate.swift */,
 				61E7FB0C270336D100A56703 /* ViewController.swift */,
+				61E7FB1C2703429200A56703 /* HomeViewController */,
 				61E7FB11270336D600A56703 /* Assets.xcassets */,
 				61E7FB16270336D600A56703 /* Info.plist */,
 			);
 			path = "L-system-generator";
+			sourceTree = "<group>";
+		};
+		61E7FB1C2703429200A56703 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				61E7FB1D270342CC00A56703 /* HomeViewController.swift */,
+				61E7FB1F2703436500A56703 /* HomeContentView.swift */,
+				611D037627034FD500427DD6 /* HomeButtonView.swift */,
+			);
+			path = HomeViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,6 +96,9 @@
 			dependencies = (
 			);
 			name = "L-system-generator";
+			packageProductDependencies = (
+				61E7FB22270343E400A56703 /* SnapKit */,
+			);
 			productName = "L-system-generator";
 			productReference = 61E7FB05270336D100A56703 /* L-system-generator.app */;
 			productType = "com.apple.product-type.application";
@@ -105,6 +127,9 @@
 				Base,
 			);
 			mainGroup = 61E7FAFC270336D100A56703;
+			packageReferences = (
+				61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 61E7FB06270336D100A56703 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -133,6 +158,9 @@
 				61E7FB0D270336D100A56703 /* ViewController.swift in Sources */,
 				61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */,
 				61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */,
+				61E7FB202703436500A56703 /* HomeContentView.swift in Sources */,
+				611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */,
+				61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +359,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		61E7FB22270343E400A56703 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 61E7FAFD270336D100A56703 /* Project object */;
 }
