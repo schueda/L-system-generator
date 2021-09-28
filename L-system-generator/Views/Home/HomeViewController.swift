@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     lazy var homeContentView: HomeContentView = {
-        let view = HomeContentView()
+        let view = HomeContentView(navigationController: navigationController)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupHomeContentView()
+        setupNavigationBar()
     }
     
     func setupHomeContentView() {
@@ -25,5 +26,8 @@ class HomeViewController: UIViewController {
         homeContentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func setupNavigationBar() {
     }
 }

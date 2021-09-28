@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeContentView: UIView {
+    let navigationController: UINavigationController?
+    
     lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -37,6 +39,7 @@ class HomeContentView: UIView {
     
     lazy var generatorButton: UIButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(clickedGenerator), for: .touchUpInside)
         
         let buttonView = HomeButtonView(type: .generator)
         button.addSubview(buttonView)
@@ -47,8 +50,13 @@ class HomeContentView: UIView {
         return button
     }()
     
+    @objc func clickedGenerator() {
+        navigationController?.pushViewController(GeneratorViewController(type: .edit), animated: true)
+    }
+    
     lazy var galleryButton: UIButton = {
         let button = UIButton()
+        button.addTarget(self, action: #selector(clickedGallery), for: .touchUpInside)
         
         let buttonView = HomeButtonView(type: .gallery)
         button.addSubview(buttonView)
@@ -59,6 +67,9 @@ class HomeContentView: UIView {
         return button
     }()
     
+    @objc func clickedGallery() {
+    }
+    
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
@@ -68,7 +79,8 @@ class HomeContentView: UIView {
         return label
     }()
 
-    override init(frame: CGRect = .zero) {
+    init(frame: CGRect = .zero, navigationController: UINavigationController?) {
+        self.navigationController = navigationController
         super.init(frame: frame)
         
         setupBackgroundImage()
