@@ -30,8 +30,6 @@ class WheelFormView: UIView {
         clipsToBounds = true
         
         [
-            .up,
-            .down,
             .right,
             .left,
         ].forEach({ self.createSwipeGestureRecognizer(for: $0) })
@@ -51,12 +49,13 @@ class WheelFormView: UIView {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(didSwipe(_:)))
         swipeGestureRecognizer.direction = direction
         
+        
         addGestureRecognizer(swipeGestureRecognizer)
     }
     
     @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
-            case .down, .right:
+            case .right:
                 UIView.animate(withDuration: 0.3, delay: 0, options: []) {
                     self.rotationAngle += CGFloat.pi/2
                     self.contentView.transform = CGAffineTransform(rotationAngle: self.rotationAngle)
@@ -64,7 +63,7 @@ class WheelFormView: UIView {
                     let haptic = UIImpactFeedbackGenerator(style: .heavy)
                     haptic.impactOccurred()
                 }
-            case .left, .up:
+            case .left:
                 UIView.animate(withDuration: 0.3, delay: 0, options: []) {
                     self.rotationAngle -= CGFloat.pi/2
                     self.contentView.transform = CGAffineTransform(rotationAngle: self.rotationAngle)
