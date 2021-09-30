@@ -67,7 +67,6 @@ class Renderer {
             path.move(to: savedState.currentPosition)
             currentAngle = savedState.currentAngle
             lineLength = savedState.lineLength
-            
         }
     }
     

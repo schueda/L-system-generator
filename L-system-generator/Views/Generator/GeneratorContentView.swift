@@ -9,21 +9,13 @@ import UIKit
 import Angelo
 
 class GeneratorContentView: UIView {
+    
     let rules: [LSystemRule] = [
 //        LSystemRule(input: "L", outputs: ["L","[","+","L","L","]","[","-","L","L","]","L","[","-","L","]","[","+","L","]","L"])
-//        LSystemRule(input: "L", outputs: ["L", "+", "L", "-", "-", "L", "+", "L"])
-        LSystemRule(input: "c", outputs: ["L", "+", "L", "+", "L", "+", "L"]),
-        LSystemRule(input: "L", outputs: ["L", "L", "+", "L", "+", "+", "L", "+", "L"])
+        LSystemRule(input: "L", outputs: ["L", "+", "L", "-", "-", "L", "+", "L"])
+//        LSystemRule(input: "c", outputs: ["L", "+", "L", "+", "L", "+", "L"]),
+//        LSystemRule(input: "L", outputs: ["L", "L", "+", "L", "+", "+", "L", "+", "L"])
     ]
-    
-    lazy var generateButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("gerar", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.addTarget(self, action: #selector(clickedGenerate), for: .touchUpInside)
-        return button
-    }()
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
@@ -39,26 +31,20 @@ class GeneratorContentView: UIView {
         return view
     }()
     
-    @objc func clickedGenerate() {
+    @objc func renderImage() {
         let system = LSystem(rules: rules, transitions: [])
-        let renderer = Renderer(rotationAngle: CGFloat.pi * 90/180)
-        let layer = renderer.generateLayer(by: system.produceOutput(input: "c", iterations: 5), frame: lSystemView.frame)
+        let renderer = Renderer(rotationAngle: CGFloat.pi * 80/180)
+        let layer = renderer.generateLayer(by: system.produceOutput(input: "L", iterations: 5), frame: lSystemView.frame)
         lSystemView.layer.addSublayer(layer)
     }
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        
-        setupGenerateButton()
         setupLSystemContainerView()
         setupLSystemView()
-    }
-    
-    func setupGenerateButton() {
-        addSubview(generateButton)
-        generateButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-16)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.renderImage()
         }
     }
     
@@ -68,7 +54,7 @@ class GeneratorContentView: UIView {
             make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(generateButton.snp.top).offset(-16)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
