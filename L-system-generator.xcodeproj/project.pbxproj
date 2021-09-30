@@ -10,9 +10,12 @@
 		611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037627034FD500427DD6 /* HomeButtonView.swift */; };
 		611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037A27037BF200427DD6 /* GeneratorViewController.swift */; };
 		611D037D27037C1B00427DD6 /* GeneratorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037C27037C1B00427DD6 /* GeneratorContentView.swift */; };
-		611D037F2703945800427DD6 /* WheelFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037E2703945800427DD6 /* WheelFormView.swift */; };
 		611D03872703B70700427DD6 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D03862703B70700427DD6 /* GalleryViewController.swift */; };
 		61E577262703BBBC006B6952 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E577252703BBBC006B6952 /* GalleryCollectionViewCell.swift */; };
+		61E5772927053506006B6952 /* Angelo in Frameworks */ = {isa = PBXBuildFile; productRef = 61E5772827053506006B6952 /* Angelo */; };
+		61E5772E27054262006B6952 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5772D27054262006B6952 /* Renderer.swift */; };
+		61E5773127054CCD006B6952 /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5773027054CCD006B6952 /* CGPoint+.swift */; };
+		61E5773327055338006B6952 /* CGPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5773227055338006B6952 /* CGPath+.swift */; };
 		61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB08270336D100A56703 /* AppDelegate.swift */; };
 		61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0A270336D100A56703 /* SceneDelegate.swift */; };
 		61E7FB0D270336D100A56703 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0C270336D100A56703 /* ViewController.swift */; };
@@ -26,9 +29,11 @@
 		611D037627034FD500427DD6 /* HomeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		611D037A27037BF200427DD6 /* GeneratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorViewController.swift; sourceTree = "<group>"; };
 		611D037C27037C1B00427DD6 /* GeneratorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorContentView.swift; sourceTree = "<group>"; };
-		611D037E2703945800427DD6 /* WheelFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelFormView.swift; sourceTree = "<group>"; };
 		611D03862703B70700427DD6 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		61E577252703BBBC006B6952 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		61E5772D27054262006B6952 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		61E5773027054CCD006B6952 /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
+		61E5773227055338006B6952 /* CGPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+.swift"; sourceTree = "<group>"; };
 		61E7FB05270336D100A56703 /* L-system-generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L-system-generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61E7FB08270336D100A56703 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61E7FB0A270336D100A56703 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61E5772927053506006B6952 /* Angelo in Frameworks */,
 				61E7FB23270343E400A56703 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -56,7 +62,6 @@
 			children = (
 				611D037A27037BF200427DD6 /* GeneratorViewController.swift */,
 				611D037C27037C1B00427DD6 /* GeneratorContentView.swift */,
-				611D037E2703945800427DD6 /* WheelFormView.swift */,
 			);
 			path = Generator;
 			sourceTree = "<group>";
@@ -78,6 +83,23 @@
 				61E577252703BBBC006B6952 /* GalleryCollectionViewCell.swift */,
 			);
 			path = Gallery;
+			sourceTree = "<group>";
+		};
+		61E5772C27054235006B6952 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				61E5772D27054262006B6952 /* Renderer.swift */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		61E5772F27054CA4006B6952 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				61E5773027054CCD006B6952 /* CGPoint+.swift */,
+				61E5773227055338006B6952 /* CGPath+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		61E7FAFC270336D100A56703 = {
@@ -103,6 +125,8 @@
 				61E7FB0A270336D100A56703 /* SceneDelegate.swift */,
 				61E7FB0C270336D100A56703 /* ViewController.swift */,
 				611D037927037BC100427DD6 /* Views */,
+				61E5772C27054235006B6952 /* Renderer */,
+				61E5772F27054CA4006B6952 /* Extensions */,
 				61E7FB11270336D600A56703 /* Assets.xcassets */,
 				61E7FB16270336D600A56703 /* Info.plist */,
 			);
@@ -137,6 +161,7 @@
 			name = "L-system-generator";
 			packageProductDependencies = (
 				61E7FB22270343E400A56703 /* SnapKit */,
+				61E5772827053506006B6952 /* Angelo */,
 			);
 			productName = "L-system-generator";
 			productReference = 61E7FB05270336D100A56703 /* L-system-generator.app */;
@@ -168,6 +193,7 @@
 			mainGroup = 61E7FAFC270336D100A56703;
 			packageReferences = (
 				61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */,
 			);
 			productRefGroup = 61E7FB06270336D100A56703 /* Products */;
 			projectDirPath = "";
@@ -197,14 +223,16 @@
 				61E7FB0D270336D100A56703 /* ViewController.swift in Sources */,
 				611D03872703B70700427DD6 /* GalleryViewController.swift in Sources */,
 				61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */,
+				61E5773327055338006B6952 /* CGPath+.swift in Sources */,
 				611D037D27037C1B00427DD6 /* GeneratorContentView.swift in Sources */,
+				61E5772E27054262006B6952 /* Renderer.swift in Sources */,
 				61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */,
 				611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */,
 				61E7FB202703436500A56703 /* HomeContentView.swift in Sources */,
+				61E5773127054CCD006B6952 /* CGPoint+.swift in Sources */,
 				611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */,
 				61E577262703BBBC006B6952 /* GalleryCollectionViewCell.swift in Sources */,
 				61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */,
-				611D037F2703945800427DD6 /* WheelFormView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +433,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/enzomaruffa/Angelo";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.6;
+			};
+		};
 		61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -416,6 +452,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		61E5772827053506006B6952 /* Angelo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */;
+			productName = Angelo;
+		};
 		61E7FB22270343E400A56703 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */;

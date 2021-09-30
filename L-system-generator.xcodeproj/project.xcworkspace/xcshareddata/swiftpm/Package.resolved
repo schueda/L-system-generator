@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "Angelo",
+        "repositoryURL": "https://github.com/enzomaruffa/Angelo",
+        "state": {
+          "branch": null,
+          "revision": "7957718de853cb1a67db3358a2a2c93225f7bb49",
+          "version": "0.1.6"
+        }
+      },
+      {
         "package": "SnapKit",
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {
