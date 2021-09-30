@@ -12,6 +12,13 @@ class GenerateFormView: UIView {
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         
+        setupBluredBackground()
+        
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
+        addGestureRecognizer(gesture)
+    }
+    
+    func setupBluredBackground() {
         let blurEffect = UIBlurEffect(style: .systemThinMaterial)
         let bluredView = UIVisualEffectView(effect: blurEffect)
         bluredView.frame = UIScreen.main.bounds
@@ -19,9 +26,6 @@ class GenerateFormView: UIView {
         
         layer.cornerRadius = 20
         clipsToBounds = true
-        
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
-        addGestureRecognizer(gesture)
     }
     
     required init?(coder: NSCoder) {
@@ -39,15 +43,15 @@ class GenerateFormView: UIView {
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: self)
-        let y = self.frame.minY
-        frame = CGRect(x: 0, y: y + translation.y, width: frame.width, height: frame.height)
+        frame = CGRect(x: 0, y: frame.minY + translation.y, width: frame.width, height: frame.height)
         
-        let onBottomY = UIScreen.main.bounds.height - 90
-        let onTopY = UIScreen.main.bounds.height * 0.4
-        let betweenPositions = (onBottomY + onTopY)/2
-        let yPosition = (y + translation.y) < betweenPositions ? onTopY : onBottomY
+        let hiddenYPosition = UIScreen.main.bounds.height - 90
+        let showingYPosition = UIScreen.main.bounds.height * 0.4
+        let betweenPositions = (hiddenYPosition + showingYPosition)/2
         
-        if (y + translation.y) < 100 {
+        let yPosition = (frame.minY + translation.y) < betweenPositions ? showingYPosition : hiddenYPosition
+        
+        if (frame.minY + translation.y) < 100 {
             frame = CGRect(x: 0, y: 100, width: frame.width, height: frame.height)
         }
         
