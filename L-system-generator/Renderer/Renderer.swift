@@ -44,7 +44,7 @@ class Renderer {
         layer.path = path.cgPath.resized(to: frame)
         layer.lineWidth = 3
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.red.cgColor
+        layer.strokeColor = UIColor.blue.cgColor
         
         return layer
     }

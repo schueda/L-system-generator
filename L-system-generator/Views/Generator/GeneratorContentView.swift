@@ -23,14 +23,14 @@ class GeneratorContentView: UIView {
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
         view.clipsToBounds = true
         return view
     }()
     
     lazy var lSystemView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
         view.clipsToBounds = true
         return view
     }()
@@ -59,10 +59,10 @@ class GeneratorContentView: UIView {
     func setupLSystemContainerView() {
         addSubview(lSystemContainerView)
         lSystemContainerView.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(UIScreen.main.bounds.height * 0.5)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(16)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-16)
         }
     }
     
