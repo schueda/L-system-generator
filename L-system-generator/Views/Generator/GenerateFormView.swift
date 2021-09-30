@@ -6,16 +6,49 @@
 //
 
 import UIKit
+import Angelo
 
 class GenerateFormView: UIView {
+    let contentView: GeneratorContentView
     
-    override init(frame: CGRect = .zero) {
+    lazy var axiomTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Axioma"
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var firstRuleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Regra para L"
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var iterationStepper: UIStepper = {
+        let stepper = UIStepper()
+        stepper.maximumValue = 7
+        stepper.minimumValue = 1
+        stepper.stepValue = 1
+        stepper.addTarget(self, action: #selector(changeIteration), for: .touchUpInside)
+        return stepper
+    }()
+    
+    @objc func changeIteration() {
+        contentView.iterations = Int(iterationStepper.value)
+        contentView.renderImage()
+    }
+    
+    init(frame: CGRect = .zero, contentView: GeneratorContentView) {
+        self.contentView = contentView
         super.init(frame: frame)
         
         setupBluredBackground()
+        setupGestures()
         
-        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
-        addGestureRecognizer(gesture)
+        setupAxiomTextField()
+        setupFirstRuleTextField()
+        setupIterationStepper()
     }
     
     func setupBluredBackground() {
@@ -28,17 +61,9 @@ class GenerateFormView: UIView {
         clipsToBounds = true
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        UIView.animate(withDuration: 0.3, delay: 0.3) {
-            let yComponent = UIScreen.main.bounds.height - 90
-            self.frame = CGRect(x: 0, y: yComponent, width: self.frame.width, height: self.frame.height)
-        }
+    func setupGestures() {
+        let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
+        addGestureRecognizer(gesture)
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
@@ -61,5 +86,64 @@ class GenerateFormView: UIView {
             }
         }
         recognizer.setTranslation(.zero, in: self)
+    }
+    
+    func setupAxiomTextField() {
+        addSubview(axiomTextField)
+        axiomTextField.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(32)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    func setupFirstRuleTextField() {
+        addSubview(firstRuleTextField)
+        firstRuleTextField.snp.makeConstraints { make in
+            make.top.equalTo(axiomTextField.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    func setupIterationStepper() {
+        addSubview(iterationStepper)
+        iterationStepper.snp.makeConstraints { make in
+            make.top.equalTo(firstRuleTextField.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
+        UIView.animate(withDuration: 0.3, delay: 0.3) {
+            let yComponent = UIScreen.main.bounds.height - 90
+            self.frame = CGRect(x: 0, y: yComponent, width: self.frame.width, height: self.frame.height)
+        }
+    }
+}
+
+extension GenerateFormView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == axiomTextField {
+            var charArray: [String] = []
+            guard let text = textField.text else { return }
+            text.forEach({ charArray.append($0.description) })
+            contentView.axiom = LSystemRule(input: "A", outputs: charArray)
+            contentView.renderImage()
+        }
+        if textField == firstRuleTextField {
+            var charArray: [String] = []
+            guard let text = textField.text else { return }
+            text.forEach({ charArray.append($0.description) })
+            contentView.rule = LSystemRule(input: "L", outputs: charArray)
+            contentView.renderImage()
+        }
     }
 }

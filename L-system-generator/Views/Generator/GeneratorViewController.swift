@@ -17,7 +17,7 @@ class GeneratorViewController: UIViewController {
     }()
     
     lazy var formView: GenerateFormView = {
-        let view = GenerateFormView()
+        let view = GenerateFormView(contentView: generatorContentView)
         return view
     }()
     

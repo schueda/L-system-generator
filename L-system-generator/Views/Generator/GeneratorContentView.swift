@@ -9,13 +9,17 @@ import UIKit
 import Angelo
 
 class GeneratorContentView: UIView {
+    var axiom: LSystemRule?
+    var rule: LSystemRule?
+    var iterations: Int?
+    var rotationAngle: CGFloat? = CGFloat.pi * 90/180
     
-    let rules: [LSystemRule] = [
-//        LSystemRule(input: "L", outputs: ["L","[","+","L","L","]","[","-","L","L","]","L","[","-","L","]","[","+","L","]","L"])
-        LSystemRule(input: "L", outputs: ["L", "+", "L", "-", "-", "L", "+", "L"])
-//        LSystemRule(input: "c", outputs: ["L", "+", "L", "+", "L", "+", "L"]),
-//        LSystemRule(input: "L", outputs: ["L", "L", "+", "L", "+", "+", "L", "+", "L"])
-    ]
+    //    let rules: [LSystemRule] = [
+    ////        LSystemRule(input: "L", outputs: ["L","[","+","L","L","]","[","-","L","L","]","L","[","-","L","]","[","+","L","]","L"])
+    //        LSystemRule(input: "L", outputs: ["L", "+", "L", "-", "-", "L", "+", "L"])
+    ////        LSystemRule(input: "c", outputs: ["L", "+", "L", "+", "L", "+", "L"]),
+    ////        LSystemRule(input: "L", outputs: ["L", "L", "+", "L", "+", "+", "L", "+", "L"])
+    //    ]
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
@@ -31,10 +35,17 @@ class GeneratorContentView: UIView {
         return view
     }()
     
-    @objc func renderImage() {
-        let system = LSystem(rules: rules, transitions: [])
-        let renderer = Renderer(rotationAngle: CGFloat.pi * 80/180)
-        let layer = renderer.generateLayer(by: system.produceOutput(input: "L", iterations: 5), frame: lSystemView.frame)
+    func renderImage() {
+        guard let axiom = axiom,
+              let rule = rule,
+              let iterations = iterations,
+              let rotationAngle = rotationAngle
+        else { return }
+        
+        lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        let system = LSystem(rules: [axiom, rule], transitions: [])
+        let renderer = Renderer(rotationAngle: rotationAngle)
+        let layer = renderer.generateLayer(by: system.produceOutput(input: "A", iterations: iterations), frame: lSystemView.frame)
         lSystemView.layer.addSublayer(layer)
     }
     
@@ -43,9 +54,6 @@ class GeneratorContentView: UIView {
         setupLSystemContainerView()
         setupLSystemView()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.renderImage()
-        }
     }
     
     func setupLSystemContainerView() {
