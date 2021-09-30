@@ -11,9 +11,14 @@ class GenerateFormView: UIView {
     
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-        backgroundColor = .gray
+        
+        let blurEffect = UIBlurEffect(style: .systemThinMaterial)
+        let bluredView = UIVisualEffectView(effect: blurEffect)
+        bluredView.frame = UIScreen.main.bounds
+        addSubview(bluredView)
         
         layer.cornerRadius = 20
+        clipsToBounds = true
         
         let gesture = UIPanGestureRecognizer.init(target: self, action: #selector(panGesture))
         addGestureRecognizer(gesture)
