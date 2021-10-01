@@ -16,18 +16,12 @@ class GeneratorViewController: UIViewController {
         return view
     }()
     
-    lazy var formView: GenerateFormView = {
-        let view = GenerateFormView(contentView: generatorContentView)
-        return view
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         setupGeneratorContentView()
         setupNavigationBar()
-//        setupFormView()
     }
     
     func setupGeneratorContentView() {
@@ -72,16 +66,6 @@ class GeneratorViewController: UIViewController {
     @objc func clickedSave() {
         navigationController?.popViewController(animated: true)
     }
-    
-    func setupFormView() {
-        
-        let width = view.frame.width
-        let height = view.frame.height
-        
-        formView.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
-        view.addSubview(formView)
-    }
-    
     
     init(type: GeneratorType) {
         self.type = type

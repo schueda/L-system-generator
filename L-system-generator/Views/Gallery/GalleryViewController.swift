@@ -31,7 +31,7 @@ class GalleryViewController: UIViewController {
     }
     
     func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.clipsToBounds = true
         view.addSubview(UIView())
     }

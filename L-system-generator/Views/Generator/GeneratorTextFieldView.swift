@@ -1,5 +1,5 @@
 //
-//  CustomTextFieldView.swift
+//  GeneratorTextFieldView.swift
 //  L-system-generator
 //
 //  Created by André Schueda on 30/09/21.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CustomTextFieldView: UIView {
+class GeneratorTextFieldView: UIView {
     let type: TextType
     
-    lazy var descriptionText: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.text = type == .axiom ? "Regra inicial" : "Regra para L"
@@ -28,7 +28,8 @@ class CustomTextFieldView: UIView {
         super.init(frame: frame)
         
         setupView()
-        setupDescriptionText()
+        
+        setupDescriptionLabel()
         setupTextField()
     }
     
@@ -37,10 +38,10 @@ class CustomTextFieldView: UIView {
         layer.cornerRadius = 10
     }
     
-    func setupDescriptionText() {
-        addSubview(descriptionText)
-        descriptionText.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+    func setupDescriptionLabel() {
+        addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(4)
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
         }

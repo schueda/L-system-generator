@@ -25,15 +25,16 @@ class GeneratorContentView: UIView {
         return stack
     }()
     
-    lazy var axiomView: CustomTextFieldView = {
-        let view = CustomTextFieldView(type: .axiom)
+    lazy var axiomView: GeneratorTextFieldView = {
+        let view = GeneratorTextFieldView(type: .axiom)
         return view
     }()
     
-    lazy var ruleView: CustomTextFieldView = {
-        let view = CustomTextFieldView(type: .rule)
+    lazy var ruleView: GeneratorTextFieldView = {
+        let view = GeneratorTextFieldView(type: .rule)
         return view
     }()
+    
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
@@ -46,6 +47,30 @@ class GeneratorContentView: UIView {
     lazy var lSystemView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
+        return view
+    }()
+    
+    
+    lazy var numbersStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 8
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
+    lazy var stepperView: GeneratorStepperView = {
+        let view = GeneratorStepperView()
+        return view
+    }()
+    
+    lazy var rotationView: GeneratorRotationView = {
+        let view = GeneratorRotationView()
+        return view
+    }()
+    
+    lazy var colorsView: GeneratorColorsView = {
+        let view = GeneratorColorsView()
         return view
     }()
     
@@ -69,7 +94,8 @@ class GeneratorContentView: UIView {
         
         setupRulesStack()
         setupLSystemView()
-        
+        setupNumbersStack()
+        setupColorsView()
     }
     
     func setupRulesStack() {
@@ -106,6 +132,29 @@ class GeneratorContentView: UIView {
         }
     }
     
+    func setupNumbersStack() {
+        addSubview(numbersStack)
+        numbersStack.snp.makeConstraints { make in
+            make.top.equalTo(lSystemContainerView.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(56)
+        }
+        
+        [
+            stepperView,
+            rotationView
+        ].forEach { numbersStack.addArrangedSubview($0) }
+    }
+    
+    func setupColorsView() {
+        addSubview(colorsView)
+        colorsView.snp.makeConstraints { make in
+            make.top.equalTo(numbersStack.snp.bottom).offset(8)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+        }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
