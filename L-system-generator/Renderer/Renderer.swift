@@ -32,7 +32,7 @@ class Renderer {
         self.rotationAngle = rotationAngle
     }
     
-    func generateLayer(by lSystemResult: LSystemResult, frame: CGRect) -> CAShapeLayer {
+    func generateLayer(by lSystemResult: LSystemResult, frame: CGRect, lineColor: UIColor) -> CAShapeLayer {
         path.move(to: CGPoint(x: frame.midX, y: 0))
         
         for symbol in lSystemResult.string {
@@ -44,7 +44,7 @@ class Renderer {
         layer.path = path.cgPath.resized(to: frame)
         layer.lineWidth = 3
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.blue.cgColor
+        layer.strokeColor = lineColor.cgColor
         
         return layer
     }

@@ -14,8 +14,8 @@ extension CGPath {
         let boundingBoxAspectRatio = boundingBox.width / boundingBox.height
         let viewAspectRatio = rect.width / rect.height
         let scaleFactor = boundingBoxAspectRatio > viewAspectRatio ?
-            rect.width / boundingBox.width :
-            rect.height / boundingBox.height
+            (rect.width - 8) / boundingBox.width :
+            (rect.height - 8) / boundingBox.height
 
         let scaledSize = boundingBox.size.applying(CGAffineTransform(scaleX: scaleFactor, y: scaleFactor))
         let centerOffset = CGSize(

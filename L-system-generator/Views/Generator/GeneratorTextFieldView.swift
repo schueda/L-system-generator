@@ -8,6 +8,7 @@
 import UIKit
 
 class GeneratorTextFieldView: UIView {
+    let generatorContentView: GeneratorContentView
     let type: TextType
     
     lazy var descriptionLabel: UILabel = {
@@ -20,11 +21,14 @@ class GeneratorTextFieldView: UIView {
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 22, weight: .bold)
+        textField.delegate = self
+        textField.tag = type == .axiom ? 0 : 1
         return textField
     }()
     
-    init(frame: CGRect = .zero, type: TextType) {
+    init(frame: CGRect = .zero, type: TextType, generatorContentView: GeneratorContentView) {
         self.type = type
+        self.generatorContentView = generatorContentView
         super.init(frame: frame)
         
         setupView()
@@ -63,5 +67,18 @@ class GeneratorTextFieldView: UIView {
     enum TextType {
         case axiom
         case rule
+    }
+}
+
+extension GeneratorTextFieldView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            generatorContentView.setAxiom(textField.text)
+        case 1:
+            generatorContentView.setRule(textField.text)
+        default:
+            print("shouldn't run")
+        }
     }
 }

@@ -11,11 +11,52 @@ import Angelo
 class GeneratorContentView: UIView {
     let type: GeneratorViewController.GeneratorType
     
-    var axiom: LSystemRule?
-    var rule: LSystemRule?
-    var iterations: Int?
-    var rotationAngle: CGFloat? = CGFloat.pi * 90/180
+    private var axiom: LSystemRule?
+    func setAxiom(_ axiom: String?) {
+        guard let axiom = axiom else { return }
+        var charArray: [String] = []
+        axiom.forEach({ charArray.append($0.description) })
+        self.axiom = LSystemRule(input: "A", outputs: charArray)
+        
+        renderImage()
+    }
     
+    private var rule: LSystemRule?
+    func setRule(_ rule: String?) {
+        guard let rule = rule else { return }
+        var charArray: [String] = []
+        rule.forEach({ charArray.append($0.description) })
+        self.rule = LSystemRule(input: "L", outputs: charArray)
+        
+        renderImage()
+    }
+    
+    private var iterations: Int = 0
+    func setIterations(_ iterations: Int) {
+        self.iterations = iterations
+        
+        renderImage()
+    }
+    
+    private var rotationAngle: CGFloat = CGFloat.pi * 90/180
+    func setRotationAngle(_ angle: CGFloat) {
+        rotationAngle = CGFloat.pi * angle/180
+        
+        renderImage()
+    }
+    
+    private var lSystemLineColor: UIColor = .appBlue
+    func setLSystemLineColor(_ color: UIColor?) {
+        guard let color = color else { return }
+        lSystemLineColor = color
+        
+        renderImage()
+    }
+    
+    func setLSystemBackgroundColor(_ color: UIColor?) {
+        guard let color = color else { return }
+        lSystemView.backgroundColor = color
+    }
     
     lazy var rulesStack: UIStackView = {
         let stack = UIStackView()
@@ -26,19 +67,19 @@ class GeneratorContentView: UIView {
     }()
     
     lazy var axiomView: GeneratorTextFieldView = {
-        let view = GeneratorTextFieldView(type: .axiom)
+        let view = GeneratorTextFieldView(type: .axiom, generatorContentView: self)
         return view
     }()
     
     lazy var ruleView: GeneratorTextFieldView = {
-        let view = GeneratorTextFieldView(type: .rule)
+        let view = GeneratorTextFieldView(type: .rule, generatorContentView: self)
         return view
     }()
     
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .appWhite
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
         return view
@@ -60,12 +101,12 @@ class GeneratorContentView: UIView {
     }()
     
     lazy var stepperView: GeneratorStepperView = {
-        let view = GeneratorStepperView()
+        let view = GeneratorStepperView(generateContentView: self)
         return view
     }()
     
     lazy var rotationView: GeneratorRotationView = {
-        let view = GeneratorRotationView()
+        let view = GeneratorRotationView(generatorContentView: self)
         return view
     }()
     
@@ -76,15 +117,16 @@ class GeneratorContentView: UIView {
     
     func renderImage() {
         guard let axiom = axiom,
-              let rule = rule,
-              let iterations = iterations,
-              let rotationAngle = rotationAngle
+              let rule = rule
         else { return }
         
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        
         let system = LSystem(rules: [axiom, rule], transitions: [])
         let renderer = Renderer(rotationAngle: rotationAngle)
-        let layer = renderer.generateLayer(by: system.produceOutput(input: "A", iterations: iterations), frame: lSystemView.frame)
+        let layer = renderer.generateLayer(by: system.produceOutput(input: "A", iterations: self.iterations + 1),
+                                           frame: lSystemView.frame,
+                                           lineColor: lSystemLineColor)
         lSystemView.layer.addSublayer(layer)
     }
     

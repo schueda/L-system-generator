@@ -28,15 +28,20 @@ class GeneratorColorsView: UIView {
     lazy var backgroundButtons: [UIButton] = {
         var backgroundButtons: [UIButton] = []
         for color in colors {
-            let button = UIButton()
-            button.backgroundColor = color
-            button.addTarget(self, action: #selector(backgroundButtonClicked), for: .touchUpInside)
-            button.layer.cornerRadius = 10
-            
-            backgroundButtons.append(button)
+            backgroundButtons.append(generateColorButton(color: color))
         }
         return backgroundButtons
     }()
+    
+    func generateColorButton(color: UIColor) -> UIButton {
+        let button = UIButton()
+        button.backgroundColor = color
+        button.addTarget(self, action: #selector(backgroundButtonClicked), for: .touchUpInside)
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.systemGray.cgColor
+        button.layer.borderWidth = 1
+        return button
+    }
     
     @objc func backgroundButtonClicked(sender: UIButton) {
         print(sender.backgroundColor ?? "")
@@ -60,12 +65,7 @@ class GeneratorColorsView: UIView {
     lazy var lineButtons: [UIButton] = {
         var lineButtons: [UIButton] = []
         for color in colors {
-            let button = UIButton()
-            button.backgroundColor = color
-            button.addTarget(self, action: #selector(lineButtonClicked), for: .touchUpInside)
-            button.layer.cornerRadius = 10
-            
-            lineButtons.append(button)
+            lineButtons.append(generateColorButton(color: color))
         }
         return lineButtons
     }()

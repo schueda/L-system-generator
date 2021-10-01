@@ -8,6 +8,7 @@
 import UIKit
 
 class GeneratorRotationView: UIView {
+    let generatorContentView: GeneratorContentView
     var angle: Int = 90
     
     lazy var descriptionLabel: UILabel = {
@@ -28,6 +29,7 @@ class GeneratorRotationView: UIView {
         let slider = UISlider()
         slider.value = 0.5
         slider.addTarget(self, action: #selector(changedSlider), for: .valueChanged)
+        slider.addTarget(self, action: #selector(stoppedChangingSlider), for: .touchUpInside)
         return slider
     }()
     
@@ -37,7 +39,12 @@ class GeneratorRotationView: UIView {
         angleLabel.text = "\(newAngle)"
     }
     
-    override init(frame: CGRect = .zero) {
+    @objc func stoppedChangingSlider() {
+        generatorContentView.setRotationAngle(CGFloat(angle))
+    }
+    
+    init(frame: CGRect = .zero, generatorContentView: GeneratorContentView) {
+        self.generatorContentView = generatorContentView
         super.init(frame: frame)
         
         setupView()

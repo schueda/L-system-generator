@@ -8,7 +8,11 @@
 import UIKit
 
 class GeneratorStepperView: UIView {
-    var value: Int = 0
+    let maximum: Int = 6
+    
+    let generatorContentView: GeneratorContentView
+    
+    var iterations: Int = 0
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
@@ -17,10 +21,10 @@ class GeneratorStepperView: UIView {
         return label
     }()
     
-    lazy var valueLabel: UILabel = {
+    lazy var iterationsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.text = "\(value)"
+        label.text = "\(iterations)"
         return label
     }()
     
@@ -30,8 +34,22 @@ class GeneratorStepperView: UIView {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 10
         button.imageView?.tintColor = .systemGray6
+        
+        button.addTarget(self, action: #selector(clickedPlus), for: .touchUpInside)
         return button
     }()
+    
+    @objc func clickedPlus() {
+        iterations += 1
+        minusButton.isEnabled = true
+        
+        if iterations == maximum {
+            plusButton.isEnabled = false
+        }
+        
+        iterationsLabel.text = "\(iterations)"
+        generatorContentView.setIterations(iterations)
+    }
     
     lazy var minusButton: UIButton = {
         let button = UIButton()
@@ -39,16 +57,32 @@ class GeneratorStepperView: UIView {
         button.backgroundColor = .gray
         button.layer.cornerRadius = 10
         button.imageView?.tintColor = .systemGray6
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(clickedMinus), for: .touchUpInside)
         return button
     }()
     
-    override init(frame: CGRect = .zero) {
+    @objc func clickedMinus() {
+        iterations -= 1
+        plusButton.isEnabled = true
+        
+        if iterations == 0 {
+            minusButton.isEnabled = false
+        }
+        
+        iterationsLabel.text = "\(iterations)"
+        generatorContentView.setIterations(iterations)
+    }
+    
+    
+    init(frame: CGRect = .zero, generateContentView: GeneratorContentView) {
+        self.generatorContentView = generateContentView
         super.init(frame: frame)
         
         setupView()
         
         setupDescriptionLabel()
-        setupValueView()
+        setupIterationsView()
         setupPlusButton()
         setupMinusButton()
     }
@@ -66,9 +100,9 @@ class GeneratorStepperView: UIView {
         }
     }
     
-    func setupValueView() {
-        addSubview(valueLabel)
-        valueLabel.snp.makeConstraints { make in
+    func setupIterationsView() {
+        addSubview(iterationsLabel)
+        iterationsLabel.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom)
             make.centerX.equalTo(descriptionLabel)
         }
