@@ -18,6 +18,7 @@
 		61E5773327055338006B6952 /* CGPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5773227055338006B6952 /* CGPath+.swift */; };
 		61E577352705E1EC006B6952 /* GenerateFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E577342705E1EC006B6952 /* GenerateFormView.swift */; };
 		61E5773827065912006B6952 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61E5773727065912006B6952 /* IQKeyboardManagerSwift */; };
+		61E5773A2706AF5A006B6952 /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E577392706AF5A006B6952 /* CustomTextFieldView.swift */; };
 		61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB08270336D100A56703 /* AppDelegate.swift */; };
 		61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0A270336D100A56703 /* SceneDelegate.swift */; };
 		61E7FB0D270336D100A56703 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0C270336D100A56703 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 		61E5773027054CCD006B6952 /* CGPoint+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+.swift"; sourceTree = "<group>"; };
 		61E5773227055338006B6952 /* CGPath+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPath+.swift"; sourceTree = "<group>"; };
 		61E577342705E1EC006B6952 /* GenerateFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFormView.swift; sourceTree = "<group>"; };
+		61E577392706AF5A006B6952 /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
 		61E7FB05270336D100A56703 /* L-system-generator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L-system-generator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61E7FB08270336D100A56703 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61E7FB0A270336D100A56703 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				611D037A27037BF200427DD6 /* GeneratorViewController.swift */,
 				611D037C27037C1B00427DD6 /* GeneratorContentView.swift */,
+				61E577392706AF5A006B6952 /* CustomTextFieldView.swift */,
 				61E577342705E1EC006B6952 /* GenerateFormView.swift */,
 			);
 			path = Generator;
@@ -235,6 +238,7 @@
 				61E5772E27054262006B6952 /* Renderer.swift in Sources */,
 				61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */,
 				61E577352705E1EC006B6952 /* GenerateFormView.swift in Sources */,
+				61E5773A2706AF5A006B6952 /* CustomTextFieldView.swift in Sources */,
 				611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */,
 				61E7FB202703436500A56703 /* HomeContentView.swift in Sources */,
 				61E5773127054CCD006B6952 /* CGPoint+.swift in Sources */,
