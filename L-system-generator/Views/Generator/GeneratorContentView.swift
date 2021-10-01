@@ -9,21 +9,17 @@ import UIKit
 import Angelo
 
 class GeneratorContentView: UIView {
+    let type: GeneratorViewController.GeneratorType
+    
     var axiom: LSystemRule?
     var rule: LSystemRule?
     var iterations: Int?
     var rotationAngle: CGFloat? = CGFloat.pi * 90/180
     
-    //    let rules: [LSystemRule] = [
-    ////        LSystemRule(input: "L", outputs: ["L","[","+","L","L","]","[","-","L","L","]","L","[","-","L","]","[","+","L","]","L"])
-    //        LSystemRule(input: "L", outputs: ["L", "+", "L", "-", "-", "L", "+", "L"])
-    ////        LSystemRule(input: "c", outputs: ["L", "+", "L", "+", "L", "+", "L"]),
-    ////        LSystemRule(input: "L", outputs: ["L", "L", "+", "L", "+", "+", "L", "+", "L"])
-    //    ]
     
     lazy var lSystemContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGray
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
         return view
@@ -49,7 +45,8 @@ class GeneratorContentView: UIView {
         lSystemView.layer.addSublayer(layer)
     }
     
-    override init(frame: CGRect = .zero) {
+    init(frame: CGRect = .zero, type: GeneratorViewController.GeneratorType) {
+        self.type = type
         super.init(frame: frame)
         setupLSystemContainerView()
         setupLSystemView()

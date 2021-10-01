@@ -31,6 +31,7 @@ class GenerateFormView: UIView {
         stepper.minimumValue = 1
         stepper.stepValue = 1
         stepper.addTarget(self, action: #selector(changeIteration), for: .touchUpInside)
+        
         return stepper
     }()
     

@@ -11,7 +11,7 @@ class GeneratorViewController: UIViewController {
     let type: GeneratorType
     
     lazy var generatorContentView: GeneratorContentView = {
-        let view = GeneratorContentView()
+        let view = GeneratorContentView(type: type)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -27,7 +27,7 @@ class GeneratorViewController: UIViewController {
         
         setupGeneratorContentView()
         setupNavigationBar()
-        setupFormView()
+//        setupFormView()
     }
     
     func setupGeneratorContentView() {
