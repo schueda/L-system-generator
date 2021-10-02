@@ -20,12 +20,6 @@ class GeneratorStepperView: UIView {
         return label
     }()
     
-    lazy var iterationsLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.text = "\(iterations)"
-        return label
-    }()
     
     lazy var plusButton: UIButton = {
         let button = UIButton()
@@ -73,6 +67,14 @@ class GeneratorStepperView: UIView {
         generatorContentView.setIterations(iterations)
     }
     
+    lazy var iterationsLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.text = "\(iterations)"
+        label.textAlignment = .center
+        return label
+    }()
+    
     func setMaxIteration(_ iterations: Int) {
         self.iterations = iterations
         self.maximum = iterations
@@ -94,9 +96,9 @@ class GeneratorStepperView: UIView {
         setupView()
         
         setupDescriptionLabel()
-        setupIterationsView()
         setupPlusButton()
         setupMinusButton()
+        setupIterationsView()
     }
     
     func setupView() {
@@ -112,20 +114,12 @@ class GeneratorStepperView: UIView {
         }
     }
     
-    func setupIterationsView() {
-        addSubview(iterationsLabel)
-        iterationsLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom)
-            make.centerX.equalTo(descriptionLabel)
-        }
-    }
-    
     func setupPlusButton() {
         addSubview(plusButton)
         plusButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
             make.bottom.equalToSuperview().offset(-8)
+            make.height.equalTo(40)
             make.width.equalTo(40)
         }
     }
@@ -133,10 +127,19 @@ class GeneratorStepperView: UIView {
     func setupMinusButton() {
         addSubview(minusButton)
         minusButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
-            make.trailing.equalTo(plusButton.snp.leading).offset(-6)
+            make.leading.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
+            make.height.equalTo(40)
             make.width.equalTo(40)
+        }
+    }
+    
+    func setupIterationsView() {
+        addSubview(iterationsLabel)
+        iterationsLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(plusButton)
+            make.leading.equalTo(minusButton.snp.trailing).offset(8)
+            make.trailing.equalTo(plusButton.snp.leading).offset(-8)
         }
     }
     

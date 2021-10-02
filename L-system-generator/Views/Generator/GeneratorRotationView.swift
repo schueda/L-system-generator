@@ -77,6 +77,7 @@ class GeneratorRotationView: UIView {
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
             make.bottom.equalToSuperview().offset(-8)
+            make.width.equalTo(UIScreen.main.bounds.width/2)
         }
     }
     

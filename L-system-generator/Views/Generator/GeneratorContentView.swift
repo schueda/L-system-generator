@@ -107,7 +107,7 @@ class GeneratorContentView: UIView {
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.spacing = 8
-        stack.distribution = .fillEqually
+        stack.distribution = .fill
         return stack
     }()
     
