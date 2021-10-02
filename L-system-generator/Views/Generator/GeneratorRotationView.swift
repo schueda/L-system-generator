@@ -21,7 +21,7 @@ class GeneratorRotationView: UIView {
     lazy var angleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
-        label.text = "\(angle)"
+        label.text = "\(angle)º"
         return label
     }()
     
@@ -29,18 +29,14 @@ class GeneratorRotationView: UIView {
         let slider = UISlider()
         slider.value = 0.5
         slider.addTarget(self, action: #selector(changedSlider), for: .valueChanged)
-        slider.addTarget(self, action: #selector(stoppedChangingSlider), for: .touchUpInside)
         return slider
     }()
     
     @objc func changedSlider() {
         let newAngle = Int(180 * angleSlider.value)
         angle = newAngle
-        angleLabel.text = "\(newAngle)"
+        angleLabel.text = "\(newAngle)º"
         generatorContentView.setRotationAngle(CGFloat(angle))
-    }
-    
-    @objc func stoppedChangingSlider() {
     }
     
     init(frame: CGRect = .zero, generatorContentView: GeneratorContentView) {
@@ -70,17 +66,17 @@ class GeneratorRotationView: UIView {
     func setupAngleLabel() {
         addSubview(angleLabel)
         angleLabel.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom)
-            make.centerX.equalTo(descriptionLabel)
+            make.top.equalToSuperview().offset(4)
+            make.trailing.equalToSuperview().offset(-8)
         }
     }
     
     func setupAngleSlider() {
         addSubview(angleSlider)
         angleSlider.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
-            make.centerY.equalTo(angleLabel)
-            make.width.equalTo(100)
+            make.bottom.equalToSuperview().offset(-8)
         }
     }
     

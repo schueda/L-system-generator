@@ -213,7 +213,7 @@ class GeneratorContentView: UIView {
             make.top.equalTo(lSystemContainerView.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(56)
+            make.height.equalTo(70)
         }
         
         [
