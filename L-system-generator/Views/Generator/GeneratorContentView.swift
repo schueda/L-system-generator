@@ -42,7 +42,7 @@ class GeneratorContentView: UIView {
         renderImage()
     }
     
-    private var iterations: Int = 0
+    var iterations: Int = 0
     func setIterations(_ iterations: Int) {
         self.iterations = iterations
         
@@ -161,6 +161,16 @@ class GeneratorContentView: UIView {
         setupLSystemView()
         setupNumbersStack()
         setupColorsView()
+        
+        let randomAxiom = RuleGenerator.shared.getRamdomRule()
+        self.axiomView.textField.text = randomAxiom
+        let randomRule = RuleGenerator.shared.getRamdomRule()
+        self.ruleView.textField.text = randomRule
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.setAxiom(randomAxiom)
+            self.setRule(randomRule)            
+        }
     }
     
     func setupRulesStack() {

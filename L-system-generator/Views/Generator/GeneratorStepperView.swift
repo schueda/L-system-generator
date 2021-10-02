@@ -42,7 +42,7 @@ class GeneratorStepperView: UIView {
         iterations += 1
         minusButton.isEnabled = true
         
-        if iterations == maximum {
+        if iterations >= maximum {
             plusButton.isEnabled = false
         }
         
@@ -75,9 +75,15 @@ class GeneratorStepperView: UIView {
     
     func setMaxIteration(_ iterations: Int) {
         self.iterations = iterations
+        self.maximum = iterations
         iterationsLabel.text = "\(iterations)"
         plusButton.isEnabled = false
-
+    }
+    
+    func setIterations(_ iterations: Int) {
+        minusButton.isEnabled = iterations <= 0 ? false : true
+        self.iterations = iterations
+        iterationsLabel.text = "\(iterations)"
     }
     
     

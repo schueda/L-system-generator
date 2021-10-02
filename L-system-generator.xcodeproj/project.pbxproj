@@ -11,6 +11,7 @@
 		6113B274270733DD00EF95EB /* GeneratorRotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B273270733DD00EF95EB /* GeneratorRotationView.swift */; };
 		6113B27627073BF400EF95EB /* GeneratorColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B27527073BF400EF95EB /* GeneratorColorsView.swift */; };
 		6113B27827074B7700EF95EB /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B27727074B7700EF95EB /* UIColor+.swift */; };
+		6113B27A2707FC4400EF95EB /* RuleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B2792707FC4400EF95EB /* RuleGenerator.swift */; };
 		611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037627034FD500427DD6 /* HomeButtonView.swift */; };
 		611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037A27037BF200427DD6 /* GeneratorViewController.swift */; };
 		611D037D27037C1B00427DD6 /* GeneratorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037C27037C1B00427DD6 /* GeneratorContentView.swift */; };
@@ -36,6 +37,7 @@
 		6113B273270733DD00EF95EB /* GeneratorRotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorRotationView.swift; sourceTree = "<group>"; };
 		6113B27527073BF400EF95EB /* GeneratorColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorColorsView.swift; sourceTree = "<group>"; };
 		6113B27727074B7700EF95EB /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		6113B2792707FC4400EF95EB /* RuleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleGenerator.swift; sourceTree = "<group>"; };
 		611D037627034FD500427DD6 /* HomeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		611D037A27037BF200427DD6 /* GeneratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorViewController.swift; sourceTree = "<group>"; };
 		611D037C27037C1B00427DD6 /* GeneratorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorContentView.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				61E5772F27054CA4006B6952 /* Extensions */,
 				61E7FB11270336D600A56703 /* Assets.xcassets */,
 				61E7FB16270336D600A56703 /* Info.plist */,
+				6113B2792707FC4400EF95EB /* RuleGenerator.swift */,
 			);
 			path = "L-system-generator";
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 				611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */,
 				61E577262703BBBC006B6952 /* GalleryCollectionViewCell.swift in Sources */,
 				61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */,
+				6113B27A2707FC4400EF95EB /* RuleGenerator.swift in Sources */,
 				6113B27827074B7700EF95EB /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
