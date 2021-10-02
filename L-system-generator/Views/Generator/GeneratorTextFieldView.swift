@@ -27,8 +27,10 @@ class GeneratorTextFieldView: UIView {
     }()
     
     @objc func changedTextField(sender: UITextField) {
-        generatorContentView.stepperView.setIterations(4)
-        generatorContentView.iterations = 4
+        if generatorContentView.iterations > 4 {
+            generatorContentView.stepperView.setIterations(4)
+            generatorContentView.iterations = 4            
+        }
         
         switch type {
         case .axiom:

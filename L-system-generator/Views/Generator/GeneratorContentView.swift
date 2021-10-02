@@ -22,7 +22,7 @@ class GeneratorContentView: UIView {
             
         var charArray: [String] = []
         axiom.forEach({ charArray.append($0.description) })
-        self.axiom = LSystemRule(input: "A", outputs: charArray)
+        self.axiom = LSystemRule(input: "axioma", outputs: charArray)
         
         renderImage()
     }
@@ -130,18 +130,21 @@ class GeneratorContentView: UIView {
         guard let axiom = axiom,
               let rule = rule
         else { return }
-        stepperView.plusButton.isEnabled = true
         
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
         var iterations = self.iterations + 1
         let system = LSystem(rules: [axiom, rule], transitions: [])
-        var lSystemResult = system.produceOutput(input: "A", iterations: iterations)
+        var lSystemResult = system.produceOutput(input: "axioma", iterations: iterations)
+        
+        if system.produceOutput(input: "axioma", iterations: iterations+1).outputElements.count > 2500 {
+            stepperView.plusButton.isEnabled = false
+        }
     
         while lSystemResult.outputElements.count > 2500 {
             iterations -= 1
-            lSystemResult = system.produceOutput(input: "A", iterations: iterations)
-            stepperView.setMaxIteration(iterations - 1)
+            lSystemResult = system.produceOutput(input: "axioma", iterations: iterations)
+            stepperView.plusButton.isEnabled = false
         }
         
         

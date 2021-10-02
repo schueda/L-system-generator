@@ -90,7 +90,13 @@ class Renderer {
     }
     
     private func createCircle() {
-        path.addArc(withCenter: path.currentPoint + CGPoint(x: lineLength/2 * cos(currentAngle), y: lineLength/2 * sin(currentAngle)), radius: 5, startAngle: currentAngle, endAngle: currentAngle + 2 * CGFloat.pi, clockwise: true)
+        path.addArc(
+            withCenter: path.currentPoint + CGPoint(x: lineLength/2 * cos(currentAngle), y: lineLength/2 * sin(currentAngle)),
+            radius: lineLength/2,
+            startAngle: currentAngle + CGFloat.pi,
+            endAngle: currentAngle + 3 * CGFloat.pi,
+            clockwise: true
+        )
     }
     
     private func createLineAndArc(clockwise: Bool) {
@@ -99,8 +105,8 @@ class Renderer {
         
         path.addArc(withCenter: path.currentPoint + CGPoint(x: lineLength/4 * cos(currentAngle), y: lineLength/4 * sin(currentAngle)),
                     radius: lineLength/4,
-                    startAngle: currentAngle,
-                    endAngle: currentAngle + CGFloat.pi,
+                    startAngle: currentAngle + CGFloat.pi,
+                    endAngle: currentAngle,
                     clockwise: clockwise)
     }
     

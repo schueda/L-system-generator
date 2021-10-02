@@ -38,6 +38,7 @@ class GeneratorStepperView: UIView {
         
         if iterations >= maximum {
             plusButton.isEnabled = false
+            print(plusButton.isEnabled)
         }
         
         iterationsLabel.text = "\(iterations)"
@@ -74,13 +75,6 @@ class GeneratorStepperView: UIView {
         label.textAlignment = .center
         return label
     }()
-    
-    func setMaxIteration(_ iterations: Int) {
-        self.iterations = iterations
-        self.maximum = iterations
-        iterationsLabel.text = "\(iterations)"
-        plusButton.isEnabled = false
-    }
     
     func setIterations(_ iterations: Int) {
         minusButton.isEnabled = iterations <= 0 ? false : true
