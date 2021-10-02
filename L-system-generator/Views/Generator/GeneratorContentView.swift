@@ -15,7 +15,8 @@ class GeneratorContentView: UIView {
     func setAxiom(_ axiom: String?) {
         guard let axiom = axiom else { return }
         
-        if !axiom.contains("L") {
+        
+        if !axiom.contains("L") && !axiom.contains("C") && !axiom.contains("E") && !axiom.contains("D") {
             return
         }
             
@@ -30,7 +31,7 @@ class GeneratorContentView: UIView {
     func setRule(_ rule: String?) {
         guard let rule = rule else { return }
         
-        if !rule.contains("L") {
+        if !rule.contains("L") && !rule.contains("C") && !rule.contains("E") && !rule.contains("D") {
             return
         }
         

@@ -22,6 +22,9 @@ class Renderer {
     
     let symbolToAction: [String: RendererAction] = [
         "L": .line,
+        "C": .circle,
+        "E": .lineLeftArc,
+        "D": .lineRightArc,
         "S": .skip,
         "+": .rotateAntiClockwise,
         "-": .rotateClockwise,
@@ -52,6 +55,12 @@ class Renderer {
         switch action {
         case .line:
             createLine(drawing: true)
+        case .circle:
+            createCircle()
+        case .lineLeftArc:
+            createLineAndArc(clockwise: true)
+        case .lineRightArc:
+            createLineAndArc(clockwise: false)
         case .skip:
             createLine(drawing: false)
         case .rotateAntiClockwise:
@@ -80,6 +89,21 @@ class Renderer {
         }
     }
     
+    private func createCircle() {
+        path.addArc(withCenter: path.currentPoint + CGPoint(x: lineLength/2 * cos(currentAngle), y: lineLength/2 * sin(currentAngle)), radius: 5, startAngle: currentAngle, endAngle: currentAngle + 2 * CGFloat.pi, clockwise: true)
+    }
+    
+    private func createLineAndArc(clockwise: Bool) {
+        let halfWay = path.currentPoint + CGPoint(x: lineLength/2 * cos(currentAngle), y: lineLength/2 * sin(currentAngle))
+        path.addLine(to: halfWay)
+        
+        path.addArc(withCenter: path.currentPoint + CGPoint(x: lineLength/4 * cos(currentAngle), y: lineLength/4 * sin(currentAngle)),
+                    radius: lineLength/4,
+                    startAngle: currentAngle,
+                    endAngle: currentAngle + CGFloat.pi,
+                    clockwise: clockwise)
+    }
+    
 }
 
 struct TurtleState {
@@ -90,6 +114,9 @@ struct TurtleState {
 
 enum RendererAction {
     case line
+    case circle
+    case lineLeftArc
+    case lineRightArc
     case skip
     case rotateAntiClockwise
     case rotateClockwise
