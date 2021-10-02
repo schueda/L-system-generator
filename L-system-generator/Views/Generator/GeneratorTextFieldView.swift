@@ -21,10 +21,19 @@ class GeneratorTextFieldView: UIView {
     lazy var textField: UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 22, weight: .bold)
-        textField.delegate = self
+        textField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
         textField.tag = type == .axiom ? 0 : 1
         return textField
     }()
+    
+    @objc func changedTextField(sender: UITextField) {
+        switch type {
+        case .axiom:
+            generatorContentView.setAxiom(sender.text)
+        case .rule:
+            generatorContentView.setRule(sender.text)
+        }
+    }
     
     init(frame: CGRect = .zero, type: TextType, generatorContentView: GeneratorContentView) {
         self.type = type
@@ -67,18 +76,5 @@ class GeneratorTextFieldView: UIView {
     enum TextType {
         case axiom
         case rule
-    }
-}
-
-extension GeneratorTextFieldView: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0:
-            generatorContentView.setAxiom(textField.text)
-        case 1:
-            generatorContentView.setRule(textField.text)
-        default:
-            print("shouldn't run")
-        }
     }
 }

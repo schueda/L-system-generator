@@ -14,6 +14,11 @@ class GeneratorContentView: UIView {
     private var axiom: LSystemRule?
     func setAxiom(_ axiom: String?) {
         guard let axiom = axiom else { return }
+        
+        if !axiom.contains("L") {
+            return
+        }
+            
         var charArray: [String] = []
         axiom.forEach({ charArray.append($0.description) })
         self.axiom = LSystemRule(input: "A", outputs: charArray)
@@ -24,6 +29,11 @@ class GeneratorContentView: UIView {
     private var rule: LSystemRule?
     func setRule(_ rule: String?) {
         guard let rule = rule else { return }
+        
+        if !rule.contains("L") {
+            return
+        }
+        
         var charArray: [String] = []
         rule.forEach({ charArray.append($0.description) })
         self.rule = LSystemRule(input: "L", outputs: charArray)
@@ -55,7 +65,7 @@ class GeneratorContentView: UIView {
     
     func setLSystemBackgroundColor(_ color: UIColor?) {
         guard let color = color else { return }
-        lSystemView.backgroundColor = color
+        lSystemContainerView.backgroundColor = color
     }
     
     lazy var rulesStack: UIStackView = {
@@ -111,7 +121,7 @@ class GeneratorContentView: UIView {
     }()
     
     lazy var colorsView: GeneratorColorsView = {
-        let view = GeneratorColorsView()
+        let view = GeneratorColorsView(generatorContentView: self)
         return view
     }()
     
@@ -119,14 +129,26 @@ class GeneratorContentView: UIView {
         guard let axiom = axiom,
               let rule = rule
         else { return }
+        stepperView.plusButton.isEnabled = true
         
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
+        var iterations = self.iterations + 1
         let system = LSystem(rules: [axiom, rule], transitions: [])
-        let renderer = Renderer(rotationAngle: rotationAngle)
-        let layer = renderer.generateLayer(by: system.produceOutput(input: "A", iterations: self.iterations + 1),
+        var lSystemResult = system.produceOutput(input: "A", iterations: iterations)
+    
+        while lSystemResult.outputElements.count > 2500 {
+            iterations -= 1
+            lSystemResult = system.produceOutput(input: "A", iterations: iterations)
+            stepperView.setMaxIteration(iterations - 1)
+        }
+        
+        
+        let renderer = Renderer()
+        let layer = renderer.generateLayer(byResult: lSystemResult,
                                            frame: lSystemView.frame,
-                                           lineColor: lSystemLineColor)
+                                           lineColor: lSystemLineColor,
+                                           rotationAngle: rotationAngle)
         lSystemView.layer.addSublayer(layer)
     }
     

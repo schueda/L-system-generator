@@ -8,10 +8,9 @@
 import UIKit
 
 class GeneratorStepperView: UIView {
-    let maximum: Int = 6
-    
     let generatorContentView: GeneratorContentView
-    
+
+    var maximum: Int = 10
     var iterations: Int = 0
     
     lazy var descriptionLabel: UILabel = {
@@ -72,6 +71,13 @@ class GeneratorStepperView: UIView {
         
         iterationsLabel.text = "\(iterations)"
         generatorContentView.setIterations(iterations)
+    }
+    
+    func setMaxIteration(_ iterations: Int) {
+        self.iterations = iterations
+        iterationsLabel.text = "\(iterations)"
+        plusButton.isEnabled = false
+
     }
     
     

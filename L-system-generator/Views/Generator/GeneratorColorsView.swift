@@ -8,6 +8,8 @@
 import UIKit
 
 class GeneratorColorsView: UIView {
+    let generatorContentView: GeneratorContentView
+    
     let colors: [UIColor] = [.appRed, .appYellow, .appGreen, .appBlue, .appPurple, .appWhite]
     
     lazy var backgroundLabel: UILabel = {
@@ -28,7 +30,9 @@ class GeneratorColorsView: UIView {
     lazy var backgroundButtons: [UIButton] = {
         var backgroundButtons: [UIButton] = []
         for color in colors {
-            backgroundButtons.append(generateColorButton(color: color))
+            let button = generateColorButton(color: color)
+            button.addTarget(self, action: #selector(backgroundButtonClicked), for: .touchUpInside)
+            backgroundButtons.append(button)
         }
         return backgroundButtons
     }()
@@ -36,15 +40,12 @@ class GeneratorColorsView: UIView {
     func generateColorButton(color: UIColor) -> UIButton {
         let button = UIButton()
         button.backgroundColor = color
-        button.addTarget(self, action: #selector(backgroundButtonClicked), for: .touchUpInside)
         button.layer.cornerRadius = 10
-        button.layer.borderColor = UIColor.systemGray.cgColor
-        button.layer.borderWidth = 1
         return button
     }
     
     @objc func backgroundButtonClicked(sender: UIButton) {
-        print(sender.backgroundColor ?? "")
+        generatorContentView.setLSystemBackgroundColor(sender.backgroundColor)
     }
     
     lazy var lineLabel: UILabel = {
@@ -65,16 +66,19 @@ class GeneratorColorsView: UIView {
     lazy var lineButtons: [UIButton] = {
         var lineButtons: [UIButton] = []
         for color in colors {
-            lineButtons.append(generateColorButton(color: color))
+            let button = generateColorButton(color: color)
+            button.addTarget(self, action: #selector(lineButtonClicked), for: .touchUpInside)
+            lineButtons.append(button)
         }
         return lineButtons
     }()
     
     @objc func lineButtonClicked(sender: UIButton) {
-        print(sender.backgroundColor ?? "")
+        generatorContentView.setLSystemLineColor(sender.backgroundColor)
     }
 
-    override init(frame: CGRect = .zero) {
+    init(frame: CGRect = .zero, generatorContentView: GeneratorContentView) {
+        self.generatorContentView = generatorContentView
         super.init(frame: frame)
         
         setupView()
