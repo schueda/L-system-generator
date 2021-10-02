@@ -22,6 +22,11 @@ class RuleGenerator {
             rule += chars.shuffled().first!
         }
         
+        if ruleLength == 4 && Int.random(in: 1...10) > 5 {
+            rule.insert("[", at: rule.index(rule.startIndex, offsetBy: 1))
+            rule.insert("]", at: rule.index(rule.startIndex, offsetBy: 4))
+        }
+        
         return rule
     }
 }
