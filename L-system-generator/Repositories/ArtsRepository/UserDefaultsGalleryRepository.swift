@@ -23,7 +23,9 @@ class UserDefaultsArtsRepository: ArtsRepository {
     
     private func saveKey(from art: Art) {
         var keys = getKeys()
-        keys.append(art.id.uuidString)
+        if keys.firstIndex(of: art.id.uuidString) == nil{
+            keys.append(art.id.uuidString)            
+        }
         UserDefaults.standard.setValue(keys, forKey: Self.artsKey)
     }
     

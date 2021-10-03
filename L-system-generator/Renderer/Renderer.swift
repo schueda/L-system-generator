@@ -13,7 +13,7 @@ import UIKit
 class Renderer {
     private let path = UIBezierPath()
     
-    var rotationAngle: CGFloat?
+    var angle: CGFloat?
     var currentAngle: CGFloat = -CGFloat.pi/2
     
     var lineLength: CGFloat = 10
@@ -32,9 +32,9 @@ class Renderer {
         "]": .popState
     ]
     
-    func generateLayer(byResult lSystemResult: LSystemResult, frame: CGRect, lineColor: UIColor, rotationAngle: CGFloat) -> CAShapeLayer {
+    func generateLayer(byResult lSystemResult: LSystemResult, frame: CGRect, lineColor: UIColor, angle: CGFloat) -> CAShapeLayer {
         path.move(to: CGPoint(x: frame.midX, y: 0))
-        self.rotationAngle = rotationAngle
+        self.angle = angle
         
         for symbol in lSystemResult.string {
             guard let action = symbolToAction[symbol.description] else { continue }
@@ -64,11 +64,11 @@ class Renderer {
         case .skip:
             createLine(drawing: false)
         case .rotateAntiClockwise:
-            guard let rotationAngle = rotationAngle else { return }
-            currentAngle += rotationAngle
+            guard let angle = angle else { return }
+            currentAngle += angle
         case .rotateClockwise:
-            guard let rotationAngle = rotationAngle else { return }
-            currentAngle -= rotationAngle
+            guard let angle = angle else { return }
+            currentAngle -= angle
         case .pushState:
             let currentTurtleState = TurtleState(currentAngle: currentAngle, currentPosition: path.currentPoint, lineLength: lineLength)
             turtleStates.append(currentTurtleState)

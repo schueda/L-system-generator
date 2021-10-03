@@ -11,7 +11,7 @@ class GeneratorStepperView: UIView {
     let generatorContentView: GeneratorContentView
 
     var maximum: Int = 10
-    var iterations: Int = 0
+    var iterations: Int
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
@@ -38,7 +38,6 @@ class GeneratorStepperView: UIView {
         
         if iterations >= maximum {
             plusButton.isEnabled = false
-            print(plusButton.isEnabled)
         }
         
         iterationsLabel.text = "\(iterations)"
@@ -77,16 +76,18 @@ class GeneratorStepperView: UIView {
     }()
     
     func setIterations(_ iterations: Int) {
-        minusButton.isEnabled = iterations <= 0 ? false : true
         self.iterations = iterations
+        minusButton.isEnabled = iterations <= 0 ? false : true
         iterationsLabel.text = "\(iterations)"
     }
     
     
-    init(frame: CGRect = .zero, generateContentView: GeneratorContentView) {
+    init(frame: CGRect = .zero, generateContentView: GeneratorContentView, iterations: Int) {
+        self.iterations = iterations
         self.generatorContentView = generateContentView
         super.init(frame: frame)
         
+        setIterations(iterations)
         setupView()
         
         setupDescriptionLabel()

@@ -12,7 +12,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     lazy var artImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -30,13 +30,17 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     private func setupArtImageView() {
         addSubview(artImageView)
         artImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalToSuperview().offset(4)
+            make.leading.equalToSuperview().offset(4)
+            make.trailing.equalToSuperview().offset(-4)
+            make.bottom.equalToSuperview().offset(-4)
         }
     }
     
     func setArt(_ art: Art) {
         self.art = art
         artImageView.image = art.image
+        backgroundColor = art.backgroundColor
     }
     
     required init?(coder: NSCoder) {

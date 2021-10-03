@@ -10,11 +10,13 @@ import Angelo
 
 class GeneratorContentView: UIView {
     let type: GeneratorViewController.GeneratorType
+    let art: Art
     
-    private var axiom: LSystemRule?
+    private var axiom: LSystemRule
+    var axiomString: String
     func setAxiom(_ axiom: String?) {
         guard let axiom = axiom else { return }
-        
+        self.axiomString = axiom
         
         if !axiom.contains("L") && !axiom.contains("C") && !axiom.contains("E") && !axiom.contains("D") {
             return
@@ -27,9 +29,11 @@ class GeneratorContentView: UIView {
         renderImage()
     }
     
-    private var rule: LSystemRule?
+    private var rule: LSystemRule
+    var ruleString: String
     func setRule(_ rule: String?) {
         guard let rule = rule else { return }
+        self.ruleString = rule
         
         if !rule.contains("L") && !rule.contains("C") && !rule.contains("E") && !rule.contains("D") {
             return
@@ -42,21 +46,21 @@ class GeneratorContentView: UIView {
         renderImage()
     }
     
-    var iterations: Int = 0
+    var iterations: Int
     func setIterations(_ iterations: Int) {
         self.iterations = iterations
         
         renderImage()
     }
     
-    private var rotationAngle: CGFloat = CGFloat.pi * 90/180
-    func setRotationAngle(_ angle: CGFloat) {
-        rotationAngle = CGFloat.pi * angle/180
+    var angle: Int
+    func setAngle(_ angle: Int) {
+        self.angle = angle
         
         renderImage()
     }
     
-    private var lSystemLineColor: UIColor = .appBlue
+    var lSystemLineColor: UIColor
     func setLSystemLineColor(_ color: UIColor?) {
         guard let color = color else { return }
         lSystemLineColor = color
@@ -64,9 +68,13 @@ class GeneratorContentView: UIView {
         renderImage()
     }
     
+    var lSystemBackgroundColor: UIColor
     func setLSystemBackgroundColor(_ color: UIColor?) {
         guard let color = color else { return }
+        lSystemBackgroundColor = color
+        
         lSystemContainerView.backgroundColor = color
+        lSystemView.backgroundColor = color
     }
     
     lazy var rulesStack: UIStackView = {
@@ -79,11 +87,13 @@ class GeneratorContentView: UIView {
     
     lazy var axiomView: GeneratorTextFieldView = {
         let view = GeneratorTextFieldView(type: .axiom, generatorContentView: self)
+        view.textField.text = art.axiom
         return view
     }()
     
     lazy var ruleView: GeneratorTextFieldView = {
         let view = GeneratorTextFieldView(type: .rule, generatorContentView: self)
+        view.textField.text = art.rule
         return view
     }()
     
@@ -98,6 +108,7 @@ class GeneratorContentView: UIView {
     
     lazy var lSystemView: UIView = {
         let view = UIView()
+        view.backgroundColor = .appWhite
         view.clipsToBounds = true
         return view
     }()
@@ -112,12 +123,14 @@ class GeneratorContentView: UIView {
     }()
     
     lazy var stepperView: GeneratorStepperView = {
-        let view = GeneratorStepperView(generateContentView: self)
+        let view = GeneratorStepperView(generateContentView: self, iterations: art.iterations)
+        view.setIterations(art.iterations)
         return view
     }()
     
     lazy var rotationView: GeneratorRotationView = {
-        let view = GeneratorRotationView(generatorContentView: self)
+        let view = GeneratorRotationView(generatorContentView: self, angle: art.angle)
+        
         return view
     }()
     
@@ -127,10 +140,6 @@ class GeneratorContentView: UIView {
     }()
     
     func renderImage() {
-        guard let axiom = axiom,
-              let rule = rule
-        else { return }
-        
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
         var iterations = self.iterations + 1
@@ -152,11 +161,22 @@ class GeneratorContentView: UIView {
         let layer = renderer.generateLayer(byResult: lSystemResult,
                                            frame: lSystemView.frame,
                                            lineColor: lSystemLineColor,
-                                           rotationAngle: rotationAngle)
+                                           angle: CGFloat(angle) * CGFloat.pi/180)
         lSystemView.layer.addSublayer(layer)
     }
     
-    init(frame: CGRect = .zero, type: GeneratorViewController.GeneratorType) {
+    init(frame: CGRect = .zero, type: GeneratorViewController.GeneratorType, art: Art) {
+        self.art = art
+        self.axiom = LSystemRule(input: "axioma", outputs: art.axiom.asArray())
+        self.axiomString = art.axiom
+        self.rule = LSystemRule(input: "L", outputs: art.rule.asArray())
+        self.ruleString = art.rule
+        
+        self.lSystemBackgroundColor = art.backgroundColor ?? .appWhite
+        self.lSystemLineColor = art.lineColor ?? .appBlue
+        self.iterations = art.iterations
+        self.angle = art.angle
+        
         self.type = type
         super.init(frame: frame)
         
@@ -165,14 +185,8 @@ class GeneratorContentView: UIView {
         setupNumbersStack()
         setupColorsView()
         
-        let randomAxiom = RuleGenerator.shared.getRamdomRule()
-        self.axiomView.textField.text = randomAxiom
-        let randomRule = RuleGenerator.shared.getRamdomRule()
-        self.ruleView.textField.text = randomRule
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.setAxiom(randomAxiom)
-            self.setRule(randomRule)            
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.renderImage()
         }
     }
     
@@ -200,6 +214,7 @@ class GeneratorContentView: UIView {
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-16)
             make.height.equalTo(UIScreen.main.bounds.height * 0.4)
         }
+        lSystemContainerView.backgroundColor = art.backgroundColor
         
         lSystemContainerView.addSubview(lSystemView)
         lSystemView.snp.makeConstraints { make in
@@ -208,6 +223,7 @@ class GeneratorContentView: UIView {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-16)
         }
+        lSystemView.backgroundColor = art.backgroundColor
     }
     
     func setupNumbersStack() {

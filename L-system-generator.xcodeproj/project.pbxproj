@@ -15,6 +15,8 @@
 		6113B27E2709FBC600EF95EB /* ArtsRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B27D2709FBC600EF95EB /* ArtsRepositoryProtocol.swift */; };
 		6113B2812709FC6400EF95EB /* Art.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B2802709FC6400EF95EB /* Art.swift */; };
 		6113B2832709FE9A00EF95EB /* UserDefaultsGalleryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B2822709FE9A00EF95EB /* UserDefaultsGalleryRepository.swift */; };
+		6113B285270A4B5700EF95EB /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B284270A4B5700EF95EB /* UIView+.swift */; };
+		6113B287270A643C00EF95EB /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B286270A643C00EF95EB /* String+.swift */; };
 		611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037627034FD500427DD6 /* HomeButtonView.swift */; };
 		611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037A27037BF200427DD6 /* GeneratorViewController.swift */; };
 		611D037D27037C1B00427DD6 /* GeneratorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037C27037C1B00427DD6 /* GeneratorContentView.swift */; };
@@ -44,6 +46,8 @@
 		6113B27D2709FBC600EF95EB /* ArtsRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtsRepositoryProtocol.swift; sourceTree = "<group>"; };
 		6113B2802709FC6400EF95EB /* Art.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Art.swift; sourceTree = "<group>"; };
 		6113B2822709FE9A00EF95EB /* UserDefaultsGalleryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsGalleryRepository.swift; sourceTree = "<group>"; };
+		6113B284270A4B5700EF95EB /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		6113B286270A643C00EF95EB /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		611D037627034FD500427DD6 /* HomeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		611D037A27037BF200427DD6 /* GeneratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorViewController.swift; sourceTree = "<group>"; };
 		611D037C27037C1B00427DD6 /* GeneratorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorContentView.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				61E5773027054CCD006B6952 /* CGPoint+.swift */,
 				61E5773227055338006B6952 /* CGPath+.swift */,
 				6113B27727074B7700EF95EB /* UIColor+.swift */,
+				6113B284270A4B5700EF95EB /* UIView+.swift */,
+				6113B286270A643C00EF95EB /* String+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,6 +291,7 @@
 				61E5772E27054262006B6952 /* Renderer.swift in Sources */,
 				6113B2832709FE9A00EF95EB /* UserDefaultsGalleryRepository.swift in Sources */,
 				61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */,
+				6113B287270A643C00EF95EB /* String+.swift in Sources */,
 				6113B274270733DD00EF95EB /* GeneratorRotationView.swift in Sources */,
 				6113B27627073BF400EF95EB /* GeneratorColorsView.swift in Sources */,
 				61E5773A2706AF5A006B6952 /* GeneratorTextFieldView.swift in Sources */,
@@ -297,6 +304,7 @@
 				61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */,
 				6113B27A2707FC4400EF95EB /* RuleGenerator.swift in Sources */,
 				6113B27827074B7700EF95EB /* UIColor+.swift in Sources */,
+				6113B285270A4B5700EF95EB /* UIView+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

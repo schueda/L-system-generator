@@ -18,7 +18,7 @@ class GalleryViewController: UIViewController {
         
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray3
+        view.backgroundColor = .systemGray6
         view.register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         view.delegate = self
         view.dataSource = self
@@ -31,8 +31,11 @@ class GalleryViewController: UIViewController {
         setupView()
         setupCollectionView()
         setupNavigation()
-        
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         arts = artsRepository.getAllArts()
+        collectionView.reloadData()
     }
     
     func setupView() {
@@ -59,7 +62,7 @@ class GalleryViewController: UIViewController {
 
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(GeneratorViewController(type: .view), animated: true)
+        navigationController?.pushViewController(GeneratorViewController(type: .view, art: arts[indexPath.row]), animated: true)
     }
 }
 
@@ -70,6 +73,7 @@ extension GalleryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! GalleryCollectionViewCell
+        cell.setArt(arts[indexPath.row])
         return cell
     }
     

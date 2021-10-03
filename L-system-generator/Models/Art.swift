@@ -21,7 +21,7 @@ class Art: Codable {
     
     init(axiom: String, rule: String, iterations: Int,
          angle: Int, backgroundColor: UIColor,
-         lineColor: UIColor, image: UIImage, id: UUID = UUID()) {
+         lineColor: UIColor, image: UIImage? = nil, id: UUID = UUID()) {
         self.id = id
         
         self.axiom = axiom
@@ -32,6 +32,12 @@ class Art: Codable {
         self.lineColor = lineColor
         
         self.image = image
+    }
+    
+    convenience init() {
+        self.init(axiom: RuleGenerator.shared.getRamdomRule(), rule: RuleGenerator.shared.getRamdomRule(), iterations: 0,
+                  angle: 90, backgroundColor: .appWhite,
+                  lineColor: .appBlue)
     }
     
     enum CodingKeys: CodingKey {

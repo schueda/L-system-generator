@@ -8,10 +8,12 @@
 import UIKit
 
 class GeneratorViewController: UIViewController {
+    let artRepository: ArtsRepository = UserDefaultsArtsRepository.shared
     let type: GeneratorType
+    var art: Art
     
     lazy var generatorContentView: GeneratorContentView = {
-        let view = GeneratorContentView(type: type)
+        let view = GeneratorContentView(type: type, art: art)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -64,11 +66,20 @@ class GeneratorViewController: UIViewController {
     }
     
     @objc func clickedSave() {
-        navigationController?.popViewController(animated: true)
+        art.axiom = generatorContentView.axiomString
+        art.rule = generatorContentView.ruleString
+        art.iterations = generatorContentView.iterations
+        art.angle = generatorContentView.angle
+        art.backgroundColor = generatorContentView.lSystemView.backgroundColor
+        art.lineColor = generatorContentView.lSystemLineColor
+        art.image = generatorContentView.lSystemView.asImage()
+        
+        artRepository.saveArt(art)
     }
     
-    init(type: GeneratorType) {
+    init(type: GeneratorType, art: Art = Art()) {
         self.type = type
+        self.art = art
         super.init(nibName: nil, bundle: nil)
     }
     

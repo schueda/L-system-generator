@@ -36,10 +36,10 @@ class GeneratorRotationView: UIView {
         let newAngle = Int(180 * angleSlider.value)
         angle = newAngle
         angleLabel.text = "\(newAngle)º"
-        generatorContentView.setRotationAngle(CGFloat(angle))
+        generatorContentView.setAngle(angle)
     }
     
-    init(frame: CGRect = .zero, generatorContentView: GeneratorContentView) {
+    init(frame: CGRect = .zero, generatorContentView: GeneratorContentView, angle: Int) {
         self.generatorContentView = generatorContentView
         super.init(frame: frame)
         
