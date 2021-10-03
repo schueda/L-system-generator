@@ -12,19 +12,19 @@ class UserDefaultsGalleryRepository: GalleryRepository {
     private static let imagesKey = "IMAGES"
     
     func saveArt(_ art: Art) {
-        saveKey(art.id.uuidString)
-        saveObject(art)
-        saveImage(art.image)
-        
+        saveKey(from: art)
+        saveCodable(art: art)
+        saveImage(from: art)
+        saveColors(from: art)
     }
     
-    func saveKey(_ key: String) {
+    private func saveKey(from art: Art) {
         var keys = getKeys()
-        keys.append(key)
+        keys.append(art.id.uuidString)
         UserDefaults.standard.setValue(keys, forKey: Self.artsKey)
     }
     
-    func getKeys() -> [String] {
+    private func getKeys() -> [String] {
         let keys = UserDefaults.standard.array(forKey: Self.artsKey) as? [String]
         
         if let keys = keys {
@@ -34,17 +34,17 @@ class UserDefaultsGalleryRepository: GalleryRepository {
         return []
     }
     
-    func saveObject(_ art: Art) {
+    private func saveCodable(art: Art) {
         do {
             let artData = try JSONEncoder().encode(art)
             UserDefaults.standard.setValue(artData, forKey: art.id.uuidString)
-        } catch {
-            print("failed saving art")
+        } catch let err {
+            print("failed saving art: \(err)")
         }
     }
     
-    func saveImage(_ image: UIImage?) {
-        guard let image = image,
+    private func saveImage(from art: Art) {
+        guard let image = art.image,
               var imageData = image.jpegData(compressionQuality: 1)
         else { return }
         
@@ -54,24 +54,120 @@ class UserDefaultsGalleryRepository: GalleryRepository {
         }
         
         do  {
-            guard let imagePath = self.getImagePath(forKey: key) else { return }
-            try image.write(to: imagePath, options: .atomic)
+            guard let imageURL = getImageURL(forKey: art.id.uuidString) else { return }
+            try imageData.write(to: imageURL, options: .atomic)
         } catch let err {
-            print("Saving image resulted in error: ", err)
+            print("Saving image resulted in error: \(err)")
         }
     }
     
+    private func getImageURL(forKey key: String) -> URL? {
+        guard let imageURL = FileManager.default.urls(for: .documentDirectory,
+                                                         in: FileManager.SearchPathDomainMask.userDomainMask).first
+        else { return nil }
+        return imageURL.appendingPathComponent("\(key)-image")
+    }
+    
+    private func saveColors(from art: Art) {
+        saveColor(art.backgroundColor, forKey: art.id.uuidString + "-backgroundColor")
+        saveColor(art.lineColor, forKey: art.id.uuidString + "-lineColor")
+    }
+    
+    private func saveColor(_ color: UIColor?, forKey key: String) {
+        guard let color = color else { return }
+        do {
+            let colorData = try NSKeyedArchiver.archivedData(withRootObject: color,
+                                                             requiringSecureCoding: false) as NSData?
+            UserDefaults.standard.setValue(colorData, forKey: key)
+        } catch let err {
+            print("Error saving color: \(err)")
+        }
+    }
     
     func getAllArts() -> [Art] {
-        return []
-    }
-    
-    func updateArt() {
+        var arts: [Art] = []
+        let keys = getKeys()
+        for key in keys {
+            guard let art = getArt(forKey: key) else { continue }
+            arts.append(art)
+        }
         
+        return arts
     }
     
-    func deleteArt() {
+    private func getArt(forKey key: String) -> Art? {
+        guard let art = getEncodableArt(forKey: key) else { return nil }
+        art.image = getArtImage(forKey: key)
+        art.backgroundColor = getArtColor(forKey: key + "-backgroundColor")
+        art.lineColor = getArtColor(forKey: key + "-lineColor")
         
+        return art
     }
     
+    private func getEncodableArt(forKey key: String) -> Art? {
+        do {
+            guard let artData = UserDefaults.standard.data(forKey: key) else { return nil }
+            let art = try JSONDecoder().decode(Art.self, from: artData)
+            return art
+            
+        } catch let err {
+            print("Error getting art: \(err)")
+            return nil
+        }
+    }
+    
+    private func getArtImage(forKey key: String) -> UIImage? {
+        guard let imageURL = getImageURL(forKey: key),
+              let imageData = FileManager.default.contents(atPath: imageURL.path)
+        else { return nil }
+        
+        return UIImage(data: imageData)
+    }
+    
+    private func getArtColor(forKey key: String) -> UIColor? {
+        do {
+            guard let colorData = UserDefaults.standard.data(forKey: key) else { return nil }
+            let color = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData)
+            return color
+        } catch let err {
+            print("Error getting color: \(err)")
+            return nil
+        }
+    }
+    
+    func deleteArt(_ art: Art) {
+        deleteKey(from: art)
+        deleteCodable(art: art)
+        deleteImage(from: art)
+        deleteColors(from: art)
+    }
+    
+    private func deleteKey(from art: Art) {
+        var keys = getKeys()
+        guard let keyIndex = keys.firstIndex(of: art.id.uuidString) else { return }
+        keys.remove(at: keyIndex)
+        UserDefaults.standard.setValue(keys, forKey: Self.artsKey)
+    }
+    
+    private func deleteCodable(art: Art) {
+        UserDefaults.standard.removeObject(forKey: art.id.uuidString)
+    }
+    
+    private func deleteImage(from art: Art) {
+        guard let imageURL = getImageURL(forKey: art.id.uuidString) else { return }
+        do {
+            try FileManager.default.removeItem(at: imageURL)
+        } catch let err {
+            print("Error deleting image: \(err)")
+        }
+    }
+    
+    private func deleteColors(from art: Art) {
+        deleteColor(forKey: "\(art.id.uuidString)-backgroundColor")
+        deleteColor(forKey: "\(art.id.uuidString)-lineColor")
+    }
+    
+    private func deleteColor(forKey key: String) {
+        UserDefaults.standard.removeObject(forKey: key)
+    }
 }

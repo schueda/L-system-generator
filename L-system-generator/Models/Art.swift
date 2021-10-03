@@ -8,7 +8,7 @@
 import UIKit
 
 class Art: Codable {
-    var id = UUID()
+    var id: UUID
     
     var axiom: String
     var rule: String
@@ -21,7 +21,9 @@ class Art: Codable {
     
     init(axiom: String, rule: String, iterations: Int,
          angle: Int, backgroundColor: UIColor,
-         lineColor: UIColor, image: UIImage) {
+         lineColor: UIColor, image: UIImage, id: UUID = UUID()) {
+        self.id = id
+        
         self.axiom = axiom
         self.rule = rule
         self.iterations = iterations

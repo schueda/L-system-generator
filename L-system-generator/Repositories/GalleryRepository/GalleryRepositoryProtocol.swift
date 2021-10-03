@@ -10,6 +10,5 @@ import Foundation
 protocol GalleryRepository {
     func saveArt(_ art: Art)
     func getAllArts() -> [Art]
-    func updateArt()
-    func deleteArt()
+    func deleteArt(_ art: Art)
 }
