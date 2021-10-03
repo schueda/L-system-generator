@@ -8,6 +8,9 @@
 import UIKit
 
 class GalleryViewController: UIViewController {
+    let artsRepository: ArtsRepository = UserDefaultsArtsRepository.shared
+    var arts: [Art] = []
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = .init(top: UIScreen.main.bounds.height * 0.357, left: 16, bottom: UIScreen.main.bounds.height * 0.422, right: 16)
@@ -28,6 +31,8 @@ class GalleryViewController: UIViewController {
         setupView()
         setupCollectionView()
         setupNavigation()
+        
+        arts = artsRepository.getAllArts()
     }
     
     func setupView() {
@@ -60,7 +65,7 @@ extension GalleryViewController: UICollectionViewDelegate {
 
 extension GalleryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        200
+        arts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
