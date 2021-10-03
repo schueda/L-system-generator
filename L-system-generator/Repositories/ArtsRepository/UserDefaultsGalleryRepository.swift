@@ -1,5 +1,5 @@
 //
-//  UserDefaultsGalleryRepository.swift
+//  UserDefaultsArtsRepository.swift
 //  L-system-generator
 //
 //  Created by André Schueda on 03/10/21.
@@ -7,9 +7,12 @@
 
 import UIKit
 
-class UserDefaultsGalleryRepository: GalleryRepository {
+class UserDefaultsArtsRepository: ArtsRepository {
+    static let shared = UserDefaultsArtsRepository()
+    
+    private init() {}
+    
     private static let artsKey = "ARTS"
-    private static let imagesKey = "IMAGES"
     
     func saveArt(_ art: Art) {
         saveKey(from: art)
