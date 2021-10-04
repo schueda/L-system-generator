@@ -12,7 +12,7 @@ extension UIView {
         self.contentScaleFactor = scale
         let format = UIGraphicsImageRendererFormat()
         format.scale = scale
-        let renderer = UIGraphicsImageRenderer(size: bounds.size, format: format)
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: bounds.width, height: bounds.height - 1), format: format)
         return renderer.image { rendererContext in
             layer.render(in: rendererContext.cgContext)
         }
