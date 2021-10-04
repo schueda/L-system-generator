@@ -8,8 +8,11 @@
 import UIKit
 
 extension UIView {
-    func asImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+    func asImage(withScale scale: CGFloat = 1) -> UIImage {
+        self.contentScaleFactor = scale
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = scale
+        let renderer = UIGraphicsImageRenderer(size: bounds.size, format: format)
         return renderer.image { rendererContext in
             layer.render(in: rendererContext.cgContext)
         }
@@ -20,5 +23,5 @@ extension UIView {
         tap.numberOfTapsRequired = tapNumber
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
-      }
+    }
 }

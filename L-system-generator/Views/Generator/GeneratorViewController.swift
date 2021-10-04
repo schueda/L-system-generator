@@ -59,6 +59,7 @@ class GeneratorViewController: UIViewController {
         generatorContentView.numbersStack.alpha = 1
         generatorContentView.rulesStack.alpha = 1
         generatorContentView.colorsView.alpha = 1
+        generatorContentView.exportImageButton.alpha = 0
     }
     
     func setSave(to barButton: UIBarButtonItem?) {
@@ -83,6 +84,7 @@ class GeneratorViewController: UIViewController {
         generatorContentView.numbersStack.alpha = 0
         generatorContentView.rulesStack.alpha = 0
         generatorContentView.colorsView.alpha = 0
+        generatorContentView.exportImageButton.alpha = 1
     }
     
     init(type: GeneratorType, art: Art = Art()) {

@@ -142,6 +142,24 @@ class GeneratorContentView: UIView {
         return view
     }()
     
+    lazy var exportImageButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemGray6
+        button.setTitle("Salvar no dispositivo", for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.addTarget(self, action: #selector(clickedExportImage), for: .touchUpInside)
+        button.layer.cornerRadius = 10
+        button.alpha = type == .edit ? 0 : 1
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        button.setTitle("Salva", for: .disabled)
+        return button
+    }()
+    
+    @objc func clickedExportImage() {
+        UIImageWriteToSavedPhotosAlbum(lSystemView.asImage(withScale: 10), nil, nil, nil)
+        self.exportImageButton.isEnabled = false
+    }
+    
     func renderImage() {
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         
@@ -187,6 +205,7 @@ class GeneratorContentView: UIView {
         setupLSystemView()
         setupNumbersStack()
         setupColorsView()
+        setupExportButton()
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.renderImage()
@@ -250,6 +269,16 @@ class GeneratorContentView: UIView {
             make.top.equalTo(numbersStack.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+        }
+    }
+    
+    func setupExportButton() {
+        addSubview(exportImageButton)
+        exportImageButton.snp.makeConstraints { make in
+            make.top.equalTo(lSystemContainerView.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(200)
+            make.height.equalTo(50)
         }
     }
     
