@@ -6,17 +6,36 @@
 //
 
 import UIKit
+import Angelo
 
 class HomeContentView: UIView {
     let navigationController: UINavigationController?
     
-    lazy var backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray
-        return imageView
+    lazy var backgroundView: UIView = {
+        let view = UIView()
+        generateBackground(on: view)
+        return view
     }()
+    
+    func generateBackground(on view: UIView) {
+        let sublayersCount: Int = view.layer.sublayers?.count ?? 0
+        if sublayersCount > 70 {
+            view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
+        }
+        
+        var colors: [UIColor] = [.appBlue, .appWhite, .appRed, .appGreen, .appPurple, .appYellow].shuffled()
+        view.backgroundColor = colors.removeFirst()
+        
+        let axiom = LSystemRule(input: "axiom", outputs: RuleGenerator.shared.getRamdomRule().asArray())
+        let rule = LSystemRule(input: "L", outputs: RuleGenerator.shared.getRamdomRule().asArray())
+        let result = LSystem(rules: [axiom, rule], transitions: []).produceOutput(input: "axiom", iterations: 3)
+        
+        let layer = Renderer().generateLayer(byResult: result,
+                                             frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height),
+                                             lineColor: colors.first ?? .appWhite,
+                                             angle: CGFloat.pi * CGFloat(Int.random(in: 1...179))/180)
+        view.layer.addSublayer(layer)
+    }
     
     lazy var gradientView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -26,8 +45,15 @@ class HomeContentView: UIView {
         gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         
         view.layer.insertSublayer(gradient, at: 0)
+        view.addTapGesture(tapNumber: 1, target: self, action: #selector(tappedGradient))
         return view
     }()
+    
+    var tapCount = 0
+    @objc func tappedGradient() {
+        generateBackground(on: backgroundView)
+        tapCount += 1
+    }
     
     lazy var buttonsView: UIStackView = {
         let stackView = UIStackView()
@@ -76,23 +102,23 @@ class HomeContentView: UIView {
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 41, weight: .bold)
         label.text = "Nome do app"
-        label.textColor = .black
+        label.textColor = .appWhite
         return label
     }()
-
+    
     init(frame: CGRect = .zero, navigationController: UINavigationController?) {
         self.navigationController = navigationController
         super.init(frame: frame)
         
-        setupBackgroundImage()
+        setupBackgroundView()
         setupGradientView()
         setupButtonsView()
         setupTitleLabel()
     }
     
-    func setupBackgroundImage() {
-        addSubview(backgroundImage)
-        backgroundImage.snp.makeConstraints { make in
+    func setupBackgroundView() {
+        addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }

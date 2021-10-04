@@ -82,6 +82,7 @@ class GeneratorContentView: UIView {
         stack.axis = .horizontal
         stack.spacing = 8
         stack.distribution = .fillEqually
+        stack.alpha = type == .edit ? 1 : 0
         return stack
     }()
     
@@ -119,6 +120,7 @@ class GeneratorContentView: UIView {
         stack.axis = .horizontal
         stack.spacing = 8
         stack.distribution = .fill
+        stack.alpha = type == .edit ? 1 : 0
         return stack
     }()
     
@@ -136,6 +138,7 @@ class GeneratorContentView: UIView {
     
     lazy var colorsView: GeneratorColorsView = {
         let view = GeneratorColorsView(generatorContentView: self)
+        view.alpha = type == .edit ? 1 : 0
         return view
     }()
     

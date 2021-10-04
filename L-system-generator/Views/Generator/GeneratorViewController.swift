@@ -56,6 +56,9 @@ class GeneratorViewController: UIViewController {
     
     @objc func clickedEdit() {
         setSave(to: navigationItem.rightBarButtonItem)
+        generatorContentView.numbersStack.alpha = 1
+        generatorContentView.rulesStack.alpha = 1
+        generatorContentView.colorsView.alpha = 1
     }
     
     func setSave(to barButton: UIBarButtonItem?) {
@@ -75,6 +78,11 @@ class GeneratorViewController: UIViewController {
         art.image = generatorContentView.lSystemView.asImage()
         
         artRepository.saveArt(art)
+        
+        setEdit(to: navigationItem.rightBarButtonItem)
+        generatorContentView.numbersStack.alpha = 0
+        generatorContentView.rulesStack.alpha = 0
+        generatorContentView.colorsView.alpha = 0
     }
     
     init(type: GeneratorType, art: Art = Art()) {

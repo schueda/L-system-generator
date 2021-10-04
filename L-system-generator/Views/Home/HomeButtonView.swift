@@ -10,19 +10,13 @@ import UIKit
 class HomeButtonView: UIView {
     let type: ButtonType
     
-    lazy var backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = .systemGray
-        imageView.image = type == .gallery ? UIImage(named:"GalleryButton") : UIImage(named:"GeneratorButton")
-        return imageView
-    }()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.text = type == .gallery ? "Galeria" : "Gerador"
         label.font = .systemFont(ofSize: 28, weight: .bold)
-        label.textColor = .black
+        label.textColor = .appWhite
         return label
     }()
     
@@ -30,17 +24,23 @@ class HomeButtonView: UIView {
         self.type = type
         super.init(frame: frame)
         
-        isUserInteractionEnabled = false
-        layer.cornerRadius = 20
-        clipsToBounds = true
-        
-        setupBackgroundImage()
+       
+        setupView()
+        setupBluredBackground()
         setupTitleLabel()
     }
     
-    func setupBackgroundImage() {
-        addSubview(backgroundImage)
-        backgroundImage.snp.makeConstraints { make in
+    func setupView() {
+        isUserInteractionEnabled = false
+        layer.cornerRadius = 20
+        clipsToBounds = true
+    }
+    
+    func setupBluredBackground() {
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        let bluredView = UIVisualEffectView(effect: blurEffect)
+        addSubview(bluredView)
+        bluredView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.height.equalTo(220)
         }

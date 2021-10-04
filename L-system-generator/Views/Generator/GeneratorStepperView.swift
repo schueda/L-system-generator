@@ -24,9 +24,9 @@ class GeneratorStepperView: UIView {
     lazy var plusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.backgroundColor = .gray
+        button.backgroundColor = .systemGray5
         button.layer.cornerRadius = 10
-        button.imageView?.tintColor = .systemGray6
+        button.imageView?.tintColor = .label
         
         button.addTarget(self, action: #selector(clickedPlus), for: .touchUpInside)
         return button
@@ -47,9 +47,9 @@ class GeneratorStepperView: UIView {
     lazy var minusButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "minus"), for: .normal)
-        button.backgroundColor = .gray
+        button.backgroundColor = .systemGray5
         button.layer.cornerRadius = 10
-        button.imageView?.tintColor = .systemGray6
+        button.imageView?.tintColor = .label
         button.isEnabled = false
         button.addTarget(self, action: #selector(clickedMinus), for: .touchUpInside)
         return button
