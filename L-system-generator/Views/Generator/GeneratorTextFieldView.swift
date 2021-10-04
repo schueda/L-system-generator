@@ -18,9 +18,24 @@ class GeneratorTextFieldView: UIView {
         return label
     }()
     
+    lazy var randomButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "dice"), for: .normal)
+        button.imageView?.tintColor = .label
+        button.addTarget(self, action: #selector(clickedRandom), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func clickedRandom() {
+        let randomRule = RuleGenerator.shared.getRamdomRule()
+        textField.text = randomRule
+        
+        changedTextField(sender: textField)
+    }
+    
     lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.font = .systemFont(ofSize: 22, weight: .bold)
+        textField.font = .systemFont(ofSize: 18, weight: .bold)
         textField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
         textField.tag = type == .axiom ? 0 : 1
         return textField
@@ -29,7 +44,7 @@ class GeneratorTextFieldView: UIView {
     @objc func changedTextField(sender: UITextField) {
         if generatorContentView.iterations > 4 {
             generatorContentView.stepperView.setIterations(4)
-            generatorContentView.iterations = 4            
+            generatorContentView.iterations = 4
         }
         
         switch type {
@@ -48,6 +63,7 @@ class GeneratorTextFieldView: UIView {
         setupView()
         
         setupDescriptionLabel()
+        setupRandomButton()
         setupTextField()
     }
     
@@ -65,12 +81,22 @@ class GeneratorTextFieldView: UIView {
         }
     }
     
+    func setupRandomButton() {
+        addSubview(randomButton)
+        randomButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalTo(40)
+            make.height.equalTo(40)
+        }
+    }
+    
     func setupTextField() {
         addSubview(textField)
         textField.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(8)
-            make.trailing.equalToSuperview().offset(-8)
+            make.trailing.equalTo(randomButton.snp.leading).offset(-8)
         }
     }
     

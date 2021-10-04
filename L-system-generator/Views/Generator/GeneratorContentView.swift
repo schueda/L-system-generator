@@ -129,8 +129,8 @@ class GeneratorContentView: UIView {
     }()
     
     lazy var rotationView: GeneratorRotationView = {
-        let view = GeneratorRotationView(generatorContentView: self, angle: art.angle)
-        
+        let view = GeneratorRotationView(generatorContentView: self)
+        view.setAngle(art.angle)
         return view
     }()
     
