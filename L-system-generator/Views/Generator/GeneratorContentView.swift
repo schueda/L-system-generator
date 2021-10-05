@@ -11,6 +11,7 @@ import Angelo
 class GeneratorContentView: UIView {
     let type: GeneratorViewController.GeneratorType
     let art: Art
+    var lSystemResult: LSystemResult
     
     private var axiom: LSystemRule
     var axiomString: String
@@ -158,6 +159,28 @@ class GeneratorContentView: UIView {
     @objc func clickedExportImage() {
         UIImageWriteToSavedPhotosAlbum(lSystemView.asImage(withScale: 10), nil, nil, nil)
         self.exportImageButton.isEnabled = false
+        clickedExportGif()
+    }
+    
+    @objc func clickedExportGif() {
+        var images: [UIImage] = []
+        for angle in 0...180 {
+            self.angle = angle
+            
+            lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            let renderer = Renderer()
+            let layer = renderer.generateLayer(byResult: lSystemResult,
+                                               frame: lSystemView.frame,
+                                               lineColor: lSystemLineColor,
+                                               angle: CGFloat(angle) * CGFloat.pi/180)
+            lSystemView.layer.addSublayer(layer)
+            
+            images.append(lSystemView.asImage(withScale: 3))
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            UIImage.animatedGif(from: images)
+        }
     }
     
     func renderImage() {
@@ -197,6 +220,9 @@ class GeneratorContentView: UIView {
         self.lSystemLineColor = art.lineColor ?? .appBlue
         self.iterations = art.iterations
         self.angle = art.angle
+        
+        let system = LSystem(rules: [axiom, rule], transitions: [])
+        self.lSystemResult = system.produceOutput(input: "axioma", iterations: iterations + 1)
         
         self.type = type
         super.init(frame: frame)
