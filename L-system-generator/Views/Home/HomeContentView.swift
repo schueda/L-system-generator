@@ -101,7 +101,7 @@ class HomeContentView: UIView {
         let label = UILabel()
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 41, weight: .bold)
-        label.text = "Nome do app"
+        label.text = "L-systems"
         label.textColor = .appWhite
         return label
     }()
