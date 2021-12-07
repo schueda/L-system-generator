@@ -1,5 +1,5 @@
 //
-//  GeneratorTextFieldView.swift
+//  GeneratorRuleView.swift
 //  L-system-generator
 //
 //  Created by André Schueda on 30/09/21.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class GeneratorTextFieldView: UIView {
-    let generatorContentView: GeneratorContentView
+class GeneratorRuleView: UIView {
+    let parent: GeneratorViewController
     let type: TextType
     
     lazy var descriptionLabel: UILabel = {
@@ -42,22 +42,17 @@ class GeneratorTextFieldView: UIView {
     }()
     
     @objc func changedTextField(sender: UITextField) {
-        if generatorContentView.iterations > 4 {
-            generatorContentView.stepperView.setIterations(4)
-            generatorContentView.iterations = 4
-        }
-        
         switch type {
         case .axiom:
-            generatorContentView.setAxiom(sender.text)
+            parent.setAxiom(sender.text)
         case .rule:
-            generatorContentView.setRule(sender.text)
+            parent.setRule(sender.text)
         }
     }
     
-    init(frame: CGRect = .zero, type: TextType, generatorContentView: GeneratorContentView) {
+    init(frame: CGRect = .zero, type: TextType, parent: GeneratorViewController) {
         self.type = type
-        self.generatorContentView = generatorContentView
+        self.parent = parent
         super.init(frame: frame)
         
         setupView()

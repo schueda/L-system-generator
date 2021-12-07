@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Angelo
 
 class UserDefaultsArtsRepository: ArtsRepository {
     static let shared = UserDefaultsArtsRepository()
@@ -105,6 +106,8 @@ class UserDefaultsArtsRepository: ArtsRepository {
         art.image = getArtImage(forKey: key)
         art.backgroundColor = getArtColor(forKey: key + "-backgroundColor")
         art.lineColor = getArtColor(forKey: key + "-lineColor")
+        art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
+        art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
         
         return art
     }

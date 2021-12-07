@@ -8,7 +8,7 @@
 import UIKit
 
 class GeneratorColorsView: UIView {
-    let generatorContentView: GeneratorContentView
+    let parent: GeneratorViewController
     
     let colors: [UIColor] = [.appRed, .appYellow, .appGreen, .appBlue, .appPurple, .appWhite]
     
@@ -45,7 +45,7 @@ class GeneratorColorsView: UIView {
     }
     
     @objc func backgroundButtonClicked(sender: UIButton) {
-        generatorContentView.setLSystemBackgroundColor(sender.backgroundColor)
+        parent.setLSystemBackgroundColor(sender.backgroundColor)
     }
     
     lazy var lineLabel: UILabel = {
@@ -74,11 +74,11 @@ class GeneratorColorsView: UIView {
     }()
     
     @objc func lineButtonClicked(sender: UIButton) {
-        generatorContentView.setLSystemLineColor(sender.backgroundColor)
+        parent.setLSystemLineColor(sender.backgroundColor)
     }
 
-    init(frame: CGRect = .zero, generatorContentView: GeneratorContentView) {
-        self.generatorContentView = generatorContentView
+    init(frame: CGRect = .zero, parent: GeneratorViewController) {
+        self.parent = parent
         super.init(frame: frame)
         
         setupView()

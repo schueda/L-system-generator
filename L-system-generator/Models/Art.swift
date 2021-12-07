@@ -6,26 +6,30 @@
 //
 
 import UIKit
+import Angelo
 
 class Art: Codable {
     var id: UUID
     
-    var axiom: String
-    var rule: String
+    var axiomString: String
+    var ruleString: String
     var iterations: Int
     var angle: Int
     var backgroundColor: UIColor?
     var lineColor: UIColor?
     
+    var axiom: LSystemRule?
+    var rule: LSystemRule?
+    
     var image: UIImage?
     
-    init(axiom: String, rule: String, iterations: Int,
+    init(axiomString: String, ruleString: String, iterations: Int,
          angle: Int, backgroundColor: UIColor,
          lineColor: UIColor, image: UIImage? = nil, id: UUID = UUID()) {
         self.id = id
         
-        self.axiom = axiom
-        self.rule = rule
+        self.axiomString = axiomString
+        self.ruleString = ruleString
         self.iterations = iterations
         self.angle = angle
         self.backgroundColor = backgroundColor
@@ -35,17 +39,21 @@ class Art: Codable {
     }
     
     convenience init() {
-        self.init(axiom: RuleGenerator.shared.getRamdomRule(), rule: RuleGenerator.shared.getRamdomRule(), iterations: 0,
-                  angle: 90, backgroundColor: .appWhite,
-                  lineColor: .appBlue)
+        self.init(axiomString: RuleGenerator.shared.getRamdomRule(), ruleString: RuleGenerator.shared.getRamdomRule(), iterations: 3, angle: 90, backgroundColor: .appWhite, lineColor: .appBlue)
     }
     
     enum CodingKeys: CodingKey {
         case id
-        case axiom
-        case rule
+        case axiomString
+        case ruleString
         case iterations
         case angle
+    }
+    
+    static func getLSystemRule(for string: String, to input: String) -> LSystemRule {
+        var charArray: [String] = []
+        string.forEach({ charArray.append($0.description) })
+        return LSystemRule(input: input, outputs: charArray)
     }
     
 }

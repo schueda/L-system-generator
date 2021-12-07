@@ -8,7 +8,7 @@
 import UIKit
 
 class GeneratorStepperView: UIView {
-    let generatorContentView: GeneratorContentView
+    let parent: GeneratorViewController
 
     var maximum: Int = 10
     var iterations: Int
@@ -41,7 +41,7 @@ class GeneratorStepperView: UIView {
         }
         
         iterationsLabel.text = "\(iterations)"
-        generatorContentView.setIterations(iterations)
+        parent.setIterations(iterations)
     }
     
     lazy var minusButton: UIButton = {
@@ -64,7 +64,7 @@ class GeneratorStepperView: UIView {
         }
         
         iterationsLabel.text = "\(iterations)"
-        generatorContentView.setIterations(iterations)
+        parent.setIterations(iterations)
     }
     
     lazy var iterationsLabel: UILabel = {
@@ -82,9 +82,9 @@ class GeneratorStepperView: UIView {
     }
     
     
-    init(frame: CGRect = .zero, generateContentView: GeneratorContentView, iterations: Int) {
-        self.iterations = iterations
-        self.generatorContentView = generateContentView
+    init(frame: CGRect = .zero, parent: GeneratorViewController) {
+        self.iterations = parent.art.iterations
+        self.parent = parent
         super.init(frame: frame)
         
         setIterations(iterations)
