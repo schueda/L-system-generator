@@ -9,7 +9,7 @@ import UIKit
 import Angelo
 
 class GeneratorViewController: UIViewController {
-    let type: GeneratorType
+    let type: GeneratorState
     var art: Art
     let viewModel: GeneratorViewModel
     
@@ -24,13 +24,13 @@ class GeneratorViewController: UIViewController {
     
     lazy var axiomView: GeneratorRuleView = {
         let view = GeneratorRuleView(type: .axiom, parent: self)
-        view.textField.text = art.axiomString
+        view.label.text = art.axiomString
         return view
     }()
     
     lazy var ruleView: GeneratorRuleView = {
         let view = GeneratorRuleView(type: .rule, parent: self)
-        view.textField.text = art.ruleString
+        view.label.text = art.ruleString
         return view
     }()
     
@@ -91,7 +91,7 @@ class GeneratorViewController: UIViewController {
     }()
     
     lazy var keyboardView: KeyboardView = {
-        let view = KeyboardView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 250, width: UIScreen.main.bounds.width, height: 250), parent: self)
+        let view = KeyboardView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: 250), parent: self)
         return view
     }()
     
@@ -226,6 +226,18 @@ class GeneratorViewController: UIViewController {
         view.addSubview(keyboardView)
     }
     
+    func showKeyboard() {
+        UIView.animate(withDuration: 0.5) {
+            self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
+        }
+    }
+    
+    func hideKeyboard() {
+        UIView.animate(withDuration: 0.5) {
+            self.keyboardView.frame.origin.y = UIScreen.main.bounds.height
+        }
+    }
+    
     func setAxiom(_ axiom: String?) {
         guard let axiom = axiom else { return }
         art.axiomString = axiom
@@ -297,10 +309,6 @@ class GeneratorViewController: UIViewController {
     }
     
     @objc func clickedSave() {
-        UIView.animate(withDuration: 0.5) {
-            self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
-        }
-
         art.image = lSystemView.asImage()
         viewModel.saveArt(art)
         
@@ -311,7 +319,7 @@ class GeneratorViewController: UIViewController {
         exportImageButton.alpha = 1
     }
     
-    init(type: GeneratorType, art: Art = Art(), viewModel: GeneratorViewModel) {
+    init(type: GeneratorState, art: Art = Art(), viewModel: GeneratorViewModel) {
         self.type = type
         self.art = art
         self.viewModel = viewModel
@@ -322,7 +330,7 @@ class GeneratorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    enum GeneratorType {
+    enum GeneratorState {
         case edit
         case view
     }

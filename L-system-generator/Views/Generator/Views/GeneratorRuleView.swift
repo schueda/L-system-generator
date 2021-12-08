@@ -28,20 +28,37 @@ class GeneratorRuleView: UIView {
     
     @objc func clickedRandom() {
         let randomRule = RuleGenerator.shared.getRamdomRule()
-        textField.text = randomRule
+        label.text = randomRule
         
-        changedTextField(sender: textField)
+        changedLabel(sender: label)
     }
     
-    lazy var textField: UITextField = {
-        let textField = UITextField()
-        textField.font = .systemFont(ofSize: 18, weight: .bold)
-        textField.addTarget(self, action: #selector(changedTextField), for: .editingChanged)
-        textField.tag = type == .axiom ? 0 : 1
-        return textField
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.layer.cornerRadius = 3
+        label.addTapGesture(tapNumber: 1, target: self, action: #selector(selectedScrollView))
+        return scrollView
     }()
     
-    @objc func changedTextField(sender: UITextField) {
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.tag = type == .axiom ? 0 : 1
+        return label
+    }()
+    
+    @objc func selectedScrollView() {
+        scrollView.backgroundColor = .systemGray5
+        if label.frame.width > scrollView.frame.width {
+            scrollView.setContentOffset(CGPoint(x: label.frame.width - scrollView.frame.width + 4, y: 0), animated: false)            
+        }
+        parent.keyboardView.label = label
+        parent.keyboardView.scrollView = scrollView
+        parent.showKeyboard()
+    }
+    
+    @objc func changedLabel(sender: UILabel) {
         switch type {
         case .axiom:
             parent.setAxiom(sender.text)
@@ -59,7 +76,8 @@ class GeneratorRuleView: UIView {
         
         setupDescriptionLabel()
         setupRandomButton()
-        setupTextField()
+        setupScrollView()
+        setupLabel()
     }
     
     func setupView() {
@@ -86,12 +104,23 @@ class GeneratorRuleView: UIView {
         }
     }
     
-    func setupTextField() {
-        addSubview(textField)
-        textField.snp.makeConstraints { make in
+    func setupScrollView() {
+        addSubview(scrollView)
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(5)
             make.bottom.equalToSuperview().offset(-8)
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalTo(randomButton.snp.leading).offset(-8)
+        }
+    }
+    
+    func setupLabel() {
+        scrollView.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(2)
+            make.trailing.equalToSuperview().offset(-2)
         }
     }
     

@@ -8,7 +8,13 @@
 import UIKit
 
 class KeyboardView: UIView {
-    let parent: UIViewController
+    let parent: GeneratorViewController
+    var label: UILabel? {
+        didSet {
+            scrollView?.backgroundColor = .clear
+        }
+    }
+    var scrollView: UIScrollView?
     let drawButtons = ["L", "S", "C", "D", "E"]
     let rotationButtons = ["-", "+"]
     let branchButtons = ["[", "]"]
@@ -59,19 +65,33 @@ class KeyboardView: UIView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "delete.left", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)), for: .normal)
         button.tintColor = .label
+        button.addTarget(self, action: #selector(removeLast), for: .touchUpInside)
         setStyle(to: button)
         return button
     }()
+    
+    @objc func removeLast() {
+        _ = label?.text?.popLast()
+        scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
+    }
     
     lazy var returnButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "return", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .bold)), for: .normal)
         button.tintColor = .label
+        button.addTarget(self, action: #selector(returnClicked), for: .touchUpInside)
         setStyle(to: button)
         return button
     }()
     
-    init(frame: CGRect = .zero, parent: UIViewController) {
+    @objc func returnClicked() {
+        scrollView?.backgroundColor = .clear
+        parent.hideKeyboard()
+        label = nil
+        scrollView = nil
+    }
+    
+    init(frame: CGRect = .zero, parent: GeneratorViewController) {
         self.parent = parent
         super.init(frame: frame)
 
@@ -95,7 +115,7 @@ class KeyboardView: UIView {
     }
     
     private func setupBluredBackground() {
-        let blurEffect = UIBlurEffect(style: .systemMaterial)
+        let blurEffect = UIBlurEffect(style: .systemThickMaterial)
         let bluredView = UIVisualEffectView(effect: blurEffect)
         addSubview(bluredView)
         bluredView.snp.makeConstraints { make in
@@ -158,6 +178,7 @@ class KeyboardView: UIView {
         buttons.forEach { symbol in
             let button = UIButton()
             button.setTitle(symbol, for: .normal)
+            button.addTarget(self, action: #selector(addSymbol(_ :)), for: .touchUpInside)
             
             setStyle(to: button)
             
@@ -167,6 +188,11 @@ class KeyboardView: UIView {
             }
             stack.addArrangedSubview(button)
         }
+    }
+    
+    @objc func addSymbol(_ sender: UIButton) {
+        label?.text? += sender.titleLabel?.text ?? ""
+        scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
     }
     
     private func setStyle(to button: UIButton) {
