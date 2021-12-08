@@ -37,7 +37,7 @@ class GeneratorRuleView: UIView {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.layer.cornerRadius = 3
-        label.addTapGesture(tapNumber: 1, target: self, action: #selector(selectedScrollView))
+        scrollView.addTapGesture(tapNumber: 1, target: self, action: #selector(selectedScrollView))
         return scrollView
     }()
     

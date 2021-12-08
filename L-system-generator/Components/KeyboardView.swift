@@ -14,7 +14,11 @@ class KeyboardView: UIView {
             scrollView?.backgroundColor = .clear
         }
     }
-    var scrollView: UIScrollView?
+    var scrollView: UIScrollView? {
+        didSet {
+            scrollView?.backgroundColor = .systemGray5
+        }
+    }
     let drawButtons = ["L", "S", "C", "D", "E"]
     let rotationButtons = ["-", "+"]
     let branchButtons = ["[", "]"]
