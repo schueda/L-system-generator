@@ -51,7 +51,7 @@ class GeneratorRuleView: UIView {
     @objc func selectedScrollView() {
         scrollView.backgroundColor = .systemGray5
         if label.frame.width > scrollView.frame.width {
-            scrollView.setContentOffset(CGPoint(x: label.frame.width - scrollView.frame.width + 4, y: 0), animated: false)            
+            scrollView.setContentOffset(CGPoint(x: label.frame.width - scrollView.frame.width + 4, y: 0), animated: false)
         }
         parent.keyboardView.label = label
         parent.keyboardView.scrollView = scrollView

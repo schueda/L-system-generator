@@ -73,6 +73,12 @@ class KeyboardView: UIView {
     @objc func removeLast() {
         _ = label?.text?.popLast()
         scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
+        
+        if label?.tag == 0 {
+            parent.setAxiom(label?.text)
+        } else {
+            parent.setRule(label?.text)
+        }
     }
     
     lazy var returnButton: UIButton = {
@@ -193,6 +199,12 @@ class KeyboardView: UIView {
     @objc func addSymbol(_ sender: UIButton) {
         label?.text? += sender.titleLabel?.text ?? ""
         scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
+        
+        if label?.tag == 0 {
+            parent.setAxiom(label?.text)
+        } else {
+            parent.setRule(label?.text)
+        }
     }
     
     private func setStyle(to button: UIButton) {
