@@ -97,6 +97,7 @@ class Renderer {
             endAngle: currentAngle + 3 * CGFloat.pi,
             clockwise: true
         )
+        path.move(to: path.currentPoint + CGPoint(x: lineLength * cos(currentAngle), y: lineLength * sin(currentAngle)))
     }
     
     private func createLineAndArc(clockwise: Bool) {
