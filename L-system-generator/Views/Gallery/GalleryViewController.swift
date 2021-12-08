@@ -25,6 +25,18 @@ class GalleryViewController: UIViewController {
         view.showsVerticalScrollIndicator = false
         return view
     }()
+    
+    lazy var galleryPlaceholder: UILabel = {
+        let label = UILabel()
+        label.text = "As artes salvas no gerador ficarão aqui!"
+        label.numberOfLines = 0
+        label.backgroundColor = .systemGray5.withAlphaComponent(0.8)
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +48,10 @@ class GalleryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         arts = artsRepository.getAllArts()
         collectionView.reloadData()
+        
+        if arts.isEmpty {
+            setupGaleryPlaceholder()
+        }
     }
     
     func setupView() {
@@ -58,6 +74,15 @@ class GalleryViewController: UIViewController {
         navigationController?.navigationBar.backgroundColor = .clear
     }
 
+    func setupGaleryPlaceholder() {
+        view.addSubview(galleryPlaceholder)
+        galleryPlaceholder.snp.makeConstraints { make in
+            make.height.equalTo(200)
+            make.width.equalTo(200)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
+    }
 }
 
 extension GalleryViewController: UICollectionViewDelegate {
