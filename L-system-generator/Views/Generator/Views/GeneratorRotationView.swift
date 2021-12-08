@@ -13,7 +13,7 @@ class GeneratorRotationView: UIView {
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.text = "Rotação"
+        label.text = "Ângulo"
         return label
     }()
     

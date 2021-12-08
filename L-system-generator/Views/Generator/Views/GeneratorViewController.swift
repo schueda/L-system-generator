@@ -91,7 +91,7 @@ class GeneratorViewController: UIViewController {
     }()
     
     lazy var keyboardView: KeyboardView = {
-        let view = KeyboardView(parent: self)
+        let view = KeyboardView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height - 250, width: UIScreen.main.bounds.width, height: 250), parent: self)
         return view
     }()
     
@@ -224,12 +224,6 @@ class GeneratorViewController: UIViewController {
     
     private func setupKeyboardView() {
         view.addSubview(keyboardView)
-        keyboardView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.height.equalTo(300)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(view.snp.top)
-        }
     }
     
     func setAxiom(_ axiom: String?) {
@@ -303,14 +297,8 @@ class GeneratorViewController: UIViewController {
     }
     
     @objc func clickedSave() {
-        UIView.animate(withDuration: 5, delay: 2, options: .curveEaseInOut) {
-            self.keyboardView.snp.remakeConstraints { make in
-                make.width.equalToSuperview()
-                make.height.equalTo(300)
-                make.centerX.equalToSuperview()
-                make.top.equalTo(self.view.snp.bottom)
-            }
-        } completion: { completed in
+        UIView.animate(withDuration: 0.5) {
+            self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
         }
 
         art.image = lSystemView.asImage()
