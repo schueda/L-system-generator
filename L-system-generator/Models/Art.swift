@@ -51,10 +51,13 @@ class Art: Codable {
         case angle
     }
     
+    func copy() -> Art {
+        return Art(axiomString: axiomString, ruleString: ruleString, iterations: iterations, angle: angle, backgroundColor: backgroundColor ?? .appWhite, lineColor: lineColor ?? .appBlue)
+    }
+    
     static func getLSystemRule(for string: String, to input: String) -> LSystemRule {
         var charArray: [String] = []
         string.forEach({ charArray.append($0.description) })
         return LSystemRule(input: input, outputs: charArray)
     }
-    
 }

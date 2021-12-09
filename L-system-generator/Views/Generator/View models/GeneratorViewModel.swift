@@ -17,21 +17,12 @@ class GeneratorViewModel {
     }
     
     func renderImageFrom(art: Art, with frame: CGRect, stepperView: GeneratorStepperView, lineWidth: CGFloat, padding: CGFloat) -> CAShapeLayer {
-        var iterations = art.iterations + 1
+        let iterations = art.iterations + 1
         art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
         art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
         
         let system = LSystem(rules: [art.axiom!, art.rule!], transitions: [])
-        var lSystemResult = system.produceOutput(input: "axioma", iterations: iterations)
-        if system.produceOutput(input: "axioma", iterations: iterations+1).outputElements.count > 2500 {
-            stepperView.plusButton.isEnabled = false
-        }
-    
-        while lSystemResult.outputElements.count > 2500 {
-            iterations -= 1
-            lSystemResult = system.produceOutput(input: "axioma", iterations: iterations)
-            stepperView.plusButton.isEnabled = false
-        }
+        let lSystemResult = system.produceOutput(input: "axioma", iterations: iterations)
         
         let renderer = Renderer()
         return renderer.generateLayer(byResult: lSystemResult, frame: frame, lineColor: art.lineColor ?? .appBlue, angle: CGFloat(art.angle) * CGFloat.pi/180, lineWidth: lineWidth, padding: padding)
@@ -44,19 +35,38 @@ class GeneratorViewModel {
         UIImageWriteToSavedPhotosAlbum(exportView.asImage(withScale: 3), nil, nil, nil)
     }
     
-    func exportGifFrom(art: Art, stepperView: GeneratorStepperView, completion: () -> ()) {
-        var images: [UIImage] = []
+    func exportGifFrom(art: Art, stepperView: GeneratorStepperView, completion: @escaping () -> ()) {
         let exportView = UIView(frame: CGRect(x: 0, y: 0, width: 900, height: 1600))
         exportView.backgroundColor = art.backgroundColor
+        let frame = exportView.frame
+        var framesDict: [Int: CAShapeLayer] = [:]
+        let framesDictSemaphore = DispatchSemaphore(value: 1)
+        let frameRenderingGroup = DispatchGroup()
         
-        for angle in 0...360 {
-            exportView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-            art.angle = angle
-            exportView.layer.addSublayer(renderImageFrom(art: art, with: exportView.frame, stepperView: stepperView, lineWidth: 8, padding: 300))
-            images.append(exportView.asImage(withScale: 0.5))
+        for angle in 0..<360 {
+            DispatchQueue.global(qos: .userInitiated).async {
+                frameRenderingGroup.enter()
+                let copy = art.copy()
+                copy.angle = angle
+                let layer = self.renderImageFrom(art: copy, with: frame, stepperView: stepperView, lineWidth: 8, padding: 300)
+                framesDictSemaphore.wait()
+                framesDict[angle] = layer
+                framesDictSemaphore.signal()
+                frameRenderingGroup.leave()
+            }
         }
-        UIImage.animatedGif(from: images)
         
-        completion()
+        frameRenderingGroup.wait()
+        DispatchQueue.main.async {
+            var images: [UIImage] = []
+            for angle in 0..<360 {
+                exportView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+                exportView.layer.addSublayer(framesDict[angle]!)
+                images.append(exportView.asImage(withScale: 0.5))
+            }
+            UIImage.animatedGif(from: images)
+            completion()
+        }
+        
     }
 }

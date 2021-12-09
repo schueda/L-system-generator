@@ -299,7 +299,23 @@ class GeneratorViewController: UIViewController {
     
     func renderImage() {
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        checkSizeLimit()
         lSystemView.layer.addSublayer(viewModel.renderImageFrom(art: art, with: lSystemView.frame, stepperView: stepperView, lineWidth: 3, padding: 8))
+    }
+    
+    func checkSizeLimit() {
+        let system = LSystem(rules: [Art.getLSystemRule(for: art.axiomString, to: "axioma"), Art.getLSystemRule(for: art.ruleString, to: "L")], transitions: [])
+        var lSystemResult = system.produceOutput(input: "axioma", iterations: art.iterations)
+        if system.produceOutput(input: "axioma", iterations: art.iterations+1).outputElements.count > 2500 {
+            stepperView.plusButton.isEnabled = false
+        }
+        
+        while lSystemResult.outputElements.count > 2500 {
+            art.iterations -= 1
+            lSystemResult = system.produceOutput(input: "axioma", iterations: art.iterations)
+            stepperView.plusButton.isEnabled = false
+            stepperView.setIterations(art.iterations)
+        }
     }
     
     func setEdit(to barButton: UIBarButtonItem?){

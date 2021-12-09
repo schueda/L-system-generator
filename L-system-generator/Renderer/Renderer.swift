@@ -12,6 +12,43 @@ import UIKit
 
 class Renderer {
     private let path = UIBezierPath()
+    private lazy var actionToMethod: [RendererAction: () -> Void] = {
+        [
+            .line: {
+                self.createLine(drawing: true)
+            },
+            .circle: {
+                self.createCircle()
+            },
+            .lineLeftArc: {
+                self.createLineAndArc(clockwise: true)
+            },
+            .lineRightArc: {
+                self.createLineAndArc(clockwise: false)
+            },
+            .skip: {
+                self.createLine(drawing: false)
+            },
+            .rotateClockwise: {
+                guard let angle = self.angle else { return }
+                self.currentAngle -= angle
+            },
+            .rotateAntiClockwise: {
+                guard let angle = self.angle else { return }
+                self.currentAngle += angle
+            },
+            .pushState: {
+                let currentTurtleState = TurtleState(currentAngle: self.currentAngle, currentPosition: self.path.currentPoint, lineLength: self.lineLength)
+                self.turtleStates.append(currentTurtleState)
+            },
+            .popState: {
+                guard let savedState = self.turtleStates.popLast() else { return }
+                self.path.move(to: savedState.currentPosition)
+                self.currentAngle = savedState.currentAngle
+                self.lineLength = savedState.lineLength
+            }
+        ]
+    }()
     
     var angle: CGFloat?
     var currentAngle: CGFloat = -CGFloat.pi/2
@@ -52,32 +89,7 @@ class Renderer {
     }
     
     private func processAction(_ action: RendererAction) {
-        switch action {
-        case .line:
-            createLine(drawing: true)
-        case .circle:
-            createCircle()
-        case .lineLeftArc:
-            createLineAndArc(clockwise: true)
-        case .lineRightArc:
-            createLineAndArc(clockwise: false)
-        case .skip:
-            createLine(drawing: false)
-        case .rotateAntiClockwise:
-            guard let angle = angle else { return }
-            currentAngle += angle
-        case .rotateClockwise:
-            guard let angle = angle else { return }
-            currentAngle -= angle
-        case .pushState:
-            let currentTurtleState = TurtleState(currentAngle: currentAngle, currentPosition: path.currentPoint, lineLength: lineLength)
-            turtleStates.append(currentTurtleState)
-        case .popState:
-            guard let savedState = turtleStates.popLast() else { return }
-            path.move(to: savedState.currentPosition)
-            currentAngle = savedState.currentAngle
-            lineLength = savedState.lineLength
-        }
+        actionToMethod[action]?()
     }
     
     private func createLine(drawing: Bool) {
@@ -119,7 +131,7 @@ struct TurtleState {
     let lineLength: CGFloat
 }
 
-enum RendererAction {
+enum RendererAction: Hashable {
     case line
     case circle
     case lineLeftArc
