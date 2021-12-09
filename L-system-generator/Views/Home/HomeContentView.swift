@@ -78,7 +78,7 @@ class HomeContentView: UIView {
     }()
     
     @objc func clickedGenerator() {
-        navigationController?.pushViewController(GeneratorViewController(type: .edit, viewModel: GeneratorViewModel()), animated: true)
+        navigationController?.pushViewController(GeneratorViewController(state: .edit, viewModel: GeneratorViewModel()), animated: true)
     }
     
     lazy var galleryButton: UIButton = {

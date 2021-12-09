@@ -86,7 +86,7 @@ class GalleryViewController: UIViewController {
 
 extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(GeneratorViewController(type: .view, art: arts[indexPath.row], viewModel: GeneratorViewModel()), animated: true)
+        navigationController?.pushViewController(GeneratorViewController(state: .view, art: arts[indexPath.row], viewModel: GeneratorViewModel()), animated: true)
     }
 }
 

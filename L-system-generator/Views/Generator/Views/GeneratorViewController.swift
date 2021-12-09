@@ -9,7 +9,7 @@ import UIKit
 import Angelo
 
 class GeneratorViewController: UIViewController {
-    let type: GeneratorState
+    let state: GeneratorState
     var art: Art
     let viewModel: GeneratorViewModel
     
@@ -18,7 +18,7 @@ class GeneratorViewController: UIViewController {
         stack.axis = .horizontal
         stack.spacing = 8
         stack.distribution = .fillEqually
-        stack.alpha = type == .edit ? 1 : 0
+        stack.alpha = state == .edit ? 1 : 0
         return stack
     }()
     
@@ -55,7 +55,7 @@ class GeneratorViewController: UIViewController {
         stack.axis = .horizontal
         stack.spacing = 8
         stack.distribution = .fill
-        stack.alpha = type == .edit ? 1 : 0
+        stack.alpha = state == .edit ? 1 : 0
         return stack
     }()
     
@@ -73,7 +73,7 @@ class GeneratorViewController: UIViewController {
     
     lazy var colorsView: GeneratorColorsView = {
         let view = GeneratorColorsView(parent: self)
-        view.alpha = type == .edit ? 1 : 0
+        view.alpha = state == .edit ? 1 : 0
         return view
     }()
     
@@ -84,50 +84,36 @@ class GeneratorViewController: UIViewController {
         button.setTitleColor(.label, for: .normal)
         button.addTarget(self, action: #selector(clickedExportImage), for: .touchUpInside)
         button.layer.cornerRadius = 10
-        button.alpha = type == .edit ? 0 : 1
+        button.alpha = state == .edit ? 0 : 1
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        button.setTitle("Salva", for: .disabled)
         return button
     }()
+    
+    @objc func clickedExportImage() {
+        
+        viewModel.exportImageFrom(art: art, stepperView: stepperView)
+        clickedExportGif()
+        //        feedbackView.setToConcluded()
+    }
+    
     
     lazy var keyboardView: KeyboardView = {
         let view = KeyboardView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: 250), parent: self)
         return view
     }()
     
-    lazy var feedbackView: UIView = {
-        let view = UIView()
+    lazy var feedbackView: GeneratorFeedbackView = {
+        let view = GeneratorFeedbackView()
         
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-        let bluredView = UIVisualEffectView(effect: blurEffect)
-        view.addSubview(bluredView)
-        bluredView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        let spinner = UIActivityIndicatorView(style: .large)
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        spinner.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        
-        view.alpha = 0
-        view.layer.cornerRadius = 10
-        view.clipsToBounds = true
         return view
     }()
     
-    @objc func clickedExportImage() {
-        viewModel.exportImageFrom(art: art, stepperView: stepperView)
-        clickedExportGif()
-    }
     
     @objc func clickedExportGif() {
-        feedbackView.alpha = 1
+        feedbackView.setToLoading()
         DispatchQueue.main.async {
             self.viewModel.exportGifFrom(art: self.art, stepperView: self.stepperView) {
-                self.feedbackView.alpha = 0
+                self.feedbackView.setToConcluded()
             }
         }
     }
@@ -137,13 +123,18 @@ class GeneratorViewController: UIViewController {
         view.backgroundColor = .systemBackground
         
         setupNavigationBar()
+        
         setupRulesStack()
         setupLSystemView()
         setupNumbersStack()
         setupColorsView()
+        
         setupExportButton()
-        setupKeyboardView()
+        setupGifButton()
+        
         setupFeedbackView()
+        
+        setupKeyboardView()
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.renderImage()
@@ -156,7 +147,7 @@ class GeneratorViewController: UIViewController {
         navigationItem.backBarButtonItem = backButton
         
         let rightButton = UIBarButtonItem()
-        if type == .edit {
+        if state == .edit {
             setSave(to: rightButton)
         } else {
             setEdit(to: rightButton)
@@ -233,9 +224,10 @@ class GeneratorViewController: UIViewController {
         }
     }
     
-    private func setupKeyboardView() {
-        view.addSubview(keyboardView)
+    private func setupGifButton() {
+        
     }
+    
     
     private func setupFeedbackView() {
         view.addSubview(feedbackView)
@@ -244,6 +236,10 @@ class GeneratorViewController: UIViewController {
             make.height.equalTo(100)
             make.width.equalTo(100)
         }
+    }
+    
+    private func setupKeyboardView() {
+        view.addSubview(keyboardView)
     }
     
     func showKeyboard() {
@@ -339,8 +335,8 @@ class GeneratorViewController: UIViewController {
         exportImageButton.alpha = 1
     }
     
-    init(type: GeneratorState, art: Art = Art(), viewModel: GeneratorViewModel) {
-        self.type = type
+    init(state: GeneratorState, art: Art = Art(), viewModel: GeneratorViewModel) {
+        self.state = state
         self.art = art
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
