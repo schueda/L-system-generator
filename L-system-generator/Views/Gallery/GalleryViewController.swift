@@ -79,8 +79,7 @@ class GalleryViewController: UIViewController {
         galleryPlaceholder.snp.makeConstraints { make in
             make.height.equalTo(200)
             make.width.equalTo(200)
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
 }

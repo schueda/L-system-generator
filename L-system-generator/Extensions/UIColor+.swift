@@ -32,4 +32,11 @@ extension UIColor {
     open class var appWhite: UIColor { get {
         UIColor(named: "appWhite")!
     }}
+    
+    static func getRamdomPair() -> (background: UIColor, line: UIColor) {
+        var colors: [UIColor] = [.appBlue, .appWhite, .appRed, .appGreen, .appPurple, .appYellow].shuffled()
+        let firstColor = colors.removeFirst()
+        let secondColor = colors.first ?? .appBlue
+        return (firstColor, secondColor)
+    }
 }

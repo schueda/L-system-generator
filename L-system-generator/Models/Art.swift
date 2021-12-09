@@ -39,7 +39,8 @@ class Art: Codable {
     }
     
     convenience init() {
-        self.init(axiomString: RuleGenerator.shared.getRamdomRule(), ruleString: RuleGenerator.shared.getRamdomRule(), iterations: 3, angle: 90, backgroundColor: .appWhite, lineColor: .appBlue)
+        let colors = UIColor.getRamdomPair()
+        self.init(axiomString: RuleGenerator.shared.getRamdomRule(), ruleString: RuleGenerator.shared.getRamdomRule(), iterations: 3, angle: Int.random(in: 0...180), backgroundColor: colors.background, lineColor: colors.line)
     }
     
     enum CodingKeys: CodingKey {

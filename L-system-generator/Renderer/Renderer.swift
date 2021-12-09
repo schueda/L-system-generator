@@ -32,7 +32,7 @@ class Renderer {
         "]": .popState
     ]
     
-    func generateLayer(byResult lSystemResult: LSystemResult, frame: CGRect, lineColor: UIColor, angle: CGFloat) -> CAShapeLayer {
+    func generateLayer(byResult lSystemResult: LSystemResult, frame: CGRect, lineColor: UIColor, angle: CGFloat, lineWidth: CGFloat, padding: CGFloat) -> CAShapeLayer {
         path.move(to: CGPoint(x: frame.midX, y: 0))
         self.angle = angle
         
@@ -42,8 +42,8 @@ class Renderer {
         }
         
         let layer = CAShapeLayer()
-        layer.path = path.cgPath.resized(to: frame)
-        layer.lineWidth = 3
+        layer.path = path.cgPath.resized(to: frame, padding: padding)
+        layer.lineWidth = lineWidth
         layer.fillColor = UIColor.clear.cgColor
         layer.strokeColor = lineColor.cgColor
         

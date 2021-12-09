@@ -16,7 +16,7 @@ class GeneratorViewModel {
         artRepository.saveArt(art)
     }
     
-    func renderImageFrom(_ art: Art, with frame: CGRect, stepperView: GeneratorStepperView) -> CAShapeLayer {
+    func renderImageFrom(art: Art, with frame: CGRect, stepperView: GeneratorStepperView, lineWidth: CGFloat, padding: CGFloat) -> CAShapeLayer {
         var iterations = art.iterations + 1
         art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
         art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
@@ -34,6 +34,29 @@ class GeneratorViewModel {
         }
         
         let renderer = Renderer()
-        return renderer.generateLayer(byResult: lSystemResult, frame: frame, lineColor: art.lineColor ?? .appBlue, angle: CGFloat(art.angle) * CGFloat.pi/180)
+        return renderer.generateLayer(byResult: lSystemResult, frame: frame, lineColor: art.lineColor ?? .appBlue, angle: CGFloat(art.angle) * CGFloat.pi/180, lineWidth: lineWidth, padding: padding)
+    }
+    
+    func exportImageFrom(art: Art, stepperView: GeneratorStepperView) {
+        let exportView = UIView(frame: CGRect(x: 0, y: 0, width: 900, height: 1600))
+        exportView.backgroundColor = art.backgroundColor
+        exportView.layer.addSublayer(renderImageFrom(art: art, with: exportView.frame, stepperView: stepperView, lineWidth: 8, padding: 100))
+        UIImageWriteToSavedPhotosAlbum(exportView.asImage(withScale: 3), nil, nil, nil)
+    }
+    
+    func exportGifFrom(art: Art, stepperView: GeneratorStepperView, completion: () -> ()) {
+        var images: [UIImage] = []
+        let exportView = UIView(frame: CGRect(x: 0, y: 0, width: 900, height: 1600))
+        exportView.backgroundColor = art.backgroundColor
+        
+        for angle in 0...360 {
+            exportView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            art.angle = angle
+            exportView.layer.addSublayer(renderImageFrom(art: art, with: exportView.frame, stepperView: stepperView, lineWidth: 8, padding: 300))
+            images.append(exportView.asImage(withScale: 0.5))
+        }
+        UIImage.animatedGif(from: images)
+        
+        completion()
     }
 }

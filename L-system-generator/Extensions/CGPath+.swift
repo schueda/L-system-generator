@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 extension CGPath {
-    func resized(to rect: CGRect) -> CGPath {
+    func resized(to rect: CGRect, padding: CGFloat) -> CGPath {
         let boundingBox = self.boundingBox
         let boundingBoxAspectRatio = boundingBox.width / boundingBox.height
         let viewAspectRatio = rect.width / rect.height
         let scaleFactor = boundingBoxAspectRatio > viewAspectRatio ?
-            (rect.width - 8) / boundingBox.width :
-            (rect.height - 8) / boundingBox.height
+            (rect.width - padding) / boundingBox.width :
+            (rect.height - padding) / boundingBox.height
 
         let scaledSize = boundingBox.size.applying(CGAffineTransform(scaleX: scaleFactor, y: scaleFactor))
         let centerOffset = CGSize(

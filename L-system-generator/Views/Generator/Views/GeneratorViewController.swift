@@ -95,30 +95,40 @@ class GeneratorViewController: UIViewController {
         return view
     }()
     
+    lazy var feedbackView: UIView = {
+        let view = UIView()
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let bluredView = UIVisualEffectView(effect: blurEffect)
+        view.addSubview(bluredView)
+        bluredView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        let spinner = UIActivityIndicatorView(style: .large)
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        spinner.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        view.alpha = 0
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        return view
+    }()
+    
     @objc func clickedExportImage() {
-        UIImageWriteToSavedPhotosAlbum(lSystemView.asImage(withScale: 10), nil, nil, nil)
-        self.exportImageButton.isEnabled = false
+        viewModel.exportImageFrom(art: art, stepperView: stepperView)
         clickedExportGif()
     }
     
     @objc func clickedExportGif() {
-        var images: [UIImage] = []
-        let system = LSystem(rules: [art.axiom!, art.rule!], transitions: [])
-        let lSystemResult = system.produceOutput(input: "axioma", iterations: art.iterations + 1)
-        for angle in 0...180 {
-            lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-            let renderer = Renderer()
-            let layer = renderer.generateLayer(byResult: lSystemResult,
-                                               frame: lSystemView.frame,
-                                               lineColor: art.lineColor ?? .appBlue,
-                                               angle: CGFloat(angle) * CGFloat.pi/180)
-            lSystemView.layer.addSublayer(layer)
-            
-            images.append(lSystemView.asImage(withScale: 1))
-        }
-        
-        DispatchQueue.global(qos: .background).async {
-            UIImage.animatedGif(from: images)
+        feedbackView.alpha = 1
+        DispatchQueue.main.async {
+            self.viewModel.exportGifFrom(art: self.art, stepperView: self.stepperView) {
+                self.feedbackView.alpha = 0
+            }
         }
     }
     
@@ -133,6 +143,7 @@ class GeneratorViewController: UIViewController {
         setupColorsView()
         setupExportButton()
         setupKeyboardView()
+        setupFeedbackView()
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.renderImage()
@@ -226,6 +237,15 @@ class GeneratorViewController: UIViewController {
         view.addSubview(keyboardView)
     }
     
+    private func setupFeedbackView() {
+        view.addSubview(feedbackView)
+        feedbackView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+        }
+    }
+    
     func showKeyboard() {
         UIView.animate(withDuration: 0.5) {
             self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
@@ -240,20 +260,20 @@ class GeneratorViewController: UIViewController {
     
     func setAxiom(_ axiom: String?) {
         guard let axiom = axiom else { return }
-        art.axiomString = axiom
         if !axiom.contains("L") && !axiom.contains("C") && !axiom.contains("E") && !axiom.contains("D") {
             return
         }
+        art.axiomString = axiom
         art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
         renderImage()
     }
     
     func setRule(_ rule: String?) {
         guard let rule = rule else { return }
-        art.ruleString = rule
         if !rule.contains("L") && !rule.contains("C") && !rule.contains("E") && !rule.contains("D") {
             return
         }
+        art.ruleString = rule
         art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
         renderImage()
     }
@@ -283,7 +303,7 @@ class GeneratorViewController: UIViewController {
     
     func renderImage() {
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
-        lSystemView.layer.addSublayer(viewModel.renderImageFrom(art, with: lSystemView.frame, stepperView: stepperView))
+        lSystemView.layer.addSublayer(viewModel.renderImageFrom(art: art, with: lSystemView.frame, stepperView: stepperView, lineWidth: 3, padding: 8))
     }
     
     func setEdit(to barButton: UIBarButtonItem?){

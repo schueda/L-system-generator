@@ -23,8 +23,8 @@ class HomeContentView: UIView {
             view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
         }
         
-        var colors: [UIColor] = [.appBlue, .appWhite, .appRed, .appGreen, .appPurple, .appYellow].shuffled()
-        view.backgroundColor = colors.removeFirst()
+        let colors = UIColor.getRamdomPair()
+        view.backgroundColor = colors.background
         
         let axiom = LSystemRule(input: "axiom", outputs: RuleGenerator.shared.getRamdomRule().asArray())
         let rule = LSystemRule(input: "L", outputs: RuleGenerator.shared.getRamdomRule().asArray())
@@ -32,8 +32,9 @@ class HomeContentView: UIView {
         
         let layer = Renderer().generateLayer(byResult: result,
                                              frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height),
-                                             lineColor: colors.first ?? .appWhite,
-                                             angle: CGFloat.pi * CGFloat(Int.random(in: 1...179))/180)
+                                             lineColor: colors.line,
+                                             angle: CGFloat.pi * CGFloat(Int.random(in: 1...179))/180,
+                                             lineWidth: 5, padding: 0)
         view.layer.addSublayer(layer)
     }
     
