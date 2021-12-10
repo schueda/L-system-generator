@@ -113,10 +113,6 @@ class GeneratorViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        let backButton = UIBarButtonItem()
-        backButton.title = "Voltar"
-        navigationItem.backBarButtonItem = backButton
-        
         let rightButton = UIBarButtonItem()
         if state == .edit {
             setSave(to: rightButton)
@@ -210,15 +206,17 @@ class GeneratorViewController: UIViewController {
     }
     
     func showKeyboard() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
         }
     }
     
     func hideKeyboard() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.keyboardView.frame.origin.y = UIScreen.main.bounds.height
         }
+        keyboardView.label = nil
+        keyboardView.scrollView = nil
     }
     
     func setAxiom(_ axiom: String?) {
@@ -295,7 +293,7 @@ class GeneratorViewController: UIViewController {
         setSave(to: navigationItem.rightBarButtonItem)
         
         
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 1
             self.exportView.alpha = 0
             self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
@@ -326,12 +324,13 @@ class GeneratorViewController: UIViewController {
         art.image = lSystemView.asImage()
         lSystemView.layer.cornerRadius = 10
         viewModel.saveArt(art)
+        hideKeyboard()
         
         setEdit(to: navigationItem.rightBarButtonItem)
         self.numbersStack.alpha = 0
         self.colorsView.alpha = 0
         
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 0
             self.exportView.alpha = 1
             self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }

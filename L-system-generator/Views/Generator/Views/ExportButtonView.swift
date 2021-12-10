@@ -12,7 +12,7 @@ class ExportButtonView: UIView {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = type == .image ? UIImage(systemName: "photo.on.rectangle") : UIImage(systemName: "play.circle")
+        imageView.image = type == .image ? UIImage(systemName: "photo") : UIImage(systemName: "play.circle")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.tintColor = .label

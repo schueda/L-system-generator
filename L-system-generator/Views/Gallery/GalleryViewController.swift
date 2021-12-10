@@ -72,6 +72,7 @@ class GalleryViewController: UIViewController {
     
     func setupNavigation() {
         navigationController?.navigationBar.backgroundColor = .clear
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Voltar", style: .plain, target: nil, action: nil)
     }
 
     func setupGaleryPlaceholder() {

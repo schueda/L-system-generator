@@ -97,8 +97,6 @@ class KeyboardView: UIView {
     @objc func returnClicked() {
         scrollView?.backgroundColor = .clear
         parent.hideKeyboard()
-        label = nil
-        scrollView = nil
     }
     
     init(frame: CGRect = .zero, parent: GeneratorViewController) {
