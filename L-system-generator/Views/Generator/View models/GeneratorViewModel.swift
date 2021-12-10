@@ -16,7 +16,7 @@ class GeneratorViewModel {
         artRepository.saveArt(art)
     }
     
-    func renderImageFrom(art: Art, with frame: CGRect, stepperView: GeneratorStepperView, lineWidth: CGFloat, padding: CGFloat) -> CAShapeLayer {
+    func renderImageFrom(art: Art, with frame: CGRect, lineWidth: CGFloat, padding: CGFloat) -> CAShapeLayer {
         let iterations = art.iterations + 1
         art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
         art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
@@ -28,14 +28,14 @@ class GeneratorViewModel {
         return renderer.generateLayer(byResult: lSystemResult, frame: frame, lineColor: art.lineColor ?? .appBlue, angle: CGFloat(art.angle) * CGFloat.pi/180, lineWidth: lineWidth, padding: padding)
     }
     
-    func exportImageFrom(art: Art, stepperView: GeneratorStepperView) {
+    func exportImageFrom(art: Art) {
         let exportView = UIView(frame: CGRect(x: 0, y: 0, width: 900, height: 1600))
         exportView.backgroundColor = art.backgroundColor
-        exportView.layer.addSublayer(renderImageFrom(art: art, with: exportView.frame, stepperView: stepperView, lineWidth: 8, padding: 100))
+        exportView.layer.addSublayer(renderImageFrom(art: art, with: exportView.frame, lineWidth: 8, padding: 100))
         UIImageWriteToSavedPhotosAlbum(exportView.asImage(withScale: 3), nil, nil, nil)
     }
     
-    func exportGifFrom(art: Art, stepperView: GeneratorStepperView, completion: @escaping () -> ()) {
+    func exportGifFrom(art: Art, completion: @escaping () -> ()) {
         let exportView = UIView(frame: CGRect(x: 0, y: 0, width: 900, height: 1600))
         exportView.backgroundColor = art.backgroundColor
         let frame = exportView.frame
@@ -48,7 +48,7 @@ class GeneratorViewModel {
                 frameRenderingGroup.enter()
                 let copy = art.copy()
                 copy.angle = angle
-                let layer = self.renderImageFrom(art: copy, with: frame, stepperView: stepperView, lineWidth: 8, padding: 300)
+                let layer = self.renderImageFrom(art: copy, with: frame, lineWidth: 8, padding: 300)
                 framesDictSemaphore.wait()
                 framesDict[angle] = layer
                 framesDictSemaphore.signal()

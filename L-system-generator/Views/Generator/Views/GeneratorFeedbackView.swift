@@ -17,7 +17,7 @@ class GeneratorFeedbackView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.image = UIImage(systemName: "checkmark.circle")
-        imageView.tintColor = .secondaryLabel
+        imageView.tintColor = .label
         return imageView
     }()
     

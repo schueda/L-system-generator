@@ -34,18 +34,11 @@ class GeneratorViewController: UIViewController {
         return view
     }()
     
-    lazy var lSystemContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .appWhite
-        view.layer.cornerRadius = 20
-        view.clipsToBounds = true
-        return view
-    }()
-    
     lazy var lSystemView: UIView = {
         let view = UIView()
-        view.backgroundColor = .appWhite
+        view.layer.cornerRadius = 20
         view.clipsToBounds = true
+        view.backgroundColor = art.backgroundColor
         return view
     }()
     
@@ -77,25 +70,11 @@ class GeneratorViewController: UIViewController {
         return view
     }()
     
-    lazy var exportImageButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .systemGray6
-        button.setTitle("Salvar no dispositivo", for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        button.addTarget(self, action: #selector(clickedExportImage), for: .touchUpInside)
-        button.layer.cornerRadius = 10
-        button.alpha = state == .edit ? 0 : 1
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        return button
+    lazy var exportView: GeneratorExportView = {
+        let view = GeneratorExportView(viewModel: viewModel, parent: self)
+        view.alpha = state == .edit ? 0 : 1
+        return view
     }()
-    
-    @objc func clickedExportImage() {
-        
-        viewModel.exportImageFrom(art: art, stepperView: stepperView)
-        clickedExportGif()
-        //        feedbackView.setToConcluded()
-    }
-    
     
     lazy var keyboardView: KeyboardView = {
         let view = KeyboardView(frame: CGRect(x: 0, y: UIScreen.main.bounds.height, width: UIScreen.main.bounds.width, height: 250), parent: self)
@@ -104,19 +83,8 @@ class GeneratorViewController: UIViewController {
     
     lazy var feedbackView: GeneratorFeedbackView = {
         let view = GeneratorFeedbackView()
-        
         return view
     }()
-    
-    
-    @objc func clickedExportGif() {
-        feedbackView.setToLoading()
-        DispatchQueue.main.async {
-            self.viewModel.exportGifFrom(art: self.art, stepperView: self.stepperView) {
-                self.feedbackView.setToConcluded()
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,15 +97,18 @@ class GeneratorViewController: UIViewController {
         setupNumbersStack()
         setupColorsView()
         
-        setupExportButton()
-        setupGifButton()
+        setupExportView()
         
         setupFeedbackView()
         
         setupKeyboardView()
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.renderImage()
+            if self.state == .view {
+                self.renderImage(width: 3.5)
+            } else {
+                self.renderImage()
+            }
         }
     }
     
@@ -171,29 +142,29 @@ class GeneratorViewController: UIViewController {
     }
     
     private func setupLSystemView() {
-        view.addSubview(lSystemContainerView)
-        lSystemContainerView.snp.makeConstraints { make in
-            make.top.equalTo(rulesStack.snp.bottom).offset(16)
-            make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
-            make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
-            make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+        view.addSubview(lSystemView)
+        if state == .edit {
+            lSystemView.snp.makeConstraints { make in
+                make.top.equalTo(rulesStack.snp.bottom).offset(16)
+                make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
+                make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
+                make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+            }
+        } else {
+            lSystemView.snp.makeConstraints { make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-16)
+                make.height.equalTo(UIScreen.main.bounds.height * 0.6)
+            }
         }
-        lSystemContainerView.backgroundColor = art.backgroundColor
         
-        lSystemContainerView.addSubview(lSystemView)
-        lSystemView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(16)
-            make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalToSuperview().offset(-16)
-        }
-        lSystemView.backgroundColor = art.backgroundColor
     }
     
     private func setupNumbersStack() {
         view.addSubview(numbersStack)
         numbersStack.snp.makeConstraints { make in
-            make.top.equalTo(lSystemContainerView.snp.bottom).offset(16)
+            make.top.equalTo(lSystemView.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(70)
@@ -214,18 +185,14 @@ class GeneratorViewController: UIViewController {
         }
     }
     
-    private func setupExportButton() {
-        view.addSubview(exportImageButton)
-        exportImageButton.snp.makeConstraints { make in
-            make.top.equalTo(lSystemContainerView.snp.bottom).offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(200)
-            make.height.equalTo(50)
+    private func setupExportView() {
+        view.addSubview(exportView)
+        exportView.snp.makeConstraints { make in
+            make.top.equalTo(lSystemView.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(120)
         }
-    }
-    
-    private func setupGifButton() {
-        
     }
     
     
@@ -293,14 +260,13 @@ class GeneratorViewController: UIViewController {
     func setLSystemBackgroundColor(_ color: UIColor?) {
         guard let color = color else { return }
         art.backgroundColor = color
-        lSystemContainerView.backgroundColor = color
         lSystemView.backgroundColor = color
     }
     
-    func renderImage() {
+    func renderImage(width: CGFloat = 3) {
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         checkSizeLimit()
-        lSystemView.layer.addSublayer(viewModel.renderImageFrom(art: art, with: lSystemView.frame, stepperView: stepperView, lineWidth: 3, padding: 8))
+        lSystemView.layer.addSublayer(viewModel.renderImageFrom(art: art, with: lSystemView.frame, lineWidth: width, padding: 32))
     }
     
     func checkSizeLimit() {
@@ -327,10 +293,25 @@ class GeneratorViewController: UIViewController {
     
     @objc func clickedEdit() {
         setSave(to: navigationItem.rightBarButtonItem)
-        rulesStack.alpha = 1
-        numbersStack.alpha = 1
-        colorsView.alpha = 1
-        exportImageButton.alpha = 0
+        
+        
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+            self.rulesStack.alpha = 1
+            self.exportView.alpha = 0
+            self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            
+            self.lSystemView.snp.remakeConstraints { make in
+                make.top.equalTo(self.rulesStack.snp.bottom).offset(16)
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-16)
+                make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+            }
+            self.view.layoutIfNeeded()
+        }) { _ in
+            self.renderImage()
+            self.colorsView.alpha = 1
+            self.numbersStack.alpha = 1
+        }
     }
     
     func setSave(to barButton: UIBarButtonItem?) {
@@ -341,14 +322,29 @@ class GeneratorViewController: UIViewController {
     }
     
     @objc func clickedSave() {
+        lSystemView.layer.cornerRadius = 0
         art.image = lSystemView.asImage()
+        lSystemView.layer.cornerRadius = 10
         viewModel.saveArt(art)
         
         setEdit(to: navigationItem.rightBarButtonItem)
-        numbersStack.alpha = 0
-        rulesStack.alpha = 0
-        colorsView.alpha = 0
-        exportImageButton.alpha = 1
+        self.numbersStack.alpha = 0
+        self.colorsView.alpha = 0
+        
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
+            self.rulesStack.alpha = 0
+            self.exportView.alpha = 1
+            self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+            self.lSystemView.snp.remakeConstraints { make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
+                make.leading.equalToSuperview().offset(16)
+                make.trailing.equalToSuperview().offset(-16)
+                make.height.equalTo(UIScreen.main.bounds.height * 0.6)
+            }
+            self.view.layoutIfNeeded()
+        }) { _ in
+            self.renderImage(width: 3.5)
+        }
     }
     
     init(state: GeneratorState, art: Art = Art(), viewModel: GeneratorViewModel) {
