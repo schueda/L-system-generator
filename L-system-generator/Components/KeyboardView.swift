@@ -199,13 +199,16 @@ class KeyboardView: UIView {
     }
     
     @objc func addSymbol(_ sender: UIButton) {
-        label?.text? += sender.titleLabel?.text ?? ""
-        scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
-        
-        if label?.tag == 0 {
-            parent.setAxiom(label?.text)
-        } else {
-            parent.setRule(label?.text)
+        guard let text = label?.text else { return }
+        if text.count < 15 {
+            label?.text? += sender.titleLabel?.text ?? ""
+            scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
+            
+            if label?.tag == 0 {
+                parent.setAxiom(label?.text)
+            } else {
+                parent.setRule(label?.text)
+            }
         }
     }
     

@@ -270,11 +270,12 @@ class GeneratorViewController: UIViewController {
     func checkSizeLimit() {
         let system = LSystem(rules: [Art.getLSystemRule(for: art.axiomString, to: "axioma"), Art.getLSystemRule(for: art.ruleString, to: "L")], transitions: [])
         var lSystemResult = system.produceOutput(input: "axioma", iterations: art.iterations)
-        if system.produceOutput(input: "axioma", iterations: art.iterations+1).outputElements.count > 2500 {
+        print(lSystemResult.outputElements.count)
+        if system.produceOutput(input: "axioma", iterations: art.iterations+1).outputElements.count > 1500 {
             stepperView.plusButton.isEnabled = false
         }
         
-        while lSystemResult.outputElements.count > 2500 {
+        while lSystemResult.outputElements.count > 1500 {
             art.iterations -= 1
             lSystemResult = system.produceOutput(input: "axioma", iterations: art.iterations)
             stepperView.plusButton.isEnabled = false

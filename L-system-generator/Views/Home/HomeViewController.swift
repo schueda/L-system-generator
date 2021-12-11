@@ -30,5 +30,6 @@ class HomeViewController: UIViewController {
     
     func setupNavigationBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Voltar", style: .plain, target: nil, action: nil)
+        
     }
 }
