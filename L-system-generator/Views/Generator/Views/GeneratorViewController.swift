@@ -315,6 +315,7 @@ class GeneratorViewController: UIViewController {
     
     @objc func clickedEdit() {
         setSave(to: navigationItem.rightBarButtonItem)
+        DefaultAnalyticsService.shared.log(event: .editedArt(art: art))
         
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 1
@@ -347,6 +348,7 @@ class GeneratorViewController: UIViewController {
         art.image = lSystemView.asImage()
         lSystemView.layer.cornerRadius = 10
         viewModel.saveArt(art)
+        DefaultAnalyticsService.shared.log(event: .savedArt(art: art))
         hideKeyboard()
         
         setEdit(to: navigationItem.rightBarButtonItem)

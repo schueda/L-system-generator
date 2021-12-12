@@ -21,7 +21,7 @@ class ExportButtonView: UIView {
     
     lazy var label: UILabel = {
         let label = UILabel()
-        label.text = type == .image ? "Exportar PNG" : "Exportar GIF"
+        label.text = type == .image ? "Exportar JPEG" : "Exportar GIF"
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = .label
         label.textAlignment = .center

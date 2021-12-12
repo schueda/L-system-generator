@@ -33,6 +33,7 @@ class GeneratorExportView: UIView {
         
         DefaultAnalyticsService.shared.log(message: "exporting image for \(parent.art.debugDescription)")
         parent.feedbackView.setToConcluded()
+        DefaultAnalyticsService.shared.log(event: .exported(media: "jpeg"))
     }
     
     lazy var exportGifButton: UIButton = {
@@ -51,6 +52,7 @@ class GeneratorExportView: UIView {
                 self.parent.feedbackView.setToConcluded()
             }
         }
+        DefaultAnalyticsService.shared.log(event: .exported(media: "gif"))
     }
     
     init(frame: CGRect = .zero, viewModel: GeneratorViewModel, parent: GeneratorViewController) {

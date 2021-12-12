@@ -45,11 +45,11 @@ enum AnalyticsEvent {
     case randomized(field: String) //
     case changed(iterations: Int) //
     case changed(angle: Int) //
-    case changedBackgroundColor
-    case changedLineColor
+    case changedBackgroundColor //
+    case changedLineColor //
     
-    case savedArt(art: Art)
-    case exported(media: String)
+    case savedArt(art: Art) //
+    case exported(media: String) //
     
-    case editedArt(art: Art)
+    case editedArt(art: Art) //
 }
