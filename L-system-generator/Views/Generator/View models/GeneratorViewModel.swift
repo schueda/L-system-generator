@@ -43,6 +43,7 @@ class GeneratorViewModel {
         let framesDictSemaphore = DispatchSemaphore(value: 1)
         let frameRenderingGroup = DispatchGroup()
         
+        DefaultAnalyticsService.shared.log(message: "Starting rendering for \(art.debugDescription)")
         for angle in 0..<360 {
             DispatchQueue.global(qos: .userInitiated).async {
                 frameRenderingGroup.enter()
@@ -57,6 +58,7 @@ class GeneratorViewModel {
         }
         
         frameRenderingGroup.wait()
+        DefaultAnalyticsService.shared.log(message: "Generating images for \(art.debugDescription)")
         DispatchQueue.main.async {
             var images: [UIImage] = []
             for angle in 0..<360 {
@@ -64,7 +66,9 @@ class GeneratorViewModel {
                 exportView.layer.addSublayer(framesDict[angle]!)
                 images.append(exportView.asImage(withScale: 0.5))
             }
+            DefaultAnalyticsService.shared.log(message: "Exporting GIF for \(art.debugDescription)")
             UIImage.animatedGif(from: images)
+            DefaultAnalyticsService.shared.log(message: "Exported GIf for \(art.debugDescription)")
             completion()
         }
         

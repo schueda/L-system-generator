@@ -40,6 +40,8 @@ class GalleryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DefaultAnalyticsService.shared.log(message: "GalleryViewController viewed")
         setupView()
         setupCollectionView()
         setupNavigation()

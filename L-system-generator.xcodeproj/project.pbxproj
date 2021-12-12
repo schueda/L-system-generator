@@ -20,6 +20,8 @@
 		611D037727034FD500427DD6 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037627034FD500427DD6 /* HomeButtonView.swift */; };
 		611D037B27037BF200427DD6 /* GeneratorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D037A27037BF200427DD6 /* GeneratorViewController.swift */; };
 		611D03872703B70700427DD6 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611D03862703B70700427DD6 /* GalleryViewController.swift */; };
+		616B247C276537DD00BB646C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 616B247B276537DD00BB646C /* GoogleService-Info.plist */; };
+		616B247F2765419700BB646C /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616B247E2765419700BB646C /* AnalyticsService.swift */; };
 		61708FC2275E54F7009A2A15 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61708FC1275E54F7009A2A15 /* KeyboardView.swift */; };
 		61708FC6275F939D009A2A15 /* GeneratorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61708FC5275F939D009A2A15 /* GeneratorViewModel.swift */; };
 		619E70F6270CDD5D002EB702 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619E70F5270CDD5D002EB702 /* UIImage+.swift */; };
@@ -27,11 +29,9 @@
 		61CCFB4E2762A61400064C79 /* GeneratorExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CCFB4D2762A61300064C79 /* GeneratorExportView.swift */; };
 		61CCFB502762CEBE00064C79 /* ExportButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CCFB4F2762CEBE00064C79 /* ExportButtonView.swift */; };
 		61E577262703BBBC006B6952 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E577252703BBBC006B6952 /* GalleryCollectionViewCell.swift */; };
-		61E5772927053506006B6952 /* Angelo in Frameworks */ = {isa = PBXBuildFile; productRef = 61E5772827053506006B6952 /* Angelo */; };
 		61E5772E27054262006B6952 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5772D27054262006B6952 /* Renderer.swift */; };
 		61E5773127054CCD006B6952 /* CGPoint+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5773027054CCD006B6952 /* CGPoint+.swift */; };
 		61E5773327055338006B6952 /* CGPath+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E5773227055338006B6952 /* CGPath+.swift */; };
-		61E5773827065912006B6952 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61E5773727065912006B6952 /* IQKeyboardManagerSwift */; };
 		61E5773A2706AF5A006B6952 /* GeneratorRuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E577392706AF5A006B6952 /* GeneratorRuleView.swift */; };
 		61E7FB09270336D100A56703 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB08270336D100A56703 /* AppDelegate.swift */; };
 		61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB0A270336D100A56703 /* SceneDelegate.swift */; };
@@ -39,7 +39,7 @@
 		61E7FB12270336D600A56703 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61E7FB11270336D600A56703 /* Assets.xcassets */; };
 		61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB1D270342CC00A56703 /* HomeViewController.swift */; };
 		61E7FB202703436500A56703 /* HomeContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E7FB1F2703436500A56703 /* HomeContentView.swift */; };
-		61E7FB23270343E400A56703 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61E7FB22270343E400A56703 /* SnapKit */; };
+		D581F830EEA901DD1C834B11 /* Pods_L_system_generator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21CF3B70A90DC028011E9BD /* Pods_L_system_generator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +56,8 @@
 		611D037627034FD500427DD6 /* HomeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		611D037A27037BF200427DD6 /* GeneratorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorViewController.swift; sourceTree = "<group>"; };
 		611D03862703B70700427DD6 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
+		616B247B276537DD00BB646C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		616B247E2765419700BB646C /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		61708FC1275E54F7009A2A15 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		61708FC5275F939D009A2A15 /* GeneratorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorViewModel.swift; sourceTree = "<group>"; };
 		619E70F5270CDD5D002EB702 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
@@ -75,6 +77,9 @@
 		61E7FB16270336D600A56703 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61E7FB1D270342CC00A56703 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		61E7FB1F2703436500A56703 /* HomeContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContentView.swift; sourceTree = "<group>"; };
+		838CE6498657790DA319A0F0 /* Pods-L-system-generator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-L-system-generator.debug.xcconfig"; path = "Target Support Files/Pods-L-system-generator/Pods-L-system-generator.debug.xcconfig"; sourceTree = "<group>"; };
+		B21CF3B70A90DC028011E9BD /* Pods_L_system_generator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L_system_generator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B566F26D84C33037828A6F42 /* Pods-L-system-generator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-L-system-generator.release.xcconfig"; path = "Target Support Files/Pods-L-system-generator/Pods-L-system-generator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,15 +87,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61E5772927053506006B6952 /* Angelo in Frameworks */,
-				61E7FB23270343E400A56703 /* SnapKit in Frameworks */,
-				61E5773827065912006B6952 /* IQKeyboardManagerSwift in Frameworks */,
+				D581F830EEA901DD1C834B11 /* Pods_L_system_generator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		405AC315FE4261405B87D852 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B21CF3B70A90DC028011E9BD /* Pods_L_system_generator.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6113B27B2709FB0600EF95EB /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +212,8 @@
 			children = (
 				61E7FB07270336D100A56703 /* L-system-generator */,
 				61E7FB06270336D100A56703 /* Products */,
+				D7A3248CBA92AB7915C52067 /* Pods */,
+				405AC315FE4261405B87D852 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,6 +231,7 @@
 				61E7FB08270336D100A56703 /* AppDelegate.swift */,
 				61E7FB0A270336D100A56703 /* SceneDelegate.swift */,
 				61E7FB0C270336D100A56703 /* ViewController.swift */,
+				616B247E2765419700BB646C /* AnalyticsService.swift */,
 				611D037927037BC100427DD6 /* Views */,
 				61708FBE275E5492009A2A15 /* Components */,
 				61E5772C27054235006B6952 /* Renderer */,
@@ -226,6 +240,7 @@
 				6113B27F2709FC3A00EF95EB /* Models */,
 				61E7FB11270336D600A56703 /* Assets.xcassets */,
 				61E7FB16270336D600A56703 /* Info.plist */,
+				616B247B276537DD00BB646C /* GoogleService-Info.plist */,
 				6113B2792707FC4400EF95EB /* RuleGenerator.swift */,
 			);
 			path = "L-system-generator";
@@ -241,6 +256,15 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		D7A3248CBA92AB7915C52067 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				838CE6498657790DA319A0F0 /* Pods-L-system-generator.debug.xcconfig */,
+				B566F26D84C33037828A6F42 /* Pods-L-system-generator.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,9 +272,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61E7FB19270336D600A56703 /* Build configuration list for PBXNativeTarget "L-system-generator" */;
 			buildPhases = (
+				BCC9DAF0727FCBE5FEC30942 /* [CP] Check Pods Manifest.lock */,
 				61E7FB01270336D100A56703 /* Sources */,
 				61E7FB02270336D100A56703 /* Frameworks */,
 				61E7FB03270336D100A56703 /* Resources */,
+				1D1CBD5C0131F5E9CF813DA3 /* [CP] Embed Pods Frameworks */,
+				616B247D27653BC200BB646C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -258,9 +285,6 @@
 			);
 			name = "L-system-generator";
 			packageProductDependencies = (
-				61E7FB22270343E400A56703 /* SnapKit */,
-				61E5772827053506006B6952 /* Angelo */,
-				61E5773727065912006B6952 /* IQKeyboardManagerSwift */,
 			);
 			productName = "L-system-generator";
 			productReference = 61E7FB05270336D100A56703 /* L-system-generator.app */;
@@ -292,9 +316,6 @@
 			);
 			mainGroup = 61E7FAFC270336D100A56703;
 			packageReferences = (
-				61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */,
-				61E5773627065912006B6952 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 61E7FB06270336D100A56703 /* Products */;
 			projectDirPath = "";
@@ -311,10 +332,72 @@
 			buildActionMask = 2147483647;
 			files = (
 				61E7FB12270336D600A56703 /* Assets.xcassets in Resources */,
+				616B247C276537DD00BB646C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D1CBD5C0131F5E9CF813DA3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-L-system-generator/Pods-L-system-generator-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-L-system-generator/Pods-L-system-generator-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-L-system-generator/Pods-L-system-generator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		616B247D27653BC200BB646C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		BCC9DAF0727FCBE5FEC30942 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-L-system-generator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		61E7FB01270336D100A56703 /* Sources */ = {
@@ -347,6 +430,7 @@
 				61E577262703BBBC006B6952 /* GalleryCollectionViewCell.swift in Sources */,
 				61708FC2275E54F7009A2A15 /* KeyboardView.swift in Sources */,
 				61E7FB1E270342CC00A56703 /* HomeViewController.swift in Sources */,
+				616B247F2765419700BB646C /* AnalyticsService.swift in Sources */,
 				6113B27A2707FC4400EF95EB /* RuleGenerator.swift in Sources */,
 				6113B27827074B7700EF95EB /* UIColor+.swift in Sources */,
 				6113B285270A4B5700EF95EB /* UIView+.swift in Sources */,
@@ -390,7 +474,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -474,6 +558,7 @@
 		};
 		61E7FB1A270336D600A56703 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 838CE6498657790DA319A0F0 /* Pods-L-system-generator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -506,6 +591,7 @@
 		};
 		61E7FB1B270336D600A56703 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B566F26D84C33037828A6F42 /* Pods-L-system-generator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -558,51 +644,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/enzomaruffa/Angelo";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.6;
-			};
-		};
-		61E5773627065912006B6952 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
-			};
-		};
-		61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		61E5772827053506006B6952 /* Angelo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 61E5772727053506006B6952 /* XCRemoteSwiftPackageReference "Angelo" */;
-			productName = Angelo;
-		};
-		61E5773727065912006B6952 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 61E5773627065912006B6952 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
-		61E7FB22270343E400A56703 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 61E7FB21270343E400A56703 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 61E7FAFD270336D100A56703 /* Project object */;
 }

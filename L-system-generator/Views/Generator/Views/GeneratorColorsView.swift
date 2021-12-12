@@ -12,6 +12,36 @@ class GeneratorColorsView: UIView {
     
     let colors: [UIColor] = [.appRed, .appYellow, .appGreen, .appBlue, .appPurple, .appWhite]
     
+    lazy var lineLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.text = "Cor da linha"
+        return label
+    }()
+    
+    lazy var lineButtonsStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 6
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
+    lazy var lineButtons: [UIButton] = {
+        var lineButtons: [UIButton] = []
+        for color in colors {
+            let button = generateColorButton(color: color)
+            button.addTarget(self, action: #selector(lineButtonClicked), for: .touchUpInside)
+            lineButtons.append(button)
+        }
+        return lineButtons
+    }()
+    
+    @objc func lineButtonClicked(sender: UIButton) {
+        parent.setLSystemLineColor(sender.backgroundColor)
+        DefaultAnalyticsService.shared.log(event: .changedLineColor)
+    }
+    
     lazy var backgroundLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
@@ -46,35 +76,7 @@ class GeneratorColorsView: UIView {
     
     @objc func backgroundButtonClicked(sender: UIButton) {
         parent.setLSystemBackgroundColor(sender.backgroundColor)
-    }
-    
-    lazy var lineLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.text = "Cor da linha"
-        return label
-    }()
-    
-    lazy var lineButtonsStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.spacing = 6
-        stack.distribution = .fillEqually
-        return stack
-    }()
-    
-    lazy var lineButtons: [UIButton] = {
-        var lineButtons: [UIButton] = []
-        for color in colors {
-            let button = generateColorButton(color: color)
-            button.addTarget(self, action: #selector(lineButtonClicked), for: .touchUpInside)
-            lineButtons.append(button)
-        }
-        return lineButtons
-    }()
-    
-    @objc func lineButtonClicked(sender: UIButton) {
-        parent.setLSystemLineColor(sender.backgroundColor)
+        DefaultAnalyticsService.shared.log(event: .changedBackgroundColor)
     }
 
     init(frame: CGRect = .zero, parent: GeneratorViewController) {
@@ -83,11 +85,12 @@ class GeneratorColorsView: UIView {
         
         setupView()
         
+        setupLineLabel()
+        setupLineButtonsStackView()
+        
         setupBackgroundLabel()
         setupBackgroundButtonsStackView()
         
-        setupLineLabel()
-        setupLineButtonsStackView()
     }
     
     func setupView() {
@@ -95,30 +98,10 @@ class GeneratorColorsView: UIView {
         layer.cornerRadius = 10
     }
     
-    func setupBackgroundLabel() {
-        addSubview(backgroundLabel)
-        backgroundLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(4)
-            make.leading.equalToSuperview().offset(8)
-        }
-    }
-    
-    func setupBackgroundButtonsStackView() {
-        addSubview(backgroundButtonsStackView)
-        backgroundButtonsStackView.snp.makeConstraints { make in
-            make.top.equalTo(backgroundLabel.snp.bottom).offset(1)
-            make.leading.equalToSuperview().offset(8)
-            make.trailing.equalToSuperview().offset(-8)
-            make.height.equalTo(40)
-        }
-        
-        backgroundButtons.forEach { backgroundButtonsStackView.addArrangedSubview($0) }
-    }
-    
     func setupLineLabel() {
         addSubview(lineLabel)
         lineLabel.snp.makeConstraints { make in
-            make.top.equalTo(backgroundButtonsStackView.snp.bottom).offset(8)
+            make.top.equalToSuperview().offset(4)
             make.leading.equalToSuperview().offset(8)
         }
     }
@@ -130,11 +113,32 @@ class GeneratorColorsView: UIView {
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalToSuperview().offset(-8)
             make.height.equalTo(40)
-            make.bottom.equalToSuperview().offset(-8)
         }
         
         lineButtons.forEach { lineButtonsStackView.addArrangedSubview($0) }
     }
+    
+    func setupBackgroundLabel() {
+        addSubview(backgroundLabel)
+        backgroundLabel.snp.makeConstraints { make in
+            make.top.equalTo(lineButtonsStackView.snp.bottom).offset(8)
+            make.leading.equalToSuperview().offset(8)
+        }
+    }
+    
+    func setupBackgroundButtonsStackView() {
+        addSubview(backgroundButtonsStackView)
+        backgroundButtonsStackView.snp.makeConstraints { make in
+            make.top.equalTo(backgroundLabel.snp.bottom).offset(1)
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().offset(-8)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-8)
+        }
+        
+        backgroundButtons.forEach { backgroundButtonsStackView.addArrangedSubview($0) }
+    }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

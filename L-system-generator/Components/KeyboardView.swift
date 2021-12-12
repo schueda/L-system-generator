@@ -9,9 +9,11 @@ import UIKit
 
 class KeyboardView: UIView {
     let parent: GeneratorViewController
+    var field: String?
     var label: UILabel? {
         didSet {
             scrollView?.backgroundColor = .clear
+            tappedChar = false
         }
     }
     var scrollView: UIScrollView? {
@@ -22,6 +24,7 @@ class KeyboardView: UIView {
     let drawButtons = ["L", "S", "C", "D", "E"]
     let rotationButtons = ["-", "+"]
     let branchButtons = ["[", "]"]
+    var tappedChar: Bool = false
     
     lazy var drawLabel: UILabel = {
         let label = UILabel()
@@ -77,6 +80,7 @@ class KeyboardView: UIView {
     @objc func removeLast() {
         _ = label?.text?.popLast()
         scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)
+        tappedChar = true
         
         if label?.tag == 0 {
             parent.setAxiom(label?.text)
@@ -200,6 +204,7 @@ class KeyboardView: UIView {
     
     @objc func addSymbol(_ sender: UIButton) {
         guard let text = label?.text else { return }
+        tappedChar = true
         if text.count < 15 {
             label?.text? += sender.titleLabel?.text ?? ""
             scrollView?.setContentOffset(CGPoint(x: label?.frame.width ?? 0, y: 0), animated: false)

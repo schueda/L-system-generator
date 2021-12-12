@@ -23,11 +23,11 @@ class HomeContentView: UIView {
             view.layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
         }
         
-        let colors = UIColor.getRamdomPair()
+        let colors = UIColor.getRandomPair()
         view.backgroundColor = colors.background
         
-        let axiom = LSystemRule(input: "axiom", outputs: RuleGenerator.shared.getRamdomRule().asArray())
-        let rule = LSystemRule(input: "L", outputs: RuleGenerator.shared.getRamdomRule().asArray())
+        let axiom = LSystemRule(input: "axiom", outputs: RuleGenerator.shared.getRandomRule().asArray())
+        let rule = LSystemRule(input: "L", outputs: RuleGenerator.shared.getRandomRule().asArray())
         let result = LSystem(rules: [axiom, rule], transitions: []).produceOutput(input: "axiom", iterations: 3)
         
         let layer = Renderer().generateLayer(byResult: result,

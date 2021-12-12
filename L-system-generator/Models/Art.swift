@@ -8,7 +8,11 @@
 import UIKit
 import Angelo
 
-class Art: Codable {
+class Art: Codable, CustomDebugStringConvertible {
+    var debugDescription: String {
+        "axiom: \(axiomString)  |  rule: \(ruleString)  |  iterations: \(iterations)  |  angle: \(angle)"
+    }
+    
     var id: UUID
     
     var axiomString: String
@@ -39,8 +43,8 @@ class Art: Codable {
     }
     
     convenience init() {
-        let colors = UIColor.getRamdomPair()
-        self.init(axiomString: RuleGenerator.shared.getRamdomRule(), ruleString: RuleGenerator.shared.getRamdomRule(), iterations: 3, angle: Int.random(in: 0...180), backgroundColor: colors.background, lineColor: colors.line)
+        let colors = UIColor.getRandomPair()
+        self.init(axiomString: RuleGenerator.shared.getRandomRule(), ruleString: RuleGenerator.shared.getRandomRule(), iterations: 3, angle: Int.random(in: 0...180), backgroundColor: colors.background, lineColor: colors.line)
     }
     
     enum CodingKeys: CodingKey {

@@ -34,6 +34,7 @@ class GeneratorRotationView: UIView {
         let newAngle = Int(180 * angleSlider.value)
         angleLabel.text = "\(newAngle)º"
         parent.setAngle(newAngle)
+        DefaultAnalyticsService.shared.log(event: .changed(angle: newAngle))
     }
     
     func setAngle(_ angle: Int) {

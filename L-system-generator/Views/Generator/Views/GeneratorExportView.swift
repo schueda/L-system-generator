@@ -30,6 +30,8 @@ class GeneratorExportView: UIView {
     
     @objc func clickedExportImage() {
         viewModel.exportImageFrom(art: parent.art)
+        
+        DefaultAnalyticsService.shared.log(message: "exporting image for \(parent.art.debugDescription)")
         parent.feedbackView.setToConcluded()
     }
     

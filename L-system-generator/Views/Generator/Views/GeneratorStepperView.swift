@@ -42,6 +42,7 @@ class GeneratorStepperView: UIView {
         
         iterationsLabel.text = "\(iterations)"
         parent.setIterations(iterations)
+        DefaultAnalyticsService.shared.log(event: .changed(iterations: iterations))
     }
     
     lazy var minusButton: UIButton = {
@@ -65,6 +66,7 @@ class GeneratorStepperView: UIView {
         
         iterationsLabel.text = "\(iterations)"
         parent.setIterations(iterations)
+        DefaultAnalyticsService.shared.log(event: .changed(iterations: iterations))
     }
     
     lazy var iterationsLabel: UILabel = {
@@ -97,6 +99,9 @@ class GeneratorStepperView: UIView {
     }
     
     func setupView() {
+        snp.makeConstraints { make in
+            make.width.equalTo(140)
+        }
         backgroundColor = .systemGray6
         layer.cornerRadius = 10
     }

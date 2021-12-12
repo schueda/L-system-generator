@@ -12,7 +12,7 @@ class RuleGenerator {
     
     private init() {}
     
-    func getRamdomRule() -> String {
+    func getRandomRule() -> String {
         let chars = ["L", "L", "L", "L", "L", "L", "+", "+", "-", "-", "C", "E", "D", "S"]
         var rule = "L"
         

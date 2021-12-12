@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DefaultAnalyticsService.shared.log(message: "HomeViewController viewed")
+        
         setupHomeContentView()
         setupNavigationBar()
     }

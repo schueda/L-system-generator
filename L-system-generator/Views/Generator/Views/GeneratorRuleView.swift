@@ -27,9 +27,10 @@ class GeneratorRuleView: UIView {
     }()
     
     @objc func clickedRandom() {
-        let randomRule = RuleGenerator.shared.getRamdomRule()
+        let randomRule = RuleGenerator.shared.getRandomRule()
         label.text = randomRule
         
+        DefaultAnalyticsService.shared.log(event: .randomized(field: type.rawValue))
         changedLabel(sender: label)
     }
     
@@ -53,9 +54,7 @@ class GeneratorRuleView: UIView {
         if label.frame.width > scrollView.frame.width {
             scrollView.setContentOffset(CGPoint(x: label.frame.width - scrollView.frame.width + 4, y: 0), animated: false)
         }
-        parent.keyboardView.label = label
-        parent.keyboardView.scrollView = scrollView
-        parent.showKeyboard()
+        parent.showKeyboard(for: self)
     }
     
     @objc func changedLabel(sender: UILabel) {
@@ -128,8 +127,8 @@ class GeneratorRuleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    enum TextType {
-        case axiom
-        case rule
+    enum TextType: String {
+        case axiom = "axiom"
+        case rule = "rule"
     }
 }

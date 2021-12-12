@@ -88,6 +88,9 @@ class GeneratorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DefaultAnalyticsService.shared.log(message: "GeneratorViewController viewed")
+        
         view.backgroundColor = .systemBackground
         
         setupNavigationBar()
@@ -102,6 +105,11 @@ class GeneratorViewController: UIViewController {
         setupFeedbackView()
         
         setupKeyboardView()
+        
+        DefaultAnalyticsService.shared.log(key: "axiom", value: art.axiomString)
+        DefaultAnalyticsService.shared.log(key: "rule", value: art.ruleString)
+        DefaultAnalyticsService.shared.log(key: "iterations", value: art.iterations)
+        DefaultAnalyticsService.shared.log(key: "angle", value: art.angle)
         
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.state == .view {
@@ -205,7 +213,10 @@ class GeneratorViewController: UIViewController {
         view.addSubview(keyboardView)
     }
     
-    func showKeyboard() {
+    func showKeyboard(for field: GeneratorRuleView) {
+        keyboardView.field = field.type.rawValue
+        keyboardView.label = field.label
+        keyboardView.scrollView = field.scrollView
         UIView.animate(withDuration: 0.3) {
             self.keyboardView.frame.origin.y = UIScreen.main.bounds.height - 250
         }
@@ -214,6 +225,9 @@ class GeneratorViewController: UIViewController {
     func hideKeyboard() {
         UIView.animate(withDuration: 0.3) {
             self.keyboardView.frame.origin.y = UIScreen.main.bounds.height
+        }
+        if keyboardView.tappedChar {
+            DefaultAnalyticsService.shared.log(event: .customized(field: keyboardView.field ?? ""))
         }
         keyboardView.label = nil
         keyboardView.scrollView = nil
@@ -226,6 +240,8 @@ class GeneratorViewController: UIViewController {
         }
         art.axiomString = axiom
         art.axiom = Art.getLSystemRule(for: art.axiomString, to: "axioma")
+        
+        DefaultAnalyticsService.shared.log(key: "axiom", value: art.axiomString)
         renderImage()
     }
     
@@ -236,16 +252,22 @@ class GeneratorViewController: UIViewController {
         }
         art.ruleString = rule
         art.rule = Art.getLSystemRule(for: art.ruleString, to: "L")
+        
+        DefaultAnalyticsService.shared.log(key: "rule", value: art.ruleString)
         renderImage()
     }
     
     func setIterations(_ iterations: Int) {
         art.iterations = iterations
+        
+        DefaultAnalyticsService.shared.log(key: "iterations", value: art.iterations)
         renderImage()
     }
     
     func setAngle(_ angle: Int) {
         art.angle = angle
+        
+        DefaultAnalyticsService.shared.log(key: "angle", value: art.angle)
         renderImage()
     }
     
@@ -262,6 +284,7 @@ class GeneratorViewController: UIViewController {
     }
     
     func renderImage(width: CGFloat = 3) {
+        DefaultAnalyticsService.shared.log(message: "Rendering image with \(art.debugDescription)")
         lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         checkSizeLimit()
         lSystemView.layer.addSublayer(viewModel.renderImageFrom(art: art, with: lSystemView.frame, lineWidth: width, padding: 32))
@@ -293,8 +316,7 @@ class GeneratorViewController: UIViewController {
     @objc func clickedEdit() {
         setSave(to: navigationItem.rightBarButtonItem)
         
-        
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 1
             self.exportView.alpha = 0
             self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
@@ -331,7 +353,7 @@ class GeneratorViewController: UIViewController {
         self.numbersStack.alpha = 0
         self.colorsView.alpha = 0
         
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.3, delay: 0, options: .curveLinear, animations: {
+        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 0
             self.exportView.alpha = 1
             self.lSystemView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
