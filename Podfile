@@ -10,4 +10,5 @@ target 'L-system-generator' do
   pod 'Angelo'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
+  pod 'Firebase/RemoteConfig'
 end

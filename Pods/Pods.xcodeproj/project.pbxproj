@@ -1228,7 +1228,7 @@
 		7E3463B28672411B48282E11DD93D5CB /* FIRInstallationsStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstallationsStore.h; path = FirebaseInstallations/Source/Library/InstallationsStore/FIRInstallationsStore.h; sourceTree = "<group>"; };
 		7E629884C69A2F6E9616B0EFF7AA047F /* GULAppDelegateSwizzler_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULAppDelegateSwizzler_Private.h; path = GoogleUtilities/AppDelegateSwizzler/Internal/GULAppDelegateSwizzler_Private.h; sourceTree = "<group>"; };
 		7E987A21DC0FEF0892A603A7CB7210EC /* GULNetworkMessageCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULNetworkMessageCode.h; path = GoogleUtilities/Network/Public/GoogleUtilities/GULNetworkMessageCode.h; sourceTree = "<group>"; };
-		7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods-L-system-generator */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-L-system-generator"; path = Pods_L_system_generator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods_L_system_generator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_L_system_generator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FDD9C0101712F887F652649F9D12366 /* FIRInstallationsStoredAuthToken.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRInstallationsStoredAuthToken.m; path = FirebaseInstallations/Source/Library/InstallationsStore/FIRInstallationsStoredAuthToken.m; sourceTree = "<group>"; };
 		7FE8304D1D35441BB7F668FBADD47C94 /* Angelo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Angelo-dummy.m"; sourceTree = "<group>"; };
 		80335CBFDA0C48E4DF0F8B5C49472078 /* Pods-L-system-generator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-L-system-generator-dummy.m"; sourceTree = "<group>"; };
@@ -1671,7 +1671,7 @@
 				856B5CD56F194FAD26EA91620B66D614 /* GoogleDataTransport.framework */,
 				B43874C6CBB50E7134FBEC24BABFE14F /* GoogleUtilities.framework */,
 				06FC5C9CF96D60C50FCD47D339C91951 /* nanopb.framework */,
-				7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods-L-system-generator */,
+				7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods_L_system_generator.framework */,
 				3347A1AB6546F0A3977529B8F199DC41 /* FBLPromises.framework */,
 				979486118B3E90C08386079D57962701 /* SnapKit.framework */,
 			);
@@ -3214,7 +3214,7 @@
 			);
 			name = "Pods-L-system-generator";
 			productName = Pods_L_system_generator;
-			productReference = 7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods-L-system-generator */;
+			productReference = 7F27B7DCC8B4F5D388E2A8BA82DA8B5B /* Pods_L_system_generator.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
