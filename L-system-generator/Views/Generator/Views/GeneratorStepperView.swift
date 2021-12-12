@@ -42,7 +42,7 @@ class GeneratorStepperView: UIView {
         
         iterationsLabel.text = "\(iterations)"
         parent.setIterations(iterations)
-        DefaultAnalyticsService.shared.log(event: .changed(iterations: iterations))
+        DefaultAnalyticsService.shared.log(event: .changedIterations(iterations))
     }
     
     lazy var minusButton: UIButton = {
@@ -66,7 +66,7 @@ class GeneratorStepperView: UIView {
         
         iterationsLabel.text = "\(iterations)"
         parent.setIterations(iterations)
-        DefaultAnalyticsService.shared.log(event: .changed(iterations: iterations))
+        DefaultAnalyticsService.shared.log(event: .changedIterations(iterations))
     }
     
     lazy var iterationsLabel: UILabel = {

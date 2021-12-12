@@ -39,7 +39,7 @@ class GeneratorColorsView: UIView {
     
     @objc func lineButtonClicked(sender: UIButton) {
         parent.setLSystemLineColor(sender.backgroundColor)
-        DefaultAnalyticsService.shared.log(event: .changedLineColor)
+        DefaultAnalyticsService.shared.log(event: .changedLineColor("azul"))
     }
     
     lazy var backgroundLabel: UILabel = {
@@ -76,7 +76,7 @@ class GeneratorColorsView: UIView {
     
     @objc func backgroundButtonClicked(sender: UIButton) {
         parent.setLSystemBackgroundColor(sender.backgroundColor)
-        DefaultAnalyticsService.shared.log(event: .changedBackgroundColor)
+        DefaultAnalyticsService.shared.log(event: .changedBackgroundColor("azul"))
     }
 
     init(frame: CGRect = .zero, parent: GeneratorViewController) {
