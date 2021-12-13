@@ -87,6 +87,10 @@ class GalleryViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func longPressedCell(gestureRecognizer : UILongPressGestureRecognizer) {
         let p = gestureRecognizer.location(in: collectionView)
+        
+        if gestureRecognizer.state == .began {
+            UINotificationFeedbackGenerator().notificationOccurred(.warning)
+        }
 
         if let indexPath = (collectionView.indexPathForItem(at: p)) as IndexPath? {
             let deleteSheet = UIAlertController(title: "Deseja deletar essa arte?", message: nil, preferredStyle: .actionSheet)
