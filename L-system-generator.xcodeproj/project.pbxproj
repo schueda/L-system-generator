@@ -572,7 +572,7 @@
 				DEVELOPMENT_TEAM = 46LT924HJ5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "L-system-generator/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "L-System Generator";
+				INFOPLIST_KEY_CFBundleDisplayName = "L-Systems";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Por favor permita que a arte seja salva na galeria do seu celular";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -605,7 +605,7 @@
 				DEVELOPMENT_TEAM = 46LT924HJ5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "L-system-generator/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "L-System Generator";
+				INFOPLIST_KEY_CFBundleDisplayName = "L-Systems";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Por favor permita que a arte seja salva na galeria do seu celular";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
