@@ -48,10 +48,11 @@ enum AnalyticsEvent {
     case changedBackgroundColor(_: String)
     case changedLineColor(_: String)
     
-    case savedArt(art: Art)
+    case savedArt(_: Art)
     case exported(media: String)
     
-    case editedArt(art: Art)
+    case editedArt(_: Art)
+    case deletedArt(_: Art)
     
     var name: String {
         switch self {
@@ -67,13 +68,16 @@ enum AnalyticsEvent {
             return "changed background color"
         case .changedLineColor:
             return "changed line color"
-        case .savedArt(art: _):
+        case .savedArt(_):
             return "saved art"
         case .exported(media: let media):
             return "exported \(media)"
-        case .editedArt(art: _):
+        case .editedArt(_):
             return "edited art"
+        case .deletedArt(_):
+            return "deleted art"
         }
+        
     }
     
     var parameterAsDict: [String: NSObject] {
@@ -90,12 +94,14 @@ enum AnalyticsEvent {
             return [name: color as NSString]
         case .changedLineColor(let color):
             return [name: color as NSString]
-        case .savedArt(art: let art):
-            return [name: art as! NSObject]
+        case .savedArt(let art):
+            return [name: art.debugDescription as NSString]
         case .exported(media: _):
             return [:]
-        case .editedArt(art: _):
-            return [:]
+        case .editedArt(let art):
+            return [name: art.debugDescription as NSString]
+        case .deletedArt(let art):
+            return [name: art.debugDescription as NSString]
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6102AC192766A3A300E200D2 /* HeroHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6102AC182766A3A300E200D2 /* HeroHelper.swift */; };
 		6113B27227072CD700EF95EB /* GeneratorStepperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B27127072CD700EF95EB /* GeneratorStepperView.swift */; };
 		6113B274270733DD00EF95EB /* GeneratorRotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B273270733DD00EF95EB /* GeneratorRotationView.swift */; };
 		6113B27627073BF400EF95EB /* GeneratorColorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6113B27527073BF400EF95EB /* GeneratorColorsView.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6102AC182766A3A300E200D2 /* HeroHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroHelper.swift; sourceTree = "<group>"; };
 		6113B27127072CD700EF95EB /* GeneratorStepperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorStepperView.swift; sourceTree = "<group>"; };
 		6113B273270733DD00EF95EB /* GeneratorRotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorRotationView.swift; sourceTree = "<group>"; };
 		6113B27527073BF400EF95EB /* GeneratorColorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorColorsView.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				61E7FB16270336D600A56703 /* Info.plist */,
 				616B247B276537DD00BB646C /* GoogleService-Info.plist */,
 				6113B2792707FC4400EF95EB /* RuleGenerator.swift */,
+				6102AC182766A3A300E200D2 /* HeroHelper.swift */,
 			);
 			path = "L-system-generator";
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				6113B27227072CD700EF95EB /* GeneratorStepperView.swift in Sources */,
 				61E5773327055338006B6952 /* CGPath+.swift in Sources */,
 				61E5772E27054262006B6952 /* Renderer.swift in Sources */,
+				6102AC192766A3A300E200D2 /* HeroHelper.swift in Sources */,
 				6113B2832709FE9A00EF95EB /* UserDefaultsGalleryRepository.swift in Sources */,
 				61E7FB0B270336D100A56703 /* SceneDelegate.swift in Sources */,
 				6113B287270A643C00EF95EB /* String+.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    
+    var heroHelper: HeroHelper?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
@@ -18,7 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        window?.rootViewController = UINavigationController(rootViewController: HomeViewController())   
+        let navVC = UINavigationController(rootViewController: HomeViewController())
+        heroHelper = HeroHelper(navigationController: navVC)
+        
+        window?.rootViewController = navVC
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

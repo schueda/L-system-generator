@@ -24,7 +24,7 @@ class HomeButtonView: UIView {
             ? UIImage(systemName: "photo.on.rectangle.angled", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .regular))
             : UIImage(systemName: "wand.and.stars", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40, weight: .bold))
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .label
+        imageView.tintColor = .white
         return imageView
     }()
     

@@ -60,6 +60,8 @@ class GeneratorExportView: UIView {
         self.parent = parent
         super.init(frame: frame)
         
+        snp.makeConstraints { $0.height.equalTo(120) }
+        
         setupStack()
         
         [

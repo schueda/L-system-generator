@@ -7,6 +7,7 @@
 
 import UIKit
 import Angelo
+import Hero
 
 class GeneratorViewController: UIViewController {
     let state: GeneratorState
@@ -39,6 +40,7 @@ class GeneratorViewController: UIViewController {
         view.layer.cornerRadius = 20
         view.clipsToBounds = true
         view.backgroundColor = art.backgroundColor
+        view.heroID = "art"
         return view
     }()
     
@@ -89,6 +91,8 @@ class GeneratorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.hero.isEnabled = true
+        
         DefaultAnalyticsService.shared.log(message: "GeneratorViewController viewed")
         
         view.backgroundColor = .systemBackground
@@ -96,11 +100,11 @@ class GeneratorViewController: UIViewController {
         setupNavigationBar()
         
         setupRulesStack()
-        setupLSystemView()
         setupNumbersStack()
         setupColorsView()
         
         setupExportView()
+        setupLSystemView()
         
         setupFeedbackView()
         
@@ -133,7 +137,7 @@ class GeneratorViewController: UIViewController {
     private func setupRulesStack() {
         view.addSubview(rulesStack)
         rulesStack.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(56)
@@ -152,14 +156,14 @@ class GeneratorViewController: UIViewController {
                 make.top.equalTo(rulesStack.snp.bottom).offset(16)
                 make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(16)
                 make.trailing.equalTo(view.safeAreaLayoutGuide.snp.trailing).offset(-16)
-                make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+                make.bottom.equalTo(numbersStack.snp.top).offset(-16)
             }
         } else {
             lSystemView.snp.makeConstraints { make in
                 make.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
                 make.leading.equalToSuperview().offset(16)
                 make.trailing.equalToSuperview().offset(-16)
-                make.height.equalTo(UIScreen.main.bounds.height * 0.6)
+                make.bottom.equalTo(exportView.snp.top).offset(-16)
             }
         }
         
@@ -168,7 +172,6 @@ class GeneratorViewController: UIViewController {
     private func setupNumbersStack() {
         view.addSubview(numbersStack)
         numbersStack.snp.makeConstraints { make in
-            make.top.equalTo(lSystemView.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(70)
@@ -186,16 +189,16 @@ class GeneratorViewController: UIViewController {
             make.top.equalTo(numbersStack.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
     }
     
     private func setupExportView() {
         view.addSubview(exportView)
         exportView.snp.makeConstraints { make in
-            make.top.equalTo(lSystemView.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.height.equalTo(120)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
         }
     }
     
@@ -315,7 +318,7 @@ class GeneratorViewController: UIViewController {
     
     @objc func clickedEdit() {
         setSave(to: navigationItem.rightBarButtonItem)
-        DefaultAnalyticsService.shared.log(event: .editedArt(art: art))
+        DefaultAnalyticsService.shared.log(event: .editedArt(art))
         
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
             self.rulesStack.alpha = 1
@@ -326,7 +329,7 @@ class GeneratorViewController: UIViewController {
                 make.top.equalTo(self.rulesStack.snp.bottom).offset(16)
                 make.leading.equalToSuperview().offset(16)
                 make.trailing.equalToSuperview().offset(-16)
-                make.height.equalTo(UIScreen.main.bounds.height * 0.4)
+                make.bottom.equalTo(self.numbersStack.snp.top).offset(-16)
             }
             self.view.layoutIfNeeded()
         }) { _ in
@@ -348,7 +351,7 @@ class GeneratorViewController: UIViewController {
         art.image = lSystemView.asImage()
         lSystemView.layer.cornerRadius = 10
         viewModel.saveArt(art)
-        DefaultAnalyticsService.shared.log(event: .savedArt(art: art))
+        DefaultAnalyticsService.shared.log(event: .savedArt(art))
         hideKeyboard()
         
         setEdit(to: navigationItem.rightBarButtonItem)
@@ -363,7 +366,7 @@ class GeneratorViewController: UIViewController {
                 make.top.equalTo(self.view.safeAreaLayoutGuide).offset(16)
                 make.leading.equalToSuperview().offset(16)
                 make.trailing.equalToSuperview().offset(-16)
-                make.height.equalTo(UIScreen.main.bounds.height * 0.6)
+                make.bottom.equalTo(self.exportView.snp.top).offset(-16)
             }
             self.view.layoutIfNeeded()
         }) { _ in

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 class GalleryCollectionViewCell: UICollectionViewCell {
     var art: Art?
