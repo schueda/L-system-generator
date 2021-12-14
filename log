@@ -1,0 +1,40 @@
+[00:24:09]: [33mfastlane detected a Gemfile in the current directory[0m
+[00:24:09]: [33mHowever, it seems like you didn't use `bundle exec`[0m
+[00:24:09]: [33mTo launch fastlane faster, please use[0m
+[00:24:09]: 
+[00:24:09]: [36m$ bundle exec fastlane beta[0m
+[00:24:09]: 
+[00:24:09]: [33mGet started using a Gemfile for fastlane https://docs.fastlane.tools/getting-started/ios/setup/#use-a-gemfile[0m
+[00:24:11]: [32m------------------------------[0m
+[00:24:11]: [32m--- Step: default_platform ---[0m
+[00:24:11]: [32m------------------------------[0m
+[00:24:11]: [32mDriving the lane 'ios beta' 🚀[0m
+[00:24:11]: [32m------------------------------------[0m
+[00:24:11]: [32m--- Step: increment_build_number ---[0m
+[00:24:11]: [32m------------------------------------[0m
+Current version of project L-system-generator is: 
+    5
+
+/Users/andreschueda/academy/crash challenge 2/L-system-generator
+[00:24:11]: [36m$ cd /Users/andreschueda/academy/crash\ challenge\ 2/L-system-generator && agvtool next-version -all && cd -[0m
+[00:24:12]: ▸ [35mSetting version of project L-system-generator to:[0m
+[00:24:12]: ▸ [35m6.[0m
+[00:24:12]: ▸ [35mAlso setting CFBundleVersion key (assuming it exists)[0m
++------------------+----------+
+|        [33mLane Context[0m         |
++------------------+----------+
+| DEFAULT_PLATFORM | ios      |
+| PLATFORM_NAME    | ios      |
+| LANE_NAME        | ios beta |
++------------------+----------+
+
++------+------------------------+-------------+
+|              [32mfastlane summary[0m               |
++------+------------------------+-------------+
+| Step | Action                 | Time (in s) |
++------+------------------------+-------------+
+| 1    | default_platform       | 0           |
+| 2    | increment_build_number | 103         |
++------+------------------------+-------------+
+
+[00:25:55]: [31mfastlane finished with errors[0m

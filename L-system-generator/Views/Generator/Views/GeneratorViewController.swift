@@ -224,7 +224,7 @@ class GeneratorViewController: UIViewController {
         exportView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.bottom.equalTo(bannerView.snp.top).offset(-16)
         }
     }
     
