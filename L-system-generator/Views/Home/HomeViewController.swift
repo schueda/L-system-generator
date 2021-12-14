@@ -23,6 +23,10 @@ class HomeViewController: UIViewController {
         setupNavigationBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.heroNavigationAnimationType = .selectBy(presenting: .cover(direction: .left), dismissing: .uncover(direction: .right))
+    }
+    
     func setupHomeContentView() {
         view.addSubview(homeContentView)
         homeContentView.snp.makeConstraints { make in

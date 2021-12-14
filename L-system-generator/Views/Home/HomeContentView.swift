@@ -117,6 +117,7 @@ class HomeContentView: UIView {
         setupTitleLabel()
     }
     
+    
     func setupBackgroundView() {
         addSubview(backgroundView)
         backgroundView.snp.makeConstraints { make in

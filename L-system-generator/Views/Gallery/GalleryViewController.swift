@@ -130,6 +130,7 @@ extension GalleryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let generatorViewController = GeneratorViewController(state: .view, art: arts[indexPath.item], viewModel: GeneratorViewModel())
         
+        navigationController?.heroNavigationAnimationType = .fade
         generatorViewController.hero.isEnabled = true
         generatorViewController.lSystemView.heroID = arts[indexPath.item].id.uuidString
         generatorViewController.navigationController?.heroNavigationAnimationType = .zoom
