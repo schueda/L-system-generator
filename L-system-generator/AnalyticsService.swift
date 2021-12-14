@@ -57,25 +57,25 @@ enum AnalyticsEvent {
     var name: String {
         switch self {
         case .customized(field: _):
-            return "costumized field"
+            return "costumized_field"
         case .randomized(field: _):
-            return "randomized field"
+            return "randomized_field"
         case .changedIterations(_):
-            return "changediterations"
+            return "changed_iterations"
         case .changedAngle(_):
-            return "changed angle"
+            return "changed_angle"
         case .changedBackgroundColor:
-            return "changed background color"
+            return "changed_background_color"
         case .changedLineColor:
-            return "changed line color"
+            return "changed_line_color"
         case .savedArt(_):
-            return "saved art"
+            return "saved_art"
         case .exported(media: let media):
-            return "exported \(media)"
+            return "exported_\(media)"
         case .editedArt(_):
-            return "edited art"
+            return "edited_art"
         case .deletedArt(_):
-            return "deleted art"
+            return "deleted_art"
         }
         
     }
