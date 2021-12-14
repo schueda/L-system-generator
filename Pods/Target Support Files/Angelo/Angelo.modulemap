@@ -1,6 +1,0 @@
-framework module Angelo {
-  umbrella header "Angelo-umbrella.h"
-
-  export *
-  module * { export * }
-}

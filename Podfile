@@ -12,4 +12,5 @@ target 'L-system-generator' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/RemoteConfig'
   pod 'Hero'
+  pod 'Google-Mobile-Ads-SDK'
 end

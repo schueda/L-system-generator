@@ -8,6 +8,7 @@
 import UIKit
 import Angelo
 import Hero
+import GoogleMobileAds
 
 class GeneratorViewController: UIViewController {
     let state: GeneratorState
@@ -88,6 +89,20 @@ class GeneratorViewController: UIViewController {
         return view
     }()
     
+    lazy var bannerView: GADBannerView = {
+        let view = GADBannerView(adSize: GADAdSizeBanner)
+        #if DEBUG
+            view.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        #else
+            view.adUnitID = "ca-app-pub-3663883368232371/2965876477"
+        #endif
+        
+        view.rootViewController = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.load(GADRequest())
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,6 +116,7 @@ class GeneratorViewController: UIViewController {
         
         setupRulesStack()
         setupNumbersStack()
+        setupBannerView()
         setupColorsView()
         
         setupExportView()
@@ -183,15 +199,25 @@ class GeneratorViewController: UIViewController {
         ].forEach { numbersStack.addArrangedSubview($0) }
     }
     
+    private func setupBannerView() {
+        view.addSubview(bannerView)
+        bannerView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    
     private func setupColorsView() {
         view.addSubview(colorsView)
         colorsView.snp.makeConstraints { make in
             make.top.equalTo(numbersStack.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-16)
+            make.bottom.equalTo(bannerView.snp.top).offset(-16)
         }
     }
+    
     
     private func setupExportView() {
         view.addSubview(exportView)
